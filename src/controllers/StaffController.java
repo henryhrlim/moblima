@@ -2,8 +2,6 @@ package controllers;
 
 import java.util.Scanner;
 
-import objects.Cineplex;
-
 public class StaffController {
 	private StaffMenu s;
 	private MoblimaApp app;
@@ -11,6 +9,7 @@ public class StaffController {
 	
 //	Return true if successfully authenticated and false if credentials are wrong
 	public boolean authenticate() {
+
 		System.out.println("Username: ");
 		char username[] = sc.nextLine();
 		System.out.println("Password: ");
