@@ -1,9 +1,18 @@
 package controllers;
+
+import java.util.Scanner;
+
 public class StaffController {
 	private StaffMenu s;
 	private MoblimaApp app;
 	
 	public boolean authenticate() {
+		boolean locked = true;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Username: ");
+		char username[] = sc.nextLine();
+		System.out.println("Password: ");
+		char password[] = sc.nextLine();
 		
 	}
 	
