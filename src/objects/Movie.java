@@ -1,3 +1,4 @@
+package objects;
 public class Movie {
     private int movieID;
     private double ratings;

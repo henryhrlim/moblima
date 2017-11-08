@@ -1,4 +1,4 @@
-
+package objects;
 public class Seat {
 	private String row;
 	private int column;

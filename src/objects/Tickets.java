@@ -1,4 +1,4 @@
-
+package objects;
 public class Tickets {
 	private int ticketID;
 	private String age;
