@@ -1,7 +1,7 @@
 package controllers;
 public class StaffController {
-	private static StaffMenu s;
-	private static MoblimaApp app;
+	private StaffMenu s;
+	private MoblimaApp app;
 	
 	public boolean authenticate() {
 		
@@ -23,7 +23,7 @@ public class StaffController {
 		 
 	 }
 	  
-	 public void listMovieSpecificToCineplex(Cineplex userChoice) {
+	 public void listMovieSpecificToCineplex(Cineplex cineUserChoice) {
 		 
 	 }
 	 
@@ -39,7 +39,7 @@ public class StaffController {
 		 
 	 }
 	 
-	 public void addCinemaToCineplex(Cineplex userChoice) {
+	 public void addCinemaToCineplex(Cineplex cineUserChoice) {
 		 
 	 }
 	 
@@ -47,7 +47,7 @@ public class StaffController {
 		 
 	 }
 	 
-	 public void listShowTimeSpecificToCineplex(Cineplex userChoice) {
+	 public void listShowTimeSpecificToCineplex(Cineplex cineUserChoice) {
 		 
 	 }
 	 
@@ -67,9 +67,8 @@ public class StaffController {
 		 
 	 }
 	 
-	 public char retrieveList() {
-		 char list[];
-		 return list;
+	 public static String retrieveList() {
+
 	 }
 	 
 	 public void staffMenuHoliday(int choice) {
@@ -124,23 +123,91 @@ public class StaffController {
 		 
 	 }
 	 
-	 public void listShowTime() {
+	 public static void listShowTime() {
 		 
 	 }
 	 
-	 public void listByMovie() {
+	 public static void listByMovie() {
 		 
 	 }
 	 
-	 public void listByCinema() {
+	 public static void listByCinema() {
 		 
 	 }
 	 
-	 public void addShowTime() {
+	 public static void addShowTime() {
 		 
 	 }
 	 
-	 public void updateShowTime() {
+	 public static void updateShowTime() {
+		 
+	 }
+	 
+	 public void printShowTimeMenu() {
+		 
+	 }
+	 
+	 public static void updateSTDate(int selected) {
+		 
+	 }
+	 
+	 public static void updateSTTime(int selected) {
+		 
+	 }
+	 
+	 public static void deleteShowTime() {
+		 
+	 }
+	 
+	 public static Date validateDate() {
+		 
+	 }
+	 
+	 public static Date validateTime() {
+		 
+	 }
+	 
+	 public static int retrieveCineplex() {
+		 
+	 }
+	 
+	 public static String retrieveCinemaCode(int cineplexID) {
+		 
+	 }
+	 
+	 public operation() {
+		 
+	 }
+	 
+	 public void priceChartMain() {
+		 
+	 }
+	 
+	 public void staffMenuPriceChart(int pcChoice) {
+		 
+	 }
+	 
+	 public void printPriceChartMenu() {
+		 
+	 }
+	 
+	 public static String ageGrpMenu() {
+		 
+	 }
+	 
+	 public static void updatePriceChart() {
+		 
+	 }
+	 
+	 public static void listPriceChart() {
+		 
+	 }
+	 
+	 public static List<PriceChart> filterAdult(String ageGrp) {
+		 
+	 }
+	 
+	 public static List<PriceChart> filterListPriceChart(String ageGrp) {
 		 
 	 }
 }
