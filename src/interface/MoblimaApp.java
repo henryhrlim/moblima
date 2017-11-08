@@ -14,11 +14,9 @@ public class MoblimaApp {
 		do{
 			System.out.println("Welcome to the selection menu. ");
 			System.out.println("Please select the type of user that you are: ");
-			System.out.println("|1. Customer");
-			System.out.println("|2. Staff/Admin");
-			System.out.println("|3. Quit");
-
-			System.out.println("Choice (1-3): ");
+			System.out.println("1. Customer");
+			System.out.println("2. Staff/Admin");
+			System.out.println("3. Quit");
 			choice = sc.nextInt();
 			
 
