@@ -1,3 +1,4 @@
+package objects;
 public class Cinema{
     private string cinemaCode;
     private string cinemaType;

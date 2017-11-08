@@ -1,4 +1,4 @@
-
+package objects;
 public class TopSales {
 	private int movieID;
 	private String title;

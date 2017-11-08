@@ -1,4 +1,4 @@
-public class ShowTime{
+package objects;public class ShowTime{
     private String cinemaCode;
     private int showTimeID;
     private String time;

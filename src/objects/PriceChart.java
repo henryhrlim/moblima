@@ -1,4 +1,4 @@
-
+package objects;
 public class PriceChart {
 	private int priceChartID;
 	private String cinemaType;

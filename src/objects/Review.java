@@ -1,3 +1,4 @@
+package objects;
 public class Review{
     private String feedback;
     private int rating;

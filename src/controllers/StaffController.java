@@ -1,4 +1,4 @@
-
+package controllers;
 public class StaffController {
 	private static StaffMenu s;
 	private static MoblimaApp app;

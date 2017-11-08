@@ -1,3 +1,4 @@
+package objects;
 public class Cineplex{
     private int cineplexID;
     private String location;
