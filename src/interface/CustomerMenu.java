@@ -1,4 +1,4 @@
-package interface;
+
 public class CustomerMenu {
 	public show() {
 		Private StaffMenu staffmenu = new StaffMenu();
