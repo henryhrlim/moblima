@@ -1,0 +1,2 @@
+showTimeID,cineplexID,location,movieID,cineplexName,cinema
+"1,2,3,4,5",1,"Orchard","1,3,4,8","Cathay",["normal-A01","normal-A02","normal-A03"]
