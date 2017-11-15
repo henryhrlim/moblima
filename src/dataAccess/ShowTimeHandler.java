@@ -2,11 +2,7 @@ package dataAccess;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import entity.Seat;
 import entity.ShowTime;
@@ -139,100 +135,6 @@ public class ShowTimeHandler extends DataHandler {
 		return false;
 	}
 
-	/**
-	 * Override readJSON method from parent class(DataHandler).
-	 * arr contains the data retrieved from the JSON file.
-	 * This method will format the arr JSONArray object and save it into the showTimeList.
-	 * @param arr This is a JSONArray object.
-	 */
-	@Override
-	protected void readJSON(JSONArray arr) {
-		// TODO Auto-generated method stub
-		this.showTimeList = new ArrayList<ShowTime>();
-		int showTimeID;
-		String time;
-		String day;
-		String date;
-		int movieID;
-		String cinemaCode;
-		long temp;
-		for (int i = 0; i < arr.size(); i++) {
-			JSONObject stJson = (JSONObject) arr.get(i);
-			temp = (long) stJson.get("showTimeID");
-			showTimeID = (int) temp;
-			time = (String) stJson.get("time");
-			day = (String) stJson.get("day");
-			date = (String) stJson.get("date");
-			temp = (long) stJson.get("movieID");
-			movieID = (int) temp;
-			cinemaCode = (String)stJson.get("cinemaCode");
-			List<Seat> seatList = new ArrayList<Seat>();
-			JSONArray showTimeArr = (JSONArray) stJson.get("seats");
-			for (int x = 0; x < showTimeArr.size(); x++) {
-				JSONObject seatJson = (JSONObject) showTimeArr.get(x);
-				JSONObject ticket = (JSONObject) seatJson.get("ticket");
-				temp = (long) seatJson.get("column");
-				int column = (int) temp;
-				String row = (String) seatJson.get("row");
-				String seatType = (String) seatJson.get("seatType");
-				boolean status = (boolean) seatJson.get("status");
-				temp = (long) ticket.get("ticketID");
-				Tickets t = new Tickets((int) temp, (String) ticket.get("age"));
-				Seat s = new Seat(row, column, seatType, status, t);
-				seatList.add(s);
-			}
-
-			ShowTime st = new ShowTime(showTimeID, time, day, date, movieID,
-					seatList,cinemaCode);
-			this.showTimeList.add(st);
-		}
-	}
-
-	/**
-	 * Override saveDataToJSON method from parent class(DataHandler).
-	 * This method will format the showTimeList into a JSONArray object and return it.
-	 * @return JSONArray object.
-	 */
-	@Override
-	protected JSONArray saveDataToJSON() {
-		// TODO Auto-generated method stub
-		JSONArray stArr = new JSONArray();
-		for (ShowTime st : this.showTimeList) {
-			JSONObject stJson = new JSONObject();
-			
-			JSONArray seatArr = new JSONArray();
-			List<Seat> seatList = st.getSeats();
-			for (Seat s : seatList) {
-				JSONObject seatJson = new JSONObject();
-				JSONObject ticketJson = new JSONObject();
-				seatJson.put("row", s.getRow());
-				seatJson.put("column", s.getColumn());
-				seatJson.put("seatType", s.getSeatType());
-				seatJson.put("status", s.getStatus());
-				Tickets t = s.getTicket();
-				if(t != null){
-					ticketJson.put("ticketID", t.getTicketID());
-					ticketJson.put("age", t.getAge());
-				}
-				else{
-					ticketJson.put("ticketID", 0);
-					ticketJson.put("age", null);
-				}
-				seatJson.put("ticket", ticketJson);
-				seatArr.add(seatJson);
-			}
-
-			stJson.put("movieID", st.getMovieID());
-			stJson.put("date", st.getDate());
-			stJson.put("day", st.getDay());
-			stJson.put("time", st.getTime());
-			stJson.put("showTimeID", st.getShowTimeID());
-			stJson.put("cinemaCode", st.getCinemaCode());
-			stJson.put("seats", seatArr);
-			stArr.add(stJson);
-		}
-		return stArr;
-	}
 	protected void readCSV(FileReader csvFile) {
 		this.showTimeList = new ArrayList<ShowTime>();
 		this.seats = new ArrayList<Seat>();
@@ -319,6 +221,10 @@ public class ShowTimeHandler extends DataHandler {
 					seatsFile.append(st.getShowTimeID() + "," + s.getSeatType() + "," + s.getTicket().getTicketID() + "," + s.getTicket().getAge() + "," + s.getColumn() + "," + s.getRow() + "," + s.getStatus() + "\n");
 				}
 			}
+			showTimeFile.flush();
+			seatsFile.flush();
+			showTimeFile.close();
+			seatsFile.close();
 		}
 		catch (IOException e) {
 			e.printStackTrace();

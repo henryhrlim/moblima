@@ -4,11 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import entity.Holiday;
-import entity.Movie;
 import entity.PriceChart;
 
 /**
@@ -120,39 +115,6 @@ public class PriceChartHandler extends DataHandler {
 			this.priceChartList.add(pc);
 		}
 	}
-	
-	/**
-	 * Override readJSON method from parent class(DataHandler).
-	 * arr contains the data retrieved from the JSON file.
-	 * This method will format the arr JSONArray object and save it into the priceChartList.
-	 * @param arr This is a JSONArray object.
-	 */
-	@Override
-	protected void readJSON(JSONArray arr) {
-		// TODO Auto-generated method stub
-		this.priceChartList = new ArrayList<PriceChart>();
-		
-		int priceChartID;
-		String cinemaType;
-		String age;
-		String day;
-		String movieType;
-		double price;
-		long temp;
-		for (int i = 0; i < arr.size(); i++) {
-			JSONObject pcJson = (JSONObject) arr.get(i);
-			temp = (long)pcJson.get("priceChartID");
-			priceChartID = (int)temp;
-			cinemaType = (String) pcJson.get("cinemaType");
-			age = (String) pcJson.get("age");
-			day = (String) pcJson.get("day");
-			movieType = (String) pcJson.get("movieType");
-			price = (double) pcJson.get("price");
-			this.priceChartList.add(new PriceChart(priceChartID, cinemaType, age, day,
-					movieType, price));
-		}
-
-	}
 
 	protected void saveDataToCSV(String to) {
 		try (FileWriter file = new FileWriter(to)) {
@@ -165,29 +127,6 @@ public class PriceChartHandler extends DataHandler {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Override saveDataToJSON method from parent class(DataHandler).
-	 * This method will format the priceChartList into a JSONArray object and return it.
-	 * @return JSONArray object.
-	 */
-	@Override
-	protected JSONArray saveDataToJSON() {
-		// TODO Auto-generated method stub
-		JSONArray pcArr = new JSONArray();
-
-		for (PriceChart pc : this.priceChartList) {
-			JSONObject pcJson = new JSONObject();
-			pcJson.put("priceChartID", pc.getPriceChartID());
-			pcJson.put("cinemaType", pc.getCinemaType());
-			pcJson.put("age", pc.getAge());
-			pcJson.put("day", pc.getDay());
-			pcJson.put("movieType", pc.getMovieType());
-			pcJson.put("price", pc.getPrice());
-			pcArr.add(pcJson);
-		}
-		return pcArr;
 	}
 
 	/**

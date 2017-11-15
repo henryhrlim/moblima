@@ -6,8 +6,6 @@ import java.util.List;
 
 import entity.Movie;
 import entity.Review;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 
 /**
@@ -231,48 +229,5 @@ public class MovieHandler extends DataHandler {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Override saveDataToJSON method from parent class(DataHandler).
-     * This method will format the movieList into a JSONArray object and return it.
-     * @return JSONArray object.
-     */
-
-
-    @Override
-    protected JSONArray saveDataToJSON() {
-
-        JSONArray movieArr = new JSONArray();
-
-        for (Movie m : movieList) {
-            JSONObject movieJson = new JSONObject();
-            movieJson.put("movieID", m.getMovieID());
-            movieJson.put("ratings", m.getRatings());
-            movieJson.put("duration", m.getDuration());
-            movieJson.put("title", m.getTitle());
-            movieJson.put("synoposis", m.getSynopsis());
-            movieJson.put("director", m.getDirector());
-            movieJson.put("cast", m.getCast());
-            movieJson.put("movieType", m.getMovieType());
-            movieJson.put("movieStatus", m.getMovieStatus());
-            movieJson.put("movieRating", m.getMovieRating());
-
-            JSONArray reviewArr = new JSONArray();
-            List<Review> reviewList = m.getReviews();
-            for (Review r : reviewList) {
-                JSONObject reviewJson = new JSONObject();
-                reviewJson.put("feedback", r.getFeedback());
-                reviewJson.put("rating", r.getRating());
-                reviewArr.add(reviewJson);
-            }
-            movieJson.put("review", reviewArr);
-            movieArr.add(movieJson);
-        }
-        System.out.println(movieArr);
-        return movieArr;
-
-    }
-    protected void readJSON(JSONArray csvFile){
-    };
 
 }
