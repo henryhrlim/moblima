@@ -355,7 +355,7 @@ public class CineplexController{
 					Tickets t1 = seat.getTicket();	
 					int user_age;
 					do{
-					System.out.println(">> Ticket "+(x+1)+"- Enter age (1) Student, 2) Adult, 3) Senior, 4) Children): ");
+					System.out.println(">> Ticket "+(x+1)+"- Enter age (1) Student, 2) Adult : ");
 					sc = new Scanner(System.in);
 					user_age = sc.nextInt();
 					
@@ -363,10 +363,6 @@ public class CineplexController{
 							case 1: age = "Student";
 								break;
 							case 2: age = "Adult";
-								break;
-							case 3: age = "Senior";
-								break;
-							case 4: age = "Children";
 								break;
 							default: System.out.println("Wrong input, try again!");
 								break;

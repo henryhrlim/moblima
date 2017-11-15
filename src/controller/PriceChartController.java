@@ -41,13 +41,7 @@ public class PriceChartController {
 			movieType = "Any";
 			age = "Standard";			
 		}
-//		else{		
-//			if(age.equals("children") || age.equals("senior")){
-//				movieType = "";
-//				cinemaType = "";
-//				day = "";
-//			}
-//		}
+
 		for(PriceChart pricechart : pcList){
 			String pcCinemaType = pricechart.getCinemaType().toLowerCase();
 			String pcMovieType = pricechart.getMovieType().toLowerCase();

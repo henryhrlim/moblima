@@ -31,13 +31,13 @@ import entity.ShowTime;
  * - displayCineplexList() : void
  * - addCineplex() : void
  * - addMovieToCineplex() : void
- * - listMovieSpecificToCinplex(Cineplex cineUserChoice) : void
+ * - listMovieSpecificToCineplex(Cineplex cineUserChoice) : void
  * - removeMovieFromCineplex() : void
  * - addShowTimeToCineplex() : void
  * - removeShowTimeFromCineplex() : void
  * - addCinemaToCineplex(Cineplex cineplexUserChoice) : void
  * - removeCinemaFromCineplex() : void
- * - listShowTimeSpecificToCinplex(Cineplex cineUserChoice) : void
+ * - listShowTimeSpecificToCineplex(Cineplex cineUserChoice) : void
  * - staffMenuCinema() : void
  * - displayCinemaList() : void
  * - updateCinemaInCineplex() : void
@@ -80,39 +80,23 @@ import entity.ShowTime;
  */
 
 public class StaffController{
-	private StaffMenu s_menu = new StaffMenu();
+	private StaffMenu s_menu =  new StaffMenu();
 	private MoblimaApp app = new MoblimaApp();
-	
-	/*
-	 * *****************************************************************************************************************
-	 * 												Staff Credential					    		                  *
-	 ******************************************************************************************************************/	
-	
-	/**
-	 * This method ensures that staff is login credentials are verified
-	 */
-	public boolean authenticate(){ 
-		boolean auth = false;
-		String username, password;
-		Scanner scn =new Scanner(System.in);
-		System.out.println("------------------Staff Login---------------");
-		System.out.println("Enter username: ");
-		username = scn.next();
-		System.out.println("Enter password: ");
-		password = scn.next();
+	Scanner sc = new Scanner(System.in);
 
-		// set your username & password here //
-		if(username.equals("staff1") && password.equals("password")) {
-			System.out.println("Logged in successfully! ");
-			auth = true;
+	//	Return true if successfully authenticated and false if credentials are wrong
+	public boolean authenticate() {
+
+		System.out.println("Username: ");
+		String username = sc.nextLine();
+		System.out.println("Password: ");
+		String password = sc.nextLine();
+		if (username.equals("admin") && password.equals("admin")) {
+			System.out.println("Logged in.");
+			return true;
 		}
-
-		else {
-			System.out.println("Incorrect username and password! Please try again.");
-			auth = false;
-		}
-		return auth;
-
+		else
+			return false;
 	}
 	
 	public static String wordWrap(String a){
@@ -138,80 +122,55 @@ public class StaffController{
 	/**
 	 * This method prints the menu for Cineplex
 	 */
-	public void staffMenuCineplex() { 
-		int staffChoiceCineplex = 0;
-		Scanner sc = new Scanner(System.in);
-		CineplexController cineplexControl = new CineplexController();
-		
-		System.out.println("^^^^^^^^^^^^^^CINEPLEX MENU^^^^^^^^^^^^^");
-		System.out.println("|1. List Cineplex");
-		System.out.println("|2. Show Movies in Cineplex"); 
-		System.out.println("|3. Add Cineplex"); 
-		System.out.println("|4. Add Movies to Cineplex");
-		System.out.println("|5. Remove Movies from Cineplex"); //make end of showing
-		System.out.println("|6. Go Back to Staff menu");
-		System.out.println("|7. Quit");
-		
-		System.out.println("Choice (1-7): ");
-		staffChoiceCineplex = sc.nextInt();
-		
-		switch(staffChoiceCineplex){
-				/**List Cineplex*/
-			case 1: //DONE
-				displayCineplexList();
-				staffMenuCineplex();
-				break;
-				
-				/**Show Movies in Cineplex*/
-			case 2:
-				StaffController staffControl = new StaffController();
-				
-				
-				CineplexController cineplexController = new CineplexController();
-				Cineplex cineplexUserChoice = cineplexController.listCineplex();
-				
-				staffControl.listMovieSpecificToCinplex(cineplexUserChoice);
-				staffMenuCineplex();
-				break;
-				/**Add Cineplex*/
-			case 3:
-				addCineplex();
-				staffMenuCineplex();
-				break;
-				
-				/**Add Movies to a Cineplex*/
-			case 4: //DONE
-				addMovieToCineplex();
-				staffMenuCineplex();
-				break;
-				
-				/**Remove Movies from a Cineplex*/
-			case 5:  //DONE
-				removeMovieFromCineplex();
-				staffMenuCineplex();
-				break;
-			
-				
-				/**Return to staff menu*/
-			case 6:
-				s_menu.show();
-				break;
-				
-				/**Quit the application*/
-			case 7:
-				System.out.println("Program Terminating...");
-				System.exit(0);
-				break;
-			
-			default:
-				break;
-				
+	public void staffMenuCineplex() {
+		int choice;
+
+		do {
+			System.out.println("================= Cineplex Menu =================\n"
+					+ "1. List Cineplex\n"
+					+ "2. Show Movies in Cineplex\n"
+					+ "3. Add Cineplex\n"
+					+ "4. Add Movies to Cineplex\n"
+					+ "5. Remove Movies from Cineplex\n"
+					+ "6. Back\n"
+					+ "7. Quit\n"
+					+ "Please select an option: ");
+			choice = sc.nextInt();
+			switch (choice) {
+				case 1:
+					displayCineplexList();
+					break;
+				case 2:
+					StaffController staffControl = new StaffController();
+					CineplexController cineplexControl = new CineplexController();
+					Cineplex cineUserChoice = cineplexControl.listCineplex();
+					staffControl.listMovieSpecificToCineplex(cineUserChoice);
+					break;
+				case 3:
+					addCineplex();
+					break;
+				case 4:
+					addMovieToCineplex();
+					break;
+				case 5:
+					removeMovieFromCineplex();
+					break;
+				case 6:
+				case 7:
+					break;
+				default:
+					System.out.println("Invalid option. Please enter an integer between 1 to 7");
+					break;
+			}
+		} while (choice != 6 && choice != 7);
+
+		if (choice == 6)
+			s_menu.show();
+		else if (choice == 7) {
+			System.out.println("Exiting...");
+			sc.close();
+			System.exit(0);
 		}
-		
-		s_menu.show();
-		
-		
-		
 	}
 	
 	/**
@@ -292,7 +251,7 @@ public class StaffController{
 		CineplexController cineplexControl = new CineplexController();
 		Cineplex cineplexUserChoice = cineplexControl.listCineplex();
 		
-		listMovieSpecificToCinplex(cineplexUserChoice);
+		listMovieSpecificToCineplex(cineplexUserChoice);
 		
 		List<Movie> movieList = new ArrayList<Movie>();
 		movieList = cineplexUserChoice.getMovie();	
@@ -369,7 +328,7 @@ public class StaffController{
 		CineplexController cineplexControl = new CineplexController();
 		Cineplex cineplexUserChoice = cineplexControl.listCineplex();
 		
-		listMovieSpecificToCinplex(cineplexUserChoice);
+		listMovieSpecificToCineplex(cineplexUserChoice);
 		
 		List<Movie> movieList = new ArrayList<Movie>();
 		movieList = cineplexUserChoice.getMovie();	
@@ -393,7 +352,7 @@ public class StaffController{
 	/**
 	 * This method lists movies specific to a cineplex
 	 */
-	public void listMovieSpecificToCinplex(Cineplex cineUserChoice){
+	public void listMovieSpecificToCineplex(Cineplex cineUserChoice){
 		List<Movie> movieList = new ArrayList<Movie>();
 		Scanner sc = new Scanner(System.in);
 		
@@ -410,7 +369,7 @@ public class StaffController{
 	/**
 	 * This method lists show times specific to a cineplex
 	 */
-	public void listShowTimeSpecificToCinplex(Cineplex cineUserChoice){
+	public void listShowTimeSpecificToCineplex(Cineplex cineUserChoice){
 		List<ShowTime> showTimeList = new ArrayList<ShowTime>();
 		Scanner sc = new Scanner(System.in);
 		
