@@ -8,11 +8,3 @@
 15/11/2017,8,B01,3,06:05,Sunday
 15/11/2017,9,B03,2,11:11,Sunday
 15/11/2017,10,C01,3,12:30,Sunday
-<<<<<<< HEAD:src/data/ShowTime.csv
-03/12/2017,11,A01,1,12:34,Sunday
-12/12/2017,12,A02,2,21:10,Tuesday
-12/12/2017,13,A02,4,12:12,Tuesday
-13/12/2017,14,A02,5,12:13,Wednesday
-=======
-12/12/2017,11,D02,2,14:10,Tuesday
->>>>>>> nic:src/storage/ShowTime.csv

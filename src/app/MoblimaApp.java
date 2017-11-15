@@ -52,7 +52,7 @@ public class MoblimaApp {
                     break;
             }
         } while (choice != 3);
+        sc.close();
     }
-
-
+    
 }
