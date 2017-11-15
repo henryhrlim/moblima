@@ -1,9 +1,6 @@
-
-*.xml
 *.xml
 .idea/workspace.xml
 /bin/
 *.iml
-*.xml
-*.xml
+
 *.xml
