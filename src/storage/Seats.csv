@@ -1,5 +1,5 @@
 1,normal,1,Student,1,A,true
-1,normal,2,null,2,A,false
+1,normal,2,Student,2,A,true
 1,normal,3,null,3,A,false
 1,normal,4,null,4,A,false
 1,normal,5,null,1,B,false
@@ -121,7 +121,7 @@
 8,normal,121,Student,1,C,true
 8,normal,122,Student,2,C,true
 8,normal,123,Student,3,C,true
-8,normal,124,Student,4,C,true	
+8,normal,124,Student,4,C,false
 8,normal,125,Student,1,D,true
 8,normal,126,Student,2,D,true
 8,normal,127,Student,3,D,true

@@ -121,7 +121,7 @@ public class TransactionHandler extends DataHandler {
 				for (Tickets ticket : ticketList) {
 					file.append(ticket.getTicketID() + "-");
 				}
-				file.append("\"," + t.getTID() + "," + t.getEmail());
+				file.append("\"," + t.getTID() + "," + t.getEmail() + "\n");
 			}
 			file.flush();
 			file.close();

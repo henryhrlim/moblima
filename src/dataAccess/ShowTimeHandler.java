@@ -21,7 +21,6 @@ public class ShowTimeHandler extends DataHandler {
 	 * The list of ShowTime.
 	 */
 	private List<ShowTime> showTimeList;
-	private List<Seat> seats;
 
 	public ShowTimeHandler() {
 
@@ -137,8 +136,8 @@ public class ShowTimeHandler extends DataHandler {
 	}
 
 	protected void readCSV(FileReader csvFile) {
+		int k = 0;
 		this.showTimeList = new ArrayList<ShowTime>();
-		this.seats = new ArrayList<Seat>();
 		
 		List<String> date = new ArrayList<String>();
 		List<String> showTimeID = new ArrayList<String>();
@@ -152,6 +151,7 @@ public class ShowTimeHandler extends DataHandler {
 		List<String> status = new ArrayList<String>();
 		List<String> ticketID = new ArrayList<String>();
 		List<String> age = new ArrayList<String>();
+		List<Seat> seats = null;
 		
 		BufferedReader br = null;
 		BufferedReader seatsBr = null;
@@ -202,10 +202,12 @@ public class ShowTimeHandler extends DataHandler {
 		}
 
 		for (int i = 0; i < date.size(); i++) {
-			for (int j = 0; j < ticketID.size(); j++) {
-				Tickets t = new Tickets(Integer.valueOf(ticketID.get(j)), age.get(j));
-				Seat s = new Seat(row.get(j), Integer.valueOf(column.get(j)), seatType.get(j), Boolean.valueOf(status.get(j)), t);
+			seats = new ArrayList<Seat>();
+			for (int j = 0; j < 16; j++) {
+				Tickets t = new Tickets(Integer.valueOf(ticketID.get(k)), age.get(k));
+				Seat s = new Seat(row.get(k), Integer.valueOf(column.get(k)), seatType.get(k), Boolean.valueOf(status.get(k)), t);
 				seats.add(s);
+				k++;
 			}
 			ShowTime st = new ShowTime(Integer.valueOf(showTimeID.get(i)), time.get(i), day.get(i), date.get(i), Integer.valueOf(movieID.get(i)), seats, cinemaCode.get(i));
 			this.showTimeList.add(st);
@@ -213,13 +215,16 @@ public class ShowTimeHandler extends DataHandler {
 	};
 	
 	protected void saveDataToCSV(String to) {
+		int i = 0;
 		try {
 			FileWriter showTimeFile = new FileWriter(to);
 			FileWriter seatsFile = new FileWriter("src/storage/Seats.csv");
 			for (ShowTime st: showTimeList) {
 				showTimeFile.append(st.getDate() + "," + st.getShowTimeID() + "," + st.getCinemaCode() + "," + st.getMovieID() + "," + st.getTime() + "," + st.getDay() + "\n");
-				for (Seat s: seats) {
-					seatsFile.append(st.getShowTimeID() + "," + s.getSeatType() + "," + s.getTicket().getTicketID() + "," + s.getTicket().getAge() + "," + s.getColumn() + "," + s.getRow() + "," + s.getStatus() + "\n");
+				i++;
+				for (Seat s: st.getSeats()) {
+					if (st.getShowTimeID() == i)
+						seatsFile.append(st.getShowTimeID() + "," + s.getSeatType() + "," + s.getTicket().getTicketID() + "," + s.getTicket().getAge() + "," + s.getColumn() + "," + s.getRow() + "," + s.getStatus() + "\n");
 				}
 			}
 			showTimeFile.flush();
