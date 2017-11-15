@@ -1,6 +1,6 @@
 1,normal,1,Student,1,A,true
 1,normal,2,Student,2,A,true
-1,normal,3,null,3,A,false
+1,normal,3,Adult,3,A,true
 1,normal,4,null,4,A,false
 1,normal,5,null,1,B,false
 1,normal,6,null,2,B,false
@@ -22,8 +22,8 @@
 2,normal,22,Student,2,B,true
 2,normal,23,null,3,B,false
 2,normal,24,null,4,B,false
-2,normal,25,null,1,C,false
-2,normal,26,null,2,C,false
+2,normal,25,Student,1,C,true
+2,normal,26,Adult,2,C,true
 2,normal,27,null,3,C,false
 2,normal,28,Student,4,C,true
 2,normal,29,Student,1,D,true

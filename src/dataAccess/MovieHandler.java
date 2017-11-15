@@ -220,8 +220,8 @@ public class MovieHandler extends DataHandler {
                     for (Review r : reviewList) {
                         file.append("\"" + r.getFeedback() + "\"");
                     }
-                    file.append("\n");
                 }
+                file.append("\n");
             }
             file.flush();
             file.close();
