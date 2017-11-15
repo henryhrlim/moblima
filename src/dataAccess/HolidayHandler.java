@@ -1,12 +1,12 @@
 package dataAccess;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Holiday;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import entity.Holiday;
 
 /**
  * HolidayHandler
@@ -88,6 +88,47 @@ public class HolidayHandler extends DataHandler{
 		}
 		return false;
 	}
+	protected void readCSV(FileReader csvFile) {
+		this.holidayList = new ArrayList<Holiday>();
+		
+		List<String> date = new ArrayList<String>();
+		List<String> holidayName = new ArrayList<String>();
+		
+		BufferedReader br = null;
+		String line;
+		String csvSplitBy = ",";
+		
+		try {
+			br = new BufferedReader(csvFile);
+			String[] data;
+			while ((line = br.readLine()) != null) {
+				// use comma as separator
+				data = line.split(csvSplitBy);
+				date.add(data[0]);
+				holidayName.add(data[1]);
+			}
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (br != null) {
+				try {
+					br.close();
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		for (int i = 0; i < date.size(); i++) {
+			Holiday h = new Holiday(date.get(i), holidayName.get(i));
+			this.holidayList.add(h);
+		}
+	}
 	
 	/**
 	 * Override readJSON method from parent class(DataHandler).
@@ -110,6 +151,20 @@ public class HolidayHandler extends DataHandler{
 		}
 	}
 
+	
+	protected void saveDataToCSV(String to) {
+		try (FileWriter file = new FileWriter(to)) {
+			for (Holiday h: holidayList) {
+				file.append(h.getDate() + "," + h.getHolidayName() + "\n");
+			}
+			file.flush();
+			file.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Override saveDataToJSON method from parent class(DataHandler).
 	 * This method will format the holidayList into a JSONArray object and return it.

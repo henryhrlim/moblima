@@ -1,2 +1,6 @@
+<<<<<<< HEAD
+"1~2~3~4~5~",1,"Orchard","1~",""""Cathay"""",""normal-A01"~"normal-A02"~"platinum-A03"~"platinum-A04"~"normal-A05"~"normal-A07"~"platinum-A08"~"platinum-A09"~"
+=======
 showTimeID,cineplexID,location,movieID,cineplexName,cinema
 "1,2,3,4,5",1,"Orchard","1,3,4,8","Cathay",["normal-A01","normal-A02","normal-A03"]
+>>>>>>> master
