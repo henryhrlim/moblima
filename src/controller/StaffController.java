@@ -302,8 +302,7 @@ public class StaffController{
 			System.out.println("**************List of Movies Available*************************");
 			for(Movie mov: movieListView) {
 				if(mov.getMovieStatus().compareTo("Now Showing") == 0) {
-					System.out.format("|%s.  Movie Title: %s",mov.getMovieID() ,mov.getTitle());
-					System.out.println("\n");
+					System.out.println(mov.getMovieID() + ".  Movie Title: " + mov.getTitle());
 					count++;
 				}
 			}
@@ -323,7 +322,7 @@ public class StaffController{
 				
 				for(Movie mm: movieList){
 					if(movieChoice == mm.getMovieID()){
-						System.out.println("Movie ID" + movieChoice + " is already added to the cineplex");
+						System.out.println("Movie ID " + movieChoice + " - " + mm.getTitle() + " is already added to the cineplex");
 						movieInside = true;
 						break;
 					}
@@ -1056,10 +1055,10 @@ public class StaffController{
 		movieRating = scn.next();
 
 		scn = new Scanner(System.in);		
-		System.out.println("Enter showing status (1.Coming soon 2.Preview 3.Now showing): ");
+		System.out.println("Enter showing status (1.Coming Soon 2.Preview 3.Now Showing): ");
 		statusNum = scn.nextInt();
 
-		if(statusNum == 1) showingStatus = "Coming soon";
+		if(statusNum == 1) showingStatus = "Coming Soon";
 		else if(statusNum == 2) showingStatus = "Preview";
 		else showingStatus = "Now Showing";
 
@@ -1862,7 +1861,7 @@ public class StaffController{
 			ageGrp = "Adult";
 			break;
 		case 3:
-			ageGrp = "Platinum";
+			ageGrp = "Standard";
 			break;
 		}
 		return ageGrp;
@@ -1886,10 +1885,13 @@ public class StaffController{
 
 		switch(ageGrp){
 		case "Student":
-			pList = filterListPriceChart(ageGrp);
+			pList = filter(ageGrp);
 			break;
 		case "Adult":
-			pList = filterAdult(ageGrp);
+			pList = filter(ageGrp);
+			break;
+		case "Standard":
+			pList = filter(ageGrp);
 			break;
 		}
 
@@ -1905,7 +1907,7 @@ public class StaffController{
 
 		System.out.println("Price List has been updated successfully!");
 
-		filterListPriceChart(ageGrp);
+		filter(ageGrp);
 	}
 
 	/**
@@ -1916,14 +1918,14 @@ public class StaffController{
 		List<PriceChart> pList = null;
 		ageGrp = ageGrpMenu();
 		switch(ageGrp){
-			case "Platinum":
-				pList = filterListPriceChartPlat(ageGrp);
-				break;
 			case "Student":
-				pList = filterAdult(ageGrp);
+				pList = filter(ageGrp);
 				break;
 			case "Adult":
-				pList = filterAdult(ageGrp);
+				pList = filter(ageGrp);
+				break;
+			case "Standard":
+				pList = filter(ageGrp);
 				break;
 		}
 	}
@@ -1933,97 +1935,49 @@ public class StaffController{
 	 * Prints out the details of the PriceChart object
 	 * @param ageGrp Specifies Adult as the age group
 	 */
-	public static List<PriceChart> filterAdult(String ageGrp) {
+	public static List<PriceChart> filter(String ageGrp) {
 
-		int cinemaChoice, movieTChoice, i;
+		int movieTChoice, i;
 		String cineType = null, movType = null;
 
 		Scanner sc = new Scanner(System.in);
-	
-		// Select movie type: Adult
-		System.out.println("Select a movie type: ");
-		System.out.println("|1. 2D");
-		System.out.println("|2. 3D");
-		movieTChoice = sc.nextInt();
-		switch (movieTChoice) {
-		case 1:
-			movType = "2D";
-			break;
-		case 2:
-			movType = "3D";
-			break;
+		
+		if (ageGrp == "Standard") {
+			cineType = "Platinum";
+			movType = "Any";
+		}
+		else {
+			cineType = "Normal";
+			System.out.println("Select a movie type: ");
+			System.out.println("|1. 2D");
+			System.out.println("|2. 3D");
+			movieTChoice = sc.nextInt();
+			switch (movieTChoice) {
+			case 1:
+				movType = "2D";
+				break;
+			case 2:
+				movType = "3D";
+				break;
+			}
 		}
 	
 		PriceChartController pcController = new PriceChartController();
-		List<PriceChart> priceChartList = pcController.retrievePriceChartList(ageGrp, "Normal", movType);
+		List<PriceChart> priceChartList = pcController.retrievePriceChartList(ageGrp, cineType, movType);
 
-		if (ageGrp == "Student"){
-			i = 1;
-			String header = String.format("%-5s %-12s %-10s %-10s %15s","ID","Day","Price","Cinema Type","Movie Type");
-			System.out.println(header);
-			for (PriceChart p : priceChartList) {
-				String toPrint = String.format("%-5s %-12s %-10s %-10s %10s", i, p.getDay(), p.getPrice(), p.getCinemaType(), p.getMovieType());
-				System.out.println(toPrint);
-				i++;
-			}
-		}else{
-			i = 1;
-			String header = String.format("%-5s %-12s %-10s %-10s %15s","ID","Day","Price","Cinema Type","Movie Type");
-			System.out.println(header);
-			for (PriceChart p : priceChartList) {
-				String toPrint = String.format("%-5s %-12s %-10s %-10s %10s", i, p.getDay(), p.getPrice(), p.getCinemaType(), p.getMovieType());
-				System.out.println(toPrint);
-				i++;
-			}
-		}
-		return priceChartList;
-
-	}
-
-	/**
-	 * This method lists PriceChart object for other age group.
-	 * Prints out the details of the PriceChart object
-	 * @param ageGrp Specific age group other than Adult
-	 */
-	public static List<PriceChart> filterListPriceChart(String ageGrp){
-
-		int i;
-
-		PriceChartController pcController = new PriceChartController();
-		List<PriceChart> priceChartList = pcController.retrievePriceChartList(ageGrp);
-
-		if ((ageGrp == "Children")||(ageGrp == "Senior")){
-			i = 1;
-			String header = String.format("%-5s %-12s","ID", "Price");
-			System.out.println(header);
-			for (PriceChart p : priceChartList) {
-				String toPrint = String.format("%-5s %-12s", i, p.getPrice());
-				System.out.println(toPrint);
-				i++;
-			}
+		i = 1;
+		String header = String.format("%-5s %-12s %-10s %-10s %15s","ID","Day","Price","Cinema Type","Movie Type");
+		System.out.println(header);
+		for (PriceChart p : priceChartList) {
+			String toPrint = String.format("%-5s %-12s %-10s %-10s %10s", i, p.getDay(), p.getPrice(), p.getCinemaType(), p.getMovieType());
+			System.out.println(toPrint);
+			i++;
 		}
 		
 		return priceChartList;
+
 	}
 
-	public static List<PriceChart> filterListPriceChartPlat(String cineType){
-
-		int i;
-
-		PriceChartController pcController = new PriceChartController();
-		List<PriceChart> priceChartList = pcController.retrievePriceChartListByCinemaType(cineType);
-
-			i = 1;
-			String header = String.format("%-5s %-12s %-10s %-10s","ID","Day","Price","Cinema Type");
-			System.out.println(header);
-			for (PriceChart p : priceChartList) {
-				String toPrint = String.format("%-5s %-12s %-10s %-10s", i, p.getDay(), p.getPrice(), p.getCinemaType());
-				System.out.println(toPrint);
-				i++;
-			}
-		return priceChartList;
-	}	
-	
 	/**
 	 * 
 	 * END OF STAFF PROGRAM
