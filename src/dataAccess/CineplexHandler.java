@@ -121,7 +121,7 @@ public class CineplexHandler extends DataHandler {
 
 		BufferedReader br = null;
 		String line;
-		String cvsSplitBy = ",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)";
+		String csvSplitBy = ",";
 
 		try {
 			br = new BufferedReader(csvFile);
@@ -130,7 +130,7 @@ public class CineplexHandler extends DataHandler {
 			List<String> showTimeList;
 			List<String> moviesList;
 			while ((line = br.readLine()) != null) {
-				data = line.split(cvsSplitBy);
+				data = line.split(csvSplitBy);
 
 				showTimeList = new ArrayList<String>(Arrays.asList((data[0]).split("~")));
 				showTime.add(showTimeList);
@@ -205,10 +205,10 @@ public class CineplexHandler extends DataHandler {
 				for (Movie movie : movieList) {
 					file.append(String.valueOf(movie.getMovieID()) + "~");
 				}
-				file.append("\",\"" + c.getCineplexName() + "\",\"");
+				file.append("\"," + c.getCineplexName() + ",\"");
 				List<Cinema> cinemaList = c.getCinemas();
 				for (Cinema cinema : cinemaList) {
-					file.append("\"" + cinema.getCinemaType() + "-" + cinema.getCinemaCode() + "\"~");
+					file.append(cinema.getCinemaType() + "-" + cinema.getCinemaCode() + "~");
 				}
 				file.append("\"\n");
 			}
