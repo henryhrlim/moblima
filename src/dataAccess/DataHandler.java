@@ -1,6 +1,10 @@
 package dataAccess;
 
-import java.io.*;
+import org.json.simple.JSONArray;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * DataHandler
@@ -61,6 +65,15 @@ public abstract class DataHandler {
     protected abstract void readCSV(FileReader data);
 
     protected abstract void saveDataToCSV(String to);
+
+    protected abstract void readJSON(JSONArray arr);
+
+    /**
+     * This is a abstract method to be implemented by the child classes.
+     * This method will format the data into a JSONArray object and return it.
+     * @return JSONArray object.
+     */
+    protected abstract JSONArray saveDataToJSON();
 
     /**
      * Call the readFile method.

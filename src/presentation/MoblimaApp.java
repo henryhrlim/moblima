@@ -16,7 +16,7 @@ public class MoblimaApp{
 		int choice = 0;
 
 		do{
-			System.out.println("^^^^^^^^^^^^^^^MAIN MENU^^^^^^^^^^^^^");
+			System.out.println("MAIN MENU");
 			System.out.println("Select the type of user: ");
 			System.out.println("|1. Customer");
 			System.out.println("|2. Staff/Admin");
