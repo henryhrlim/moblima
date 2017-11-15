@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import entity.Cinema;
 import entity.Cineplex;
 import entity.Movie;
@@ -220,5 +217,5 @@ public class CineplexHandler extends DataHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	};
+	}
 }
