@@ -1,7 +1,5 @@
 package dataAccess;
 
-import org.json.simple.JSONArray;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
