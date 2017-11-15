@@ -130,28 +130,6 @@ public class HolidayHandler extends DataHandler{
 		}
 	}
 	
-	/**
-	 * Override readJSON method from parent class(DataHandler).
-	 * arr contains the data retrieved from the JSON file.
-	 * This method will format the arr JSONArray object and save it into the holidayList.
-	 * @param arr This is a JSONArray object.
-	 */
-	@Override
-	protected void readJSON(JSONArray arr) {
-		// TODO Auto-generated method stub
-		this.holidayList = new ArrayList<Holiday>();
-		String date;
-		String holidayName;
-		
-		for(int i = 0; i < arr.size();i++){
-			JSONObject holidayJson = (JSONObject)arr.get(i);
-			date = (String)holidayJson.get("date");
-			holidayName = (String)holidayJson.get("holidayName");
-			holidayList.add(new Holiday(date, holidayName));
-		}
-	}
-
-	
 	protected void saveDataToCSV(String to) {
 		try (FileWriter file = new FileWriter(to)) {
 			for (Holiday h: holidayList) {
@@ -164,25 +142,7 @@ public class HolidayHandler extends DataHandler{
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * Override saveDataToJSON method from parent class(DataHandler).
-	 * This method will format the holidayList into a JSONArray object and return it.
-	 * @return JSONArray object.
-	 */
-	@Override
-	protected JSONArray saveDataToJSON() {
-		// TODO Auto-generated method stub
-		JSONArray holidayArr = new JSONArray();
-		
-		for(Holiday h : this.holidayList){
-			JSONObject holidayJson = new JSONObject();
-			holidayJson.put("date", h.getDate());
-			holidayJson.put("holidayName", h.getHolidayName());
-			holidayArr.add(holidayJson);
-		}
-		return holidayArr;
-	}
+
 
 	/**
 	 * Gets the list of holidays
