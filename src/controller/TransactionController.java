@@ -95,14 +95,14 @@ public class TransactionController {
                     String cineplexName = null;
                     String cineplexLocation = null;
                     String cinemaCode = tList.getTID().substring(0, 3);
-                    List<Tickets> tixList = tList.getTicketList();
-                    List<Seat> seatList = null;
+                    List<Transaction.Tickets> tixList = tList.getTicketList();
+                    List<Cineplex.Seat> seatList = null;
 
                     for (Cineplex cineplex : cineplexList) {
 
-                        List<Cinema> cima = cineplex.getCinemas();
+                        List<Cineplex.Cinema> cima = cineplex.getCinemas();
                         List<ShowTime> showTimeList = cineplex.getShowTime();
-                        for (Cinema c : cima) {
+                        for (Cineplex.Cinema c : cima) {
                             if (c.getCinemaCode().equals(cinemaCode)) {
                                 cineplexName = cineplex.getCineplexName();
                                 cineplexLocation = cineplex.getLocation();
@@ -128,11 +128,11 @@ public class TransactionController {
                     System.out.println("Cinema        : " + cinemaCode);
                     System.out.println("Date & Time   : " + datePurchase[0] + " " + datePurchase[1]);
 
-                    for (Tickets tic : tixList) {
+                    for (Transaction.Tickets tic : tixList) {
                         for (ShowTime st : showList) {
                             seatList = st.getSeats();
-                            for (Seat s : seatList) {
-                                Tickets ticket = new Tickets();
+                            for (Cineplex.Seat s : seatList) {
+                                Transaction.Tickets ticket = new Transaction.Tickets();
                                 ticket = s.getTicket();
 
                                 if (ticket != null) {
@@ -197,20 +197,20 @@ public class TransactionController {
         TransactionController controller = new TransactionController();
         List<Transaction> transList = controller.retrieveTransactionList();
 
-        List<TopSales> tsList = new ArrayList<TopSales>();
+        List<Sales> tsList = new ArrayList<Sales>();
 
         MovieController movie = new MovieController();
         List<Movie> movieList = movie.retrieveMovieList();
         int i = 0;
 
         for (Movie m : movieList) {
-            TopSales ts = new TopSales(m.getMovieID(), 0, m.getTitle());
+            Sales ts = new Sales(m.getMovieID(), 0, m.getTitle());
             tsList.add(ts);
         }
 
         for (Transaction sc : transList) {
             for (i = 0; i < tsList.size(); i++) {
-                TopSales ts = tsList.get(i);
+                Sales ts = tsList.get(i);
                 double totalAmount = ts.getTotalAmount();
                 if (ts.getMovieID() == sc.getMovieID()) {
                     totalAmount += sc.getAmount();
@@ -220,9 +220,9 @@ public class TransactionController {
             }
         }
 
-        Collections.sort(tsList, new Comparator<TopSales>() {
+        Collections.sort(tsList, new Comparator<Sales>() {
             @Override
-            public int compare(TopSales ts1, TopSales ts2) {
+            public int compare(Sales ts1, Sales ts2) {
                 return Double.compare(ts1.getTotalAmount(), ts2.getTotalAmount());
             }
         });
@@ -231,7 +231,7 @@ public class TransactionController {
         System.out.println("===== Top 5 Movies by Ticket Sales =====");
         System.out.println("Rank  Movie                                         Sales");
         for (i = 0; i < tsList.size(); i++) {
-            TopSales ts = tsList.get(i);
+            Sales ts = tsList.get(i);
             System.out.format("%-5s %-45s $%s\n", (i + 1), ts.getTitle(), ts.getTotalAmount());
             if (i == 4)
                 break;

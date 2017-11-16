@@ -2,7 +2,6 @@ package controller;
 
 import app.CustomerMenu;
 import entity.Movie;
-import entity.Review;
 import handler.MovieHandler;
 
 import java.util.ArrayList;
@@ -63,8 +62,8 @@ public class MovieController {
         double overallRating, total = 0;
         MovieHandler handler = new MovieHandler();
         Movie m = handler.retrieveMovieDetails(movieID);
-        List<Review> reviewList = m.getReviews();
-        for (Review r : reviewList) {
+        List<Movie.Review> reviewList = m.getReviews();
+        for (Movie.Review r : reviewList) {
             total += r.getRating();
         }
         overallRating = total / reviewList.size();
@@ -106,17 +105,17 @@ public class MovieController {
                     System.out.format("Cast           : %s\n", m.getCast());
                     System.out.format("Showing Status : %s\n", m.getMovieStatus());
 
-                    List<Review> reviewList = m.getReviews();
+                    List<Movie.Review> reviewList = m.getReviews();
 
                     if (reviewList.size() > 1) {
-                        for (Review re : reviewList)
+                        for (Movie.Review re : reviewList)
                             sum += re.getRating();
                         System.out.format("Overall Rating: %.1f / 5.0\n", sum / reviewList.size());
                     } else
                         System.out.println("Overall Ratings: N/A");
 
                     if (reviewList.size() > 0) {
-                        for (Review r : reviewList) {
+                        for (Movie.Review r : reviewList) {
                             System.out.println("User Rating    : " + r.getRating() + " / 5");
                             System.out.println("User Review    : " + StaffController.wordWrap(r.getFeedback()));
                         }
@@ -162,16 +161,16 @@ public class MovieController {
                     System.out.format("Cast           : %s\n", m.getCast());
                     System.out.format("Showing Status : %s\n", m.getMovieStatus());
 
-                    List<Review> reviewList = m.getReviews();
+                    List<Movie.Review> reviewList = m.getReviews();
                     if (reviewList.size() > 1) {
-                        for (Review re : reviewList)
+                        for (Movie.Review re : reviewList)
                             sum += re.getRating();
                         System.out.format("Overall Rating: %.1f / 5.0\n", sum / reviewList.size());
                     } else
                         System.out.println("Overall Ratings: N/A");
 
                     if (reviewList.size() > 0) {
-                        for (Review r : reviewList) {
+                        for (Movie.Review r : reviewList) {
                             System.out.println("User Rating    : " + r.getRating() + " / 5");
                             System.out.println("User Review    : " + StaffController.wordWrap(r.getFeedback()));
                         }
@@ -214,7 +213,7 @@ public class MovieController {
 
         if (movieUser != -1) {
             Movie m = movieList.get(movieUser - 1);
-            List<Review> reviewList = m.getReviews();
+            List<Movie.Review> reviewList = m.getReviews();
 
             System.out.println("Enter Rating (1-5): ");
             rating = sc.nextInt();
@@ -222,7 +221,7 @@ public class MovieController {
             System.out.println("Enter your Feedback: ");
             feedback = sc2.nextLine();
 
-            Review r = new Review(feedback, rating);
+            Movie.Review r = new Movie.Review(feedback, rating);
 
             reviewList.add(r);
 

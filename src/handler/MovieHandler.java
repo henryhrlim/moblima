@@ -1,7 +1,6 @@
 package handler;
 
 import entity.Movie;
-import entity.Review;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -145,7 +144,7 @@ public class MovieHandler extends DataHandler {
         for (int i = 0; i < duration.size(); i++) {
             Movie m = new Movie(movieID.get(i), Double.valueOf(ratings.get(i)), movieRating.get(i), duration.get(i), title.get(i), synopsis.get(i), director.get(i), cast.get(i), movieType.get(i), movieStatus.get(i));
             try {
-                List<Review> reviewList = new ArrayList<Review>();
+                List<Movie.Review> reviewList = new ArrayList<Movie.Review>();
                 String line2 = userReview.get(i);
                 String line3 = userReviewRating.get(i);
                 String[] reviewArray = line2.split("\"\"");
@@ -153,7 +152,7 @@ public class MovieHandler extends DataHandler {
                 for (int j = 0; j < reviewArray.length; j++) {
                     String feedback = reviewArray[j];
                     Integer score = Integer.valueOf(reviewRatingArray[j]);
-                    Review r = new Review(feedback.replace("\"", ""), score);
+                    Movie.Review r = new Movie.Review(feedback.replace("\"", ""), score);
                     reviewList.add(r);
                 }
                 m.setReviews(reviewList);
@@ -170,14 +169,14 @@ public class MovieHandler extends DataHandler {
                 file.append('\"' + m.getDuration() + "\",\"" + m.getCast() + "\",\"" + m.getMovieType() + "\",\"" + m.getMovieRating() + "\",\"" +
                         m.getMovieStatus() + "\"," + String.valueOf(m.getRatings()) + ",\"" + m.getSynopsis() + "\",\"" +
                         m.getDirector() + "\",\"" + m.getTitle() + "\"," + String.valueOf(m.getMovieID()));
-                List<Review> reviewList = m.getReviews();
+                List<Movie.Review> reviewList = m.getReviews();
                 if (reviewList.size() != 0) {
                     file.append(",");
-                    for (Review r : reviewList) {
+                    for (Movie.Review r : reviewList) {
                         file.append(String.valueOf(r.getRating()) + "-");
                     }
                     file.append(",");
-                    for (Review r : reviewList) {
+                    for (Movie.Review r : reviewList) {
                         file.append("\"" + r.getFeedback() + "\"");
                     }
                 }

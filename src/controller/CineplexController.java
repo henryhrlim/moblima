@@ -126,13 +126,13 @@ public class CineplexController {
         ShowTimeController stController = new ShowTimeController();
 
         showTimeList = stController.retrieveShowTimeList(cineUserChoice.getShowTime(), m.getMovieID());
-        List<Cinema> cinemaList = cineUserChoice.getCinemas();
+        List<Cineplex.Cinema> cinemaList = cineUserChoice.getCinemas();
         System.out.println("===== Show Times =====");
         System.out.println("ID    Cinema Type  Date       Day       Time");
         int i = 1;
         for (ShowTime st : showTimeList) {
             String cinemaType = "";
-            for (Cinema c : cinemaList) {
+            for (Cineplex.Cinema c : cinemaList) {
                 if (c.getCinemaCode().equals(st.getCinemaCode())) {
                     cinemaType = c.getCinemaType();
                     break;
@@ -158,9 +158,9 @@ public class CineplexController {
         System.out.println("Title      : " + movUserChoice.getTitle());
         System.out.println("Cineplex   : " + cineUserChoice.getCineplexName() + " (" + cineUserChoice.getLocation() + ")");
 
-        List<Cinema> cineList = cineUserChoice.getCinemas();
+        List<Cineplex.Cinema> cineList = cineUserChoice.getCinemas();
 
-        for (Cinema c : cineList) {
+        for (Cineplex.Cinema c : cineList) {
             if (c.getCinemaCode().equals(showTimeUserChoice.getCinemaCode())) {
                 System.out.println("Cinema     : " + c.getCinemaCode());
                 break;
@@ -169,24 +169,24 @@ public class CineplexController {
         System.out.println("Date & Time: " + showTimeUserChoice.getDate() + " (" + showTimeUserChoice.getDay() + ") " + showTimeUserChoice.getTime());
     }
 
-    private void purchaseTicketAndAllocateSeat(int noOfTicks, Movie movie, ShowTime showtime, List<Cinema> cinemaList) {
+    private void purchaseTicketAndAllocateSeat(int noOfTicks, Movie movie, ShowTime showtime, List<Cineplex.Cinema> cinemaList) {
         Scanner sc = new Scanner(System.in);
         ShowTimeController stController = new ShowTimeController();
         TransactionController transController = new TransactionController();
 
         List<ShowTime> showTimeList = stController.retrieveShowTimeList();
 
-        List<Seat> tempSeatList = showtime.getSeats();
+        List<Cineplex.Seat> tempSeatList = showtime.getSeats();
         System.out.println("===== Cinema " + showtime.getCinemaCode() + " =====");
         printSeatingArrangement(tempSeatList);
 
-        List<Tickets> tixList = new ArrayList<Tickets>();
+        List<Transaction.Tickets> tixList = new ArrayList<Transaction.Tickets>();
         List<ShowTime> showList = new ArrayList<ShowTime>();
 
         String age = "";
         String movieType = movie.getMovieType();
         String cinemaType = "";
-        for (Cinema c : cinemaList) {
+        for (Cineplex.Cinema c : cinemaList) {
             if (c.getCinemaCode().equals(showtime.getCinemaCode())) {
                 cinemaType = c.getCinemaType();
             }
@@ -216,7 +216,7 @@ public class CineplexController {
                 char colSelect = seatSelect.charAt(1);
                 colInt = Character.getNumericValue(colSelect);
 
-                for (Seat seat : tempSeatList) {
+                for (Cineplex.Seat seat : tempSeatList) {
                     if ((seat.getRow().equals(rowSelectString)) && (seat.getColumn() == colInt)) {
                         validSeat = true;
                         if (seat.getStatus()) {
@@ -238,10 +238,10 @@ public class CineplexController {
             } while (!allocated);
 
 
-            for (Seat seat : tempSeatList) {
+            for (Cineplex.Seat seat : tempSeatList) {
                 if (seat.getRow().equals(rowSelectString) && seat.getColumn() == colInt) {
 
-                    Tickets t1 = seat.getTicket();
+                    Transaction.Tickets t1 = seat.getTicket();
                     int user_age;
                     do {
                         System.out.println("===== Ticket " + (x + 1) + " =====");
@@ -311,13 +311,13 @@ public class CineplexController {
 
     }
 
-    private void printSeatingArrangement(List<Seat> tempSeatList) {
+    private void printSeatingArrangement(List<Cineplex.Seat> tempSeatList) {
         System.out.println("\t       SCREEN");
         System.out.println("\t ———————————————————");
         System.out.print("\n");
 
         System.out.println("   1    2    3         4    5    6");
-        for (Seat seat : tempSeatList) {
+        for (Cineplex.Seat seat : tempSeatList) {
             if (seat.getColumn() == 1)
                 System.out.print(seat.getRow() + " ");
             else if (seat.getColumn() == 4) {

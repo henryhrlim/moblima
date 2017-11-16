@@ -13,25 +13,25 @@ public class ShowTime {
     private String day;
     private String date;
     private int movieID;
-    private List<Seat> seats;
+    private List<Cineplex.Seat> seats;
 
 
     public ShowTime() {
 
-        seats = new ArrayList<Seat>();
+        seats = new ArrayList<Cineplex.Seat>();
         for (int i = 0; i < row.length; i++) {
             for (int a = 0; a < 6; a++) {
-                Tickets ticket = new Tickets();
+                Transaction.Tickets ticket = new Transaction.Tickets();
                 ticketid++;
                 ticket.setTicketID(ticketid);
-                seats.add(new Seat(row[i], a + 1, "normal", false, ticket));
+                seats.add(new Cineplex.Seat(row[i], a + 1, "normal", false, ticket));
             }
         }
     }
 
 
     public ShowTime(int showTimeID, String time, String day, String date, int movieID,
-                    List<Seat> seats, String cinemaCode) {
+                    List<Cineplex.Seat> seats, String cinemaCode) {
         this.showTimeID = showTimeID;
         this.time = time;
         this.day = day;
@@ -39,13 +39,13 @@ public class ShowTime {
         this.movieID = movieID;
         this.cinemaCode = cinemaCode;
         if (seats == null) {
-            seats = new ArrayList<Seat>();
+            seats = new ArrayList<Cineplex.Seat>();
             for (int i = 0; i < row.length; i++) {
                 for (int a = 0; a < 6; a++) {
-                    Tickets ticket = new Tickets();
+                    Transaction.Tickets ticket = new Transaction.Tickets();
                     ticketid++;
                     ticket.setTicketID(ticketid);
-                    seats.add(new Seat(row[i], a + 1, "normal", false, ticket));
+                    seats.add(new Cineplex.Seat(row[i], a + 1, "normal", false, ticket));
                 }
             }
         } else {
@@ -105,12 +105,12 @@ public class ShowTime {
     }
 
 
-    public List<Seat> getSeats() {
+    public List<Cineplex.Seat> getSeats() {
         return seats;
     }
 
 
-    public void setSeats(List<Seat> seats) {
+    public void setSeats(List<Cineplex.Seat> seats) {
         this.seats = seats;
     }
 

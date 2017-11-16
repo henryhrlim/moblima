@@ -1,6 +1,6 @@
 package handler;
 
-import entity.Holiday;
+import entity.PriceChart;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,17 +8,17 @@ import java.util.List;
 
 
 public class HolidayHandler extends DataHandler {
-    private List<Holiday> holidayList;
+    private List<PriceChart.Holiday> holidayList;
 
     public HolidayHandler() {
 
     }
 
 
-    public void create(Holiday h) {
+    public void create(PriceChart.Holiday h) {
         loadData("Holiday");
         if (this.holidayList == null)
-            this.holidayList = new ArrayList<Holiday>();
+            this.holidayList = new ArrayList<PriceChart.Holiday>();
         if (h != null)
             this.holidayList.add(h);
         saveData("Holiday");
@@ -30,10 +30,10 @@ public class HolidayHandler extends DataHandler {
     }
 
 
-    public void update(Holiday h) {
+    public void update(PriceChart.Holiday h) {
         loadData("Holiday");
         for (int i = 0; i < this.holidayList.size(); i++) {
-            Holiday holiday = this.holidayList.get(i);
+            PriceChart.Holiday holiday = this.holidayList.get(i);
             if (holiday.getDate().equals(h.getDate())) {
                 this.holidayList.set(i, h);
                 saveData("Holiday");
@@ -47,10 +47,10 @@ public class HolidayHandler extends DataHandler {
     }
 
 
-    public void delete(Holiday h) {
+    public void delete(PriceChart.Holiday h) {
         loadData("Holiday");
         for (int i = 0; i < this.holidayList.size(); i++) {
-            Holiday holiday = this.holidayList.get(i);
+            PriceChart.Holiday holiday = this.holidayList.get(i);
             if (holiday.getDate().equals(h.getDate())) {
                 this.holidayList.remove(i);
                 saveData("Holiday");
@@ -60,7 +60,7 @@ public class HolidayHandler extends DataHandler {
     }
 
     protected void readCSV(FileReader csvFile) {
-        this.holidayList = new ArrayList<Holiday>();
+        this.holidayList = new ArrayList<PriceChart.Holiday>();
 
         List<String> date = new ArrayList<String>();
         List<String> holidayName = new ArrayList<String>();
@@ -92,14 +92,14 @@ public class HolidayHandler extends DataHandler {
             }
         }
         for (int i = 0; i < date.size(); i++) {
-            Holiday h = new Holiday(date.get(i), holidayName.get(i));
+            PriceChart.Holiday h = new PriceChart.Holiday(date.get(i), holidayName.get(i));
             this.holidayList.add(h);
         }
     }
 
     protected void saveDataToCSV(String to) {
         try (FileWriter file = new FileWriter(to)) {
-            for (Holiday h : holidayList) {
+            for (PriceChart.Holiday h : holidayList) {
                 file.append(h.getDate() + "," + h.getHolidayName() + "\n");
             }
             file.flush();
@@ -110,7 +110,7 @@ public class HolidayHandler extends DataHandler {
     }
 
 
-    public List<Holiday> getHolidayList() {
+    public List<PriceChart.Holiday> getHolidayList() {
         return holidayList;
     }
 

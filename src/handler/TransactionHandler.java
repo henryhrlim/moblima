@@ -1,6 +1,5 @@
 package handler;
 
-import entity.Tickets;
 import entity.Transaction;
 
 import java.io.*;
@@ -79,12 +78,12 @@ public class TransactionHandler extends DataHandler {
 
 
         for (int i = 0; i < TID.size(); i++) {
-            List<Tickets> ticketList = new ArrayList<>();
+            List<Transaction.Tickets> ticketList = new ArrayList<>();
             String temp = ticketID.get(i).toString().replace("\"", "");
             List<String> temp2 = new ArrayList<>(Arrays.asList(temp.split("-")));
             for (int j = 0; j < temp2.size() - 1; j++) {
                 String temp3 = temp2.get(j);
-                Tickets t = new Tickets();
+                Transaction.Tickets t = new Transaction.Tickets();
                 temp3 = temp3.replace("[", "");
                 temp3 = temp3.replace("]", "");
                 t.setTicketID(Integer.valueOf(temp3));
@@ -100,8 +99,8 @@ public class TransactionHandler extends DataHandler {
             for (Transaction t : this.transactionList) {
                 file.append(t.getShowTimeID() + "," + t.getMobileNum() + "," + t.getAmount() + "," + t.getMovieID() +
                         "," + t.getName() + ",\"");
-                List<Tickets> ticketList = t.getTicketList();
-                for (Tickets ticket : ticketList) {
+                List<Transaction.Tickets> ticketList = t.getTicketList();
+                for (Transaction.Tickets ticket : ticketList) {
                     file.append(ticket.getTicketID() + "-");
                 }
                 file.append("\"," + t.getTID() + "," + t.getEmail() + "\n");

@@ -93,4 +93,115 @@ public class Cineplex {
         this.showTime = showTime;
     }
 
+    public static class Cinema {
+        private String cinemaCode;
+        private String cinemaType;
+
+
+        public Cinema() {
+
+        }
+
+
+        public Cinema(String cinemaType, String cinemaCode) {
+            this.cinemaType = cinemaType;
+            this.cinemaCode = cinemaCode;
+        }
+
+
+        public String getCinemaCode() {
+            return cinemaCode;
+        }
+
+
+        public void setCinemaCode(String cinemaCode) {
+            this.cinemaCode = cinemaCode;
+        }
+
+
+        public String getCinemaType() {
+            return cinemaType;
+        }
+
+
+        public void setCinemaType(String cinemaType) {
+            this.cinemaType = cinemaType;
+        }
+
+
+    }
+
+    public static class Seat {
+        private String row;
+        private int column;
+        private String seatType;
+        private boolean status;
+        private Transaction.Tickets ticket;
+
+
+        public Seat() {
+        }
+
+
+        public Seat(String row, int column, String seatType, boolean status,
+                    Transaction.Tickets ticket) {
+            this.row = row;
+            this.column = column;
+            this.seatType = seatType;
+            this.status = status;
+            this.ticket = ticket;
+        }
+
+
+        public String getRow() {
+            return row;
+        }
+
+
+        public void setRow(String row) {
+            this.row = row;
+        }
+
+
+        public int getColumn() {
+            return column;
+        }
+
+
+        public void setColumn(int column) {
+            this.column = column;
+        }
+
+
+        public String getSeatType() {
+            return seatType;
+        }
+
+
+        public void setSeatType(String seatType) {
+            this.seatType = seatType;
+        }
+
+
+        public boolean getStatus() {
+            return status;
+        }
+
+
+        public void setStatus(boolean status) {
+            this.status = status;
+        }
+
+
+        public Transaction.Tickets getTicket() {
+            return ticket;
+        }
+
+
+        public void setTicket(Transaction.Tickets ticket) {
+            this.ticket = ticket;
+        }
+
+
+    }
 }

@@ -1,6 +1,5 @@
 package handler;
 
-import entity.Cinema;
 import entity.Cineplex;
 import entity.Movie;
 import entity.ShowTime;
@@ -128,7 +127,7 @@ public class CineplexHandler extends DataHandler {
         }
         for (int i = 0; i < cineplexID.size(); i++) {
             Cineplex cineplex;
-            List<Cinema> cinemaList = new ArrayList<>();
+            List<Cineplex.Cinema> cinemaList = new ArrayList<>();
             List<Movie> movieList = new ArrayList<>();
             List<ShowTime> showTimesList = new ArrayList<>();
             for (int j = 0; j < cinemas.get(i).size() - 1; j++) {
@@ -138,7 +137,7 @@ public class CineplexHandler extends DataHandler {
                 String[] b = a.split("-");
                 String cinemaType = b[0];
                 String cinemaCode = b[1];
-                Cinema c = new Cinema(cinemaType, cinemaCode);
+                Cineplex.Cinema c = new Cineplex.Cinema(cinemaType, cinemaCode);
                 cinemaList.add(c);
             }
             for (int k = 0; k < movies.get(i).size() - 1; k++) {
@@ -177,8 +176,8 @@ public class CineplexHandler extends DataHandler {
                     file.append(String.valueOf(movie.getMovieID()) + "~");
                 }
                 file.append("\"," + c.getCineplexName() + ",\"");
-                List<Cinema> cinemaList = c.getCinemas();
-                for (Cinema cinema : cinemaList) {
+                List<Cineplex.Cinema> cinemaList = c.getCinemas();
+                for (Cineplex.Cinema cinema : cinemaList) {
                     file.append(cinema.getCinemaType() + "-" + cinema.getCinemaCode() + "~");
                 }
                 file.append("\"\n");

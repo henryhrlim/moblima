@@ -1,6 +1,6 @@
 package controller;
 
-import entity.Holiday;
+import entity.PriceChart;
 import handler.HolidayHandler;
 
 import java.util.ArrayList;
@@ -9,28 +9,28 @@ import java.util.List;
 
 class HolidayController {
 
-    public void createHoliday(Holiday h) {
+    public void createHoliday(PriceChart.Holiday h) {
         HolidayHandler handler = new HolidayHandler();
         handler.create(h);
     }
 
-    public List<Holiday> retrieveHolidayList() {
+    public List<PriceChart.Holiday> retrieveHolidayList() {
         HolidayHandler handler = new HolidayHandler();
         handler.retrieve();
-        List<Holiday> hList = handler.getHolidayList();
+        List<PriceChart.Holiday> hList = handler.getHolidayList();
         if (hList == null)
-            hList = new ArrayList<Holiday>();
+            hList = new ArrayList<PriceChart.Holiday>();
         return hList;
     }
 
 
-    public void updateHoliday(Holiday h) {
+    public void updateHoliday(PriceChart.Holiday h) {
         HolidayHandler handler = new HolidayHandler();
         handler.update(h);
     }
 
 
-    public void deleteHoliday(Holiday h) {
+    public void deleteHoliday(PriceChart.Holiday h) {
         HolidayHandler handler = new HolidayHandler();
         handler.delete(h);
     }
@@ -39,8 +39,8 @@ class HolidayController {
     public boolean isHoliday(String date) {
         HolidayHandler handler = new HolidayHandler();
         handler.retrieve();
-        List<Holiday> holidayList = handler.getHolidayList();
-        for (Holiday h : holidayList) {
+        List<PriceChart.Holiday> holidayList = handler.getHolidayList();
+        for (PriceChart.Holiday h : holidayList) {
             if (h.getDate().equals(date)) {
                 return true;
             }
