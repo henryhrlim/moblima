@@ -495,13 +495,17 @@ public class StaffController {
         System.out.println();
         ShowTimeController stc = new ShowTimeController();
         List<ShowTime> stList = stc.retrieveShowTimeList();
-        ShowTime st = null;
-        for (ShowTime s : stList) {
-        		if (s.getShowTimeID() == choice)
-        			st = s;
+        if (stList != null) {
+	        ShowTime st = null;
+	        for (ShowTime s : stList) {
+	        		if (s.getShowTimeID() == choice)
+	        			st = s;
+	        }
+	        stc.removeShowtime(st);
+	        System.out.println("Show time removed successfully.\n");
         }
-        stc.removeShowtime(st);
-        System.out.println("Show time removed successfully!\n");
+        else
+        		System.out.println("No show time for this movie.\n");
     }
 
     private static Date validateDate() {
