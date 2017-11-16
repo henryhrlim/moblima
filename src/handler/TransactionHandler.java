@@ -34,7 +34,7 @@ public class TransactionHandler extends DataHandler {
             this.transactionList = new ArrayList<Transaction>();
         if (t != null)
             this.transactionList.add(t);
-        System.out.println("Successfully added to transaction");
+        System.out.println("New transaction added.");
         saveData("Transaction");
     }
 

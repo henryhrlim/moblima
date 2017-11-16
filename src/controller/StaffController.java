@@ -679,13 +679,13 @@ public class StaffController {
     }
 
     public boolean authenticate() {
-
-        System.out.println("Username: ");
+    		System.out.println("===== Staff Login =====");
+        System.out.print("Username: ");
         String username = sc.nextLine();
-        System.out.println("Password: ");
+        System.out.print("Password: ");
         String password = sc.nextLine();
         if (username.equals("admin") && password.equals("admin")) {
-            System.out.println("Logged in.");
+            System.out.println("Logged in.\n");
             return true;
         } else
             return false;
