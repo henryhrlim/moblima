@@ -53,12 +53,12 @@ public class StaffController {
         cineplex = sc.nextInt();
 
 
-        List<Cinema> cine = cineplexList.get(cineplex - 1).getCinemas();
+        List<Cineplex.Cinema> cine = cineplexList.get(cineplex - 1).getCinemas();
 
         System.out.println("==== Cinema List ====");
         System.out.println("ID  Code    Type");
         int m = 0;
-        for (Cinema c : cine) {
+        for (Cineplex.Cinema c : cine) {
             System.out.println((m + 1) + "\t" + c.getCinemaCode() + "    " + c.getCinemaType());
             m++;
         }
@@ -260,7 +260,7 @@ public class StaffController {
         MovieController movieController = new MovieController();
 
         Cineplex cineplex = retrieveCineplex();
-        Cinema cinema = retrieveCinemaCode(cineplex);
+        Cineplex.Cinema cinema = retrieveCinemaCode(cineplex);
 
 
         List<Movie> movieList = movieController.retrieveMovieList(cineplex.getMovie());
@@ -298,7 +298,7 @@ public class StaffController {
         MovieController movieController = new MovieController();
 
         Cineplex cineplex = retrieveCineplex();
-        Cinema cinema = retrieveCinemaCode(cineplex);
+        Cineplex.Cinema cinema = retrieveCinemaCode(cineplex);
         List<Movie> movieList = movieController.retrieveMovieList(cineplex.getMovie());
 
         ShowTimeController stc = new ShowTimeController();
@@ -339,7 +339,7 @@ public class StaffController {
         ShowTimeController showTimeController = new ShowTimeController();
 
         Cineplex cineplex = retrieveCineplex();
-        Cinema cinema = retrieveCinemaCode(cineplex);
+        Cineplex.Cinema cinema = retrieveCinemaCode(cineplex);
 
 
         List<Movie> movieList = movieController.retrieveMovieList(cineplex.getMovie());
@@ -583,19 +583,19 @@ public class StaffController {
     }
 
 
-    private static Cinema retrieveCinemaCode(Cineplex cineplex) {
+    private static Cineplex.Cinema retrieveCinemaCode(Cineplex cineplex) {
 
         int index;
 
         Scanner sc = new Scanner(System.in);
 
 
-        List<Cinema> cinema = cineplex.getCinemas();
+        List<Cineplex.Cinema> cinema = cineplex.getCinemas();
 
         System.out.println("==== Cinema List ====");
         System.out.println("ID  Code    Type");
         int i = 0;
-        for (Cinema c : cinema) {
+        for (Cineplex.Cinema c : cinema) {
             System.out.println((i + 1) + "\t" + c.getCinemaCode() + "     " + c.getCinemaType());
             i++;
         }
@@ -837,7 +837,7 @@ public class StaffController {
             cine = new Cineplex(cineplexList.size() + 1, location, name, null);
             cine.setMovie(movie);
             cine.setShowTime(showTime);
-            cine.setCinemas(new ArrayList<Cinema>());
+            cine.setCinemas(new ArrayList<Cineplex.Cinema>());
             cineplexController.addCineplexToList(cine);
             addCinemaToCineplex(cine);
 
@@ -1006,10 +1006,10 @@ public class StaffController {
 
         Cineplex cineUserChoice = cineControl.listCineplex();
 
-        List<Cinema> cinemaList = cineUserChoice.getCinemas();
+        List<Cineplex.Cinema> cinemaList = cineUserChoice.getCinemas();
         System.out.println("==== List of Cinemas ====");
         System.out.println("Code      Type");
-        for (Cinema c : cinemaList) {
+        for (Cineplex.Cinema c : cinemaList) {
             System.out.println(c.getCinemaCode() + "\t\t" + c.getCinemaType());
         }
 
@@ -1023,19 +1023,19 @@ public class StaffController {
         CineplexController cineplexControl = new CineplexController();
         Cineplex cineplexUserChoice = cineplexControl.listCineplex();
 
-        List<Cinema> cinemaList = cineplexUserChoice.getCinemas();
+        List<Cineplex.Cinema> cinemaList = cineplexUserChoice.getCinemas();
 
         System.out.println("==== List of Cinemas ====");
         System.out.println("ID  Code    Type");
         int i = 0;
-        for (Cinema c : cinemaList) {
+        for (Cineplex.Cinema c : cinemaList) {
             System.out.println((i + 1) + "\t" + c.getCinemaCode() + "\t\t" + c.getCinemaType());
             i++;
         }
 
         System.out.print("Enter ID to update: ");
         choice = sc.nextInt();
-        Cinema c = cinemaList.get(choice - 1);
+        Cineplex.Cinema c = cinemaList.get(choice - 1);
 
         int a = 0;
 
@@ -1070,7 +1070,7 @@ public class StaffController {
 
         int cineplexID = cineplexUserChoice.getCineplexID();
 
-        List<Cinema> cinemaList = cineplexUserChoice.getCinemas();
+        List<Cineplex.Cinema> cinemaList = cineplexUserChoice.getCinemas();
 
         System.out.println("Enter the number of Cinema: ");
         numberToAdd = sc.nextInt();
@@ -1106,7 +1106,7 @@ public class StaffController {
             } else {
                 cinemaCode = code.charAt(cineplexID - 1) + "01";
             }
-            cinemaList.add(new Cinema(cinemaType, cinemaCode));
+            cinemaList.add(new Cineplex.Cinema(cinemaType, cinemaCode));
         }
 
         cineplexUserChoice.setCinemas(cinemaList);
@@ -1122,18 +1122,18 @@ public class StaffController {
         CineplexController cineplexControl = new CineplexController();
         Cineplex cineplexUserChoice = cineplexControl.listCineplex();
 
-        List<Cinema> cinemaList = cineplexUserChoice.getCinemas();
+        List<Cineplex.Cinema> cinemaList = cineplexUserChoice.getCinemas();
         System.out.println("==== List of Cinemas ====");
         System.out.println("ID  Code    Type");
         int i = 0;
-        for (Cinema c : cinemaList) {
+        for (Cineplex.Cinema c : cinemaList) {
             System.out.println((i + 1) + "\t" + c.getCinemaCode() + "\t\t" + c.getCinemaType());
             i++;
         }
         System.out.println("Enter ID to remove: ");
         choice = sc.nextInt();
 
-        Cinema c = cinemaList.get(choice - 1);
+        Cineplex.Cinema c = cinemaList.get(choice - 1);
         cinemaList.remove(choice - 1);
 
         cineplexUserChoice.setCinemas(cinemaList);
@@ -1186,13 +1186,13 @@ public class StaffController {
 
     private void listHoliday() {
         HolidayController hc = new HolidayController();
-        List<Holiday> holidayList = hc.retrieveHolidayList();
+        List<PriceChart.Holiday> holidayList = hc.retrieveHolidayList();
 
         if (!holidayList.isEmpty()) {
             int n = 0;
             System.out.println("==== Holiday List ====");
             System.out.println("ID    Holiday Name               Date");
-            for (Holiday h : holidayList) {
+            for (PriceChart.Holiday h : holidayList) {
                 System.out.format("%-5s %-25s %s\n", (n + 1), h.getHolidayName(), h.getDate());
                 n++;
             }
@@ -1217,7 +1217,7 @@ public class StaffController {
         dateF = validateDate();
         holidayDate = formattedDate.format(dateF);
 
-        Holiday hol = new Holiday(holidayDate, holidayName);
+        PriceChart.Holiday hol = new PriceChart.Holiday(holidayDate, holidayName);
         HolidayController hc = new HolidayController();
         hc.createHoliday(hol);
         System.out.println("Public Holiday added successfully!");
@@ -1236,7 +1236,7 @@ public class StaffController {
         holID = sc.nextInt();
 
         HolidayController hc = new HolidayController();
-        List<Holiday> holidayList = hc.retrieveHolidayList();
+        List<PriceChart.Holiday> holidayList = hc.retrieveHolidayList();
 
         System.out.println("==== Update Public Holiday ====");
         System.out.println("Choose to update: ");
@@ -1248,7 +1248,7 @@ public class StaffController {
             case 1:
                 System.out.println("Enter New Holiday Name: ");
                 holidayName = sc.next();
-                Holiday holName = holidayList.get(holID - 1);
+                PriceChart.Holiday holName = holidayList.get(holID - 1);
                 holName.setHolidayName(holidayName);
                 hc.updateHoliday(holName);
                 System.out.println("Public Holiday Name has been updated successfully!");
@@ -1259,7 +1259,7 @@ public class StaffController {
                 dateFmt = validateDate();
                 holidayDate = formattedDate.format(dateFmt);
 
-                Holiday holDate = holidayList.get(holID - 1);
+                PriceChart.Holiday holDate = holidayList.get(holID - 1);
                 holDate.setDate(holidayDate);
                 hc.updateHoliday(holDate);
                 System.out.println("Public Holiday Date has been updated successfully!");
@@ -1275,8 +1275,8 @@ public class StaffController {
         System.out.println("Select an ID to delete");
         holID = sc.nextInt();
         HolidayController hc = new HolidayController();
-        List<Holiday> holidayList = hc.retrieveHolidayList();
-        Holiday h = holidayList.get(holID - 1);
+        List<PriceChart.Holiday> holidayList = hc.retrieveHolidayList();
+        PriceChart.Holiday h = holidayList.get(holID - 1);
         hc.deleteHoliday(h);
         System.out.println("Public Holiday has been deleted successfully!");
     }
@@ -1341,17 +1341,17 @@ public class StaffController {
             System.out.format("Cast           : %s\n", m.getCast());
             System.out.format("Showing Status : %s\n", m.getMovieStatus());
 
-            List<Review> reviewList = m.getReviews();
+            List<Movie.Review> reviewList = m.getReviews();
 
             if (reviewList.size() > 1) {
-                for (Review re : reviewList)
+                for (Movie.Review re : reviewList)
                     sum += re.getRating();
                 System.out.format("Overall Rating: %.1f / 5.0\n", sum / reviewList.size());
 
             } else
                 System.out.println("Overall Ratings: N/A");
             if (reviewList.size() > 0) {
-                for (Review r : reviewList) {
+                for (Movie.Review r : reviewList) {
                     System.out.println("User Rating    : " + r.getRating() + " / 5");
                     System.out.println("User Review    : " + wordWrap(r.getFeedback()));
                 }
