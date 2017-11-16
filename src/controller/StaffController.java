@@ -1494,11 +1494,9 @@ public class StaffController {
 	        switch (staffChoiceST) {
 	            case 1:
 	                listPriceChart();
-	                pricechartMain();
 	                break;
 	            case 2:
 	                updatePriceChart();
-	                pricechartMain();
 	                break;
 	            case 3:
 	                s_menu.show();
