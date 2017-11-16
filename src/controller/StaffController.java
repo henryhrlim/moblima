@@ -926,9 +926,8 @@ public class StaffController {
         System.out.println("|6. Quit                                              |");
         System.out.println("=======================================================");
         System.out.print("Please input your choice: ");
-
         staffChoiceCinema = sc.nextInt();
-
+        System.out.println();
         switch (staffChoiceCinema) {
             case 1:
                 displayCinemaList();
@@ -1130,7 +1129,7 @@ public class StaffController {
         System.out.println("=======================================================");
         System.out.print("Please input your choice: ");
         int staffChoiceHoliday = sc.nextInt();
-
+        System.out.println();
         switch (staffChoiceHoliday) {
             case 1:
                 listHoliday();
@@ -1281,6 +1280,7 @@ public class StaffController {
         System.out.println("========================================================");
         System.out.print("Please input your choice: ");
         staffChoiceMovie = sc.nextInt();
+        System.out.println();
         switch (staffChoiceMovie) {
             case 1:
                 displayMovieList();
@@ -1438,7 +1438,7 @@ public class StaffController {
         System.out.println("=======================================================");
         System.out.print("Please input your choice: ");
         int staffChoiceST = sc.nextInt();
-
+        System.out.println();
         switch (staffChoiceST) {
             case 1:
                 listbyCinema();
