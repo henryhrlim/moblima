@@ -40,7 +40,7 @@ public class StaffController {
 
         List<Cineplex> cineplexList = cineController.retrieveCineplexList();
 
-        System.out.println("==== Cineplex List ====");
+        System.out.println("===== Cineplex List =====");
         System.out.println("ID  Name      Location");
         int i = 0;
         for (Cineplex c : cineplexList) {
@@ -92,7 +92,7 @@ public class StaffController {
 
         StaffController staffControl = new StaffController();
 
-        Scanner scn = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("========== Movies ==========");
         System.out.println("ID  Title");
@@ -100,7 +100,7 @@ public class StaffController {
             System.out.println(m.getMovieID() + "\t" + m.getTitle());
         }
         System.out.println("Select movie you wish to update: ");
-        movieOption = scn.nextInt();
+        movieOption = sc.nextInt();
 
         for (Movie m : movieList) {
             if (movieOption == m.getMovieID()) {
@@ -118,39 +118,39 @@ public class StaffController {
                     System.out.println("9. Go Back");
                     System.out.println("10. Quit");
                     System.out.println("Enter the option that you wish to edit: ");
-                    updateOption = scn.nextInt();
+                    updateOption = sc.nextInt();
 
                     switch (updateOption) {
 
                         case 1:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new title: ");
-                            title = scn.nextLine();
+                            title = sc.nextLine();
                             m.setTitle(title);
 
                             break;
 
                         case 2:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new movie type (2D, 3D): ");
-                            movieType = scn.next();
+                            movieType = sc.next();
                             m.setMovieType(movieType);
 
                             break;
 
                         case 3:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new movie rating (PG, NC16, M18, R21): ");
-                            movieRating = scn.next();
+                            movieRating = sc.next();
                             m.setMovieRating(movieRating);
 
                             break;
 
 
                         case 4:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new showing status (1.Coming soon 2.Preview 3.Now showing 4.End of Showing): ");
-                            statusNum = scn.nextInt();
+                            statusNum = sc.nextInt();
 
                             if (statusNum == 1)
                                 showingStatus = "Coming soon";
@@ -166,33 +166,33 @@ public class StaffController {
                             break;
 
                         case 5:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new movie duration: ");
-                            duration = scn.next();
+                            duration = sc.next();
                             m.setDuration(duration);
 
                             break;
 
                         case 6:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new synopsis: ");
-                            synopsis = scn.nextLine();
+                            synopsis = sc.nextLine();
                             m.setSynopsis(synopsis);
 
                             break;
 
                         case 7:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new director: ");
-                            director = scn.nextLine();
+                            director = sc.nextLine();
                             m.setDirector(director);
 
                             break;
 
                         case 8:
-                            scn = new Scanner(System.in);
+                            sc = new Scanner(System.in);
                             System.out.println("Enter new cast: ");
-                            cast = scn.nextLine();
+                            cast = sc.nextLine();
                             m.setCast(cast);
 
                             break;
@@ -1407,44 +1407,44 @@ public class StaffController {
         int statusNum, movieID;
         String title, movieRating, duration, synopsis, director, cast, movieType, showingStatus;
 
-        Scanner scn = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter movie title: ");
-        title = scn.nextLine();
+        title = sc.nextLine();
 
-        scn = new Scanner(System.in);
+        sc = new Scanner(System.in);
 
         System.out.println("Enter movie type: ");
-        movieType = scn.next();
+        movieType = sc.next();
 
-        scn = new Scanner(System.in);
+        sc = new Scanner(System.in);
 
         System.out.println("Enter movie rating: ");
-        movieRating = scn.next();
+        movieRating = sc.next();
 
-        scn = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Enter showing status (1.Coming soon 2.Preview 3.Now showing): ");
-        statusNum = scn.nextInt();
+        statusNum = sc.nextInt();
 
         if (statusNum == 1) showingStatus = "Coming soon";
         else if (statusNum == 2) showingStatus = "Preview";
         else showingStatus = "Now Showing";
 
-        scn = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Enter movie duration: ");
-        duration = scn.nextLine();
+        duration = sc.nextLine();
 
-        scn = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Enter movie synopsis: ");
-        synopsis = scn.nextLine();
+        synopsis = sc.nextLine();
 
-        scn = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Enter movie director: ");
-        director = scn.nextLine();
+        director = sc.nextLine();
 
-        scn = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Enter movie cast: ");
-        cast = scn.nextLine();
+        cast = sc.nextLine();
 
         MovieController movieController = new MovieController();
         List<Movie> movieList = movieController.retrieveMovieList();
@@ -1465,7 +1465,7 @@ public class StaffController {
         MovieController movieController = new MovieController();
         List<Movie> movieList = movieController.retrieveMovieList();
 
-        Scanner scn = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("========== Movies ==========");
         for (Movie m : movieList) {
@@ -1473,7 +1473,7 @@ public class StaffController {
                 System.out.println(m.getMovieID() + ". " + m.getTitle());
         }
         System.out.println("Select Movie ID you wish to remove(changing showing status to 'End of Showing'): ");
-        movieOption = scn.nextInt();
+        movieOption = sc.nextInt();
 
         if (movieController.removeMovie(movieOption))
             System.out.println("Movie removed from movie list! ");
