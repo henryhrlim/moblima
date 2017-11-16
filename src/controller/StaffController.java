@@ -28,7 +28,6 @@ public class StaffController {
     }
 
     private static String retrieveList() {
-
         int cineplex;
         String cinemaCode;
 
@@ -40,44 +39,46 @@ public class StaffController {
 
         List<Cineplex> cineplexList = cineController.retrieveCineplexList();
 
-        System.out.println("===== Cineplex List =====");
-        System.out.println("ID  Name      Location");
+        System.out.println("===== Cineplexes =====");
+        System.out.println("ID    Name                 Location");
         int i = 0;
         for (Cineplex c : cineplexList) {
-            System.out.println((i + 1) + "\t" + c.getCineplexName() + "\t\t\t" + c.getLocation());
+        		System.out.format("%-5s %-20s %s\n", (i + 1), c.getCineplexName(), c.getLocation());
             i++;
         }
 
 
-        System.out.println("\nEnter Index: ");
+        System.out.print("Enter Index: ");
         cineplex = sc.nextInt();
+        System.out.println();
 
 
         List<Cineplex.Cinema> cine = cineplexList.get(cineplex - 1).getCinemas();
 
-        System.out.println("==== Cinema List ====");
-        System.out.println("ID  Code    Type");
+        System.out.println("===== Cinemas =====");
+        System.out.println("ID    Code    Type");
         int m = 0;
         for (Cineplex.Cinema c : cine) {
-            System.out.println((m + 1) + "\t" + c.getCinemaCode() + "    " + c.getCinemaType());
+        		System.out.format("%-5s %-7s %s\n", (m + 1), c.getCinemaCode(), c.getCinemaType());
             m++;
         }
 
-        System.out.println("\nEnter Index: ");
+        System.out.print("Enter Index: ");
         cinemaCode = sc.next();
+        System.out.println();
 
 
         Cineplex cineUserChoice = cineplexList.get(cineplex - 1);
         List<Movie> movieList = movieController.retrieveMovieList(cineUserChoice.getMovie());
 
-        System.out.println("==== Movie List ====");
-        System.out.println("ID  Title");
+        System.out.println("===== Movies =====");
+        System.out.println("ID    Title");
         int n = 0;
-        for (Movie mm : movieList) {
-            System.out.println((n + 1) + "\t" + mm.getTitle());
+        for (Movie mv : movieList) {
+        		System.out.format("%-5s %s\n", (n + 1), mv.getTitle());
             n++;
         }
-
+        System.out.println();
 
         return cinemaCode;
     }
@@ -94,66 +95,69 @@ public class StaffController {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("========== Movies ==========");
-        System.out.println("ID  Title");
+        System.out.println("===== Movies =====");
+        System.out.println("ID    Title");
         for (Movie m : movieList) {
-            System.out.println(m.getMovieID() + "\t" + m.getTitle());
+        		System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
-        System.out.println("Select movie you wish to update: ");
+        System.out.print("Select movie to update: ");
         movieOption = sc.nextInt();
+        System.out.println();
 
         for (Movie m : movieList) {
             if (movieOption == m.getMovieID()) {
 
                 do {
-                    System.out.println("========== Movie Info to Update==========");
-                    System.out.println("1. Title");
-                    System.out.println("2. Movie type");
-                    System.out.println("3. Movie rating");
-                    System.out.println("4. Showing status");
-                    System.out.println("5. Duration");
-                    System.out.println("6. Synopsis");
-                    System.out.println("7. Director");
-                    System.out.println("8. Cast");
-                    System.out.println("9. Go Back");
+                    System.out.println("===== Movie Info to Update =====");
+                    System.out.println("1.  Title");
+                    System.out.println("2.  Movie type");
+                    System.out.println("3.  Movie rating");
+                    System.out.println("4.  Showing status");
+                    System.out.println("5.  Duration");
+                    System.out.println("6.  Synopsis");
+                    System.out.println("7.  Director");
+                    System.out.println("8.  Cast");
+                    System.out.println("9.  Go Back");
                     System.out.println("10. Quit");
-                    System.out.println("Enter the option that you wish to edit: ");
+                    System.out.print("Enter the option that you wish to edit: ");
                     updateOption = sc.nextInt();
+                    System.out.println();
 
                     switch (updateOption) {
 
                         case 1:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new title: ");
+                            System.out.print("Enter new title: ");
                             title = sc.nextLine();
+                            System.out.println();
                             m.setTitle(title);
-
                             break;
 
                         case 2:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new movie type (2D, 3D): ");
+                            System.out.print("Enter new movie type (2D, 3D): ");
                             movieType = sc.next();
-                            m.setMovieType(movieType);
-
+                            System.out.println();
+                           m.setMovieType(movieType);
                             break;
 
                         case 3:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new movie rating (PG, NC16, M18, R21): ");
+                            System.out.print("Enter new movie rating (PG, NC16, M18, R21): ");
                             movieRating = sc.next();
+                            System.out.println();
                             m.setMovieRating(movieRating);
-
                             break;
 
 
                         case 4:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new showing status (1.Coming soon 2.Preview 3.Now showing 4.End of Showing): ");
+                            System.out.print("Enter new showing status (1.Coming Soon 2.Preview 3.Now Showing 4.End of Showing): ");
                             statusNum = sc.nextInt();
+                            System.out.println();
 
                             if (statusNum == 1)
-                                showingStatus = "Coming soon";
+                                showingStatus = "Coming Soon";
                             else if (statusNum == 2)
                                 showingStatus = "Preview";
                             else if (statusNum == 3)
@@ -162,39 +166,38 @@ public class StaffController {
                                 showingStatus = "End of Showing";
 
                             m.setMovieStatus(showingStatus);
-
                             break;
 
                         case 5:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new movie duration: ");
+                            System.out.print("Enter new movie duration: ");
                             duration = sc.next();
-                            m.setDuration(duration);
-
+                            System.out.println();
+                           m.setDuration(duration);
                             break;
 
                         case 6:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new synopsis: ");
+                            System.out.print("Enter new synopsis: ");
                             synopsis = sc.nextLine();
+                            System.out.println();
                             m.setSynopsis(synopsis);
-
                             break;
 
                         case 7:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new director: ");
+                            System.out.print("Enter new director: ");
                             director = sc.nextLine();
+                            System.out.println();
                             m.setDirector(director);
-
                             break;
 
                         case 8:
                             sc = new Scanner(System.in);
-                            System.out.println("Enter new cast: ");
+                            System.out.print("Enter new cast: ");
                             cast = sc.nextLine();
+                            System.out.println();
                             m.setCast(cast);
-
                             break;
 
                         case 9:
@@ -202,6 +205,7 @@ public class StaffController {
                             break;
 
                         case 10:
+                        		sc.close();
                             System.out.println("Programm terminating...");
                             System.exit(0);
                             break;
@@ -210,16 +214,13 @@ public class StaffController {
                     }
 
                     if (movieController.updateMovie(m))
-                        System.out.println("Movie updated successfully! ");
+                        System.out.println("Movie updated successfully!\n");
                     else
-                        System.out.println("Update failed! ");
+                        System.out.println("Update failed!\n");
 
                 } while (updateOption < 9);
-
-
             }
         }
-
     }
 
 
@@ -231,23 +232,21 @@ public class StaffController {
 
         cinemaCode = retrieveList();
 
-        System.out.println("\nEnter Movie Code: ");
+        System.out.print("Enter Movie Code: ");
         movie = sc.nextInt();
+        System.out.println();
 
         ShowTimeController stc = new ShowTimeController();
         List<ShowTime> showTimeList = stc.retrieveShowTimeList(cinemaCode, movie);
 
         int stID = 1;
-        String stHeader = String.format("%-15s %-15s %-15s %-12s %-15s %-10s", "Show Time Index", "Cinema Code", "Date", "Day", "Time", "MovieID");
-        System.out.println(stHeader);
-        System.out.println("---------------" + "    -----------" + "     ----------" + "      ---------" + "    ---------" + "       ---------");
-
+        System.out.println("===== Show Times =====");
+        System.out.format("%-15s %-15s %-15s %-12s %-15s %-10s\n", "Show Time Index", "Cinema Code", "Date", "Day", "Time", "MovieID");
         for (ShowTime st : showTimeList) {
-            System.out.println(String.format("%-15s %-15s %-15s %-12s %-15s %-10s", stID, st.getCinemaCode(), st.getDate(), st.getDay(),
-                    st.getTime(), st.getMovieID()));
+            System.out.format("%-15s %-15s %-15s %-12s %-15s %-10s\n", stID, st.getCinemaCode(), st.getDate(), st.getDay(), st.getTime(), st.getMovieID());
             stID++;
         }
-
+        System.out.println();
     }
 
 
@@ -264,32 +263,29 @@ public class StaffController {
 
 
         List<Movie> movieList = movieController.retrieveMovieList(cineplex.getMovie());
-
-        System.out.println("ID  Title");
+        System.out.println("===== Movies =====");
+        System.out.println("ID    Title");
         for (Movie m : movieList) {
-            System.out.println(m.getMovieID() + "\t" + m.getTitle());
+        		System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
-        System.out.println("\nEnter Movie Code: ");
+
+        System.out.print("Enter Movie Code: ");
         movie = sc.nextInt();
+        System.out.println();
 
         ShowTimeController stc = new ShowTimeController();
         List<ShowTime> showTimeList = stc.retrieveShowTimeList(cinema.getCinemaCode(), movie);
 
+        System.out.println("===== Show Times =====");
         if (!showTimeList.isEmpty()) {
-            String stHeader = String.format("%-15s %-15s %-15s %-12s %-15s", "Show Time Index", "Cinema Code", "Date", "Day", "Time", "Movie Status");
-            System.out.println(stHeader);
-            System.out.println(String.format("%-15s %-15s %-15s %-12s %-15s", "---------------", "-----------", "----------", "--------", "------", "---------"));
-
+            System.out.format("%-15s %-15s %-15s %-12s %-15s\n", "Show Time Index", "Cinema Code", "Date", "Day", "Time", "Movie Status");
             for (ShowTime st : showTimeList) {
-                System.out.println(String.format("%-15s %-15s %-15s %-12s %-15s", st.getShowTimeID(), st.getCinemaCode(), st.getDate(), st.getDay(),
-                        st.getTime()));
+                System.out.format("%-15s %-15s %-15s %-12s %-15s\n", st.getShowTimeID(), st.getCinemaCode(), st.getDate(), st.getDay(), st.getTime());
             }
-        } else {
-            System.out.println("No show time to display!");
-            staffControl.showtimeMain();
-        }
-
-
+        } 
+        else
+            System.out.println("No show time available.\n");
+        System.out.println();
     }
 
 
@@ -304,35 +300,28 @@ public class StaffController {
         ShowTimeController stc = new ShowTimeController();
         List<ShowTime> showTimeList = stc.retrieveShowTimeList(cinema.getCinemaCode());
 
-
+        System.out.println("===== Show Times =====");
         if (!showTimeList.isEmpty()) {
-            String stHeader = String.format("%-15s %-20s %-15s %-12s %-10s", "Show Time ID", "Movie Title", "Date", "Day", "Time");
-            System.out.println(stHeader);
-            System.out.println(String.format("%-15s %-20s %-15s %-12s %-10s", "---------------", "------------", "----------", "--------", "------"));
-
+            System.out.format("%-15s %-20s %-15s %-12s %-10s\n", "Show Time ID", "Movie Title", "Date", "Day", "Time");
             for (ShowTime st : showTimeList) {
                 for (Movie m : movieList) {
-                    if (st.getMovieID() == m.getMovieID()) {
-                        System.out.println(String.format("%-15s %-20s %-15s %-12s %-10s", st.getShowTimeID(), m.getTitle(), st.getDate(), st.getDay(),
-                                st.getTime()));
-                    }
+                    if (st.getMovieID() == m.getMovieID())
+                        System.out.format("%-15s %-20s %-15s %-12s %-10s\n", st.getShowTimeID(), m.getTitle(), st.getDate(), st.getDay(), st.getTime());
                 }
             }
-        } else {
-            System.out.println("No show time available for this cinema");
-        }
-
+        } 
+        else
+            System.out.println("No show time available for this cinema.\n");
+        System.out.println();
     }
 
 
     private static void addShowTime() {
-
         int movie, showTimeID;
         String day, dateStr, timeStr;
         Date dateFmt, timeFmt;
 
         Scanner sc = new Scanner(System.in);
-
 
         CineplexController cineplexController = new CineplexController();
         MovieController movieController = new MovieController();
@@ -357,13 +346,11 @@ public class StaffController {
                     System.out.println(m.getMovieID() + "\t" + m.getTitle());
                     i++;
                 }
-
             }
 
-
-            System.out.println("\nEnter Movie ID: ");
+            System.out.print("Enter Movie ID: ");
             movie = sc.nextInt();
-
+            System.out.println();
 
             SimpleDateFormat formattedDate = new SimpleDateFormat("dd/MM/yyyy");
             DateFormat formattedTime = new SimpleDateFormat("HH:mm");
@@ -397,10 +384,10 @@ public class StaffController {
             stList.add(st);
             cineplex.setShowTime(stList);
             cineplexController.updateCineplex(cineplex);
-            System.out.println("Show Time has been added successfully!");
-        } else {
-            System.out.println("Currently Cineplex does not have movie.");
-        }
+            System.out.println("Show Time has been added successfully!\n");
+        } 
+        else
+            System.out.println("Currently Cineplex does not have movie.\n");
     }
 
 
@@ -411,33 +398,35 @@ public class StaffController {
         StaffController staffControl = new StaffController();
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("\nSelect a Show Time ID to update:");
+        System.out.print("Select a Show Time ID to update:");
         stChoice = sc.nextInt();
+        System.out.println();
 
-        System.out.println("\n===== Update Show Time =====");
-        System.out.println("\nChoose to update:");
+        System.out.println("===== Update Show Time =====");
         System.out.println("1. Date");
         System.out.println("2. Time");
         System.out.println("3. Go Back to Show Time Menu");
         System.out.println("4. Quit");
-        System.out.println("\nEnter your choice: ");
+        System.out.print("Enter your choice: ");
         updateChoice = sc.nextInt();
+        System.out.println();
 
         switch (updateChoice) {
             case 1:
                 updateSTDate(stChoice);
-                System.out.println("Show Time Date has been updated successfully!");
+                System.out.println("Show Time Date has been updated successfully!\n");
                 staffControl.showtimeMain();
                 break;
             case 2:
                 updateSTTime(stChoice);
-                System.out.println("Show Time has been updated succesfully!");
+                System.out.println("Show Time has been updated succesfully!\n");
                 staffControl.showtimeMain();
                 break;
             case 3:
                 staffControl.showtimeMain();
                 break;
             case 4:
+            		sc.close();
                 System.out.println("Program Terminating...");
                 System.exit(0);
                 break;
@@ -501,8 +490,9 @@ public class StaffController {
         listbyMovie();
         int choice;
         Scanner sc = new Scanner(System.in);
-        System.out.print("\nSelect a Show Time ID to delete:");
+        System.out.print("Select a Show Time ID to delete: ");
         choice = sc.nextInt();
+        System.out.println();
         ShowTimeController stc = new ShowTimeController();
         List<ShowTime> stList = stc.retrieveShowTimeList();
         ShowTime st = null;
@@ -511,13 +501,11 @@ public class StaffController {
         			st = s;
         }
         stc.removeShowtime(st);
-        System.out.println("Show time removed successfully!");
-        
+        System.out.println("Show time removed successfully!\n");
     }
 
     private static Date validateDate() {
-
-        String date;
+    		String date;
         boolean dateIncorrect = true;
 
         Scanner sc = new Scanner(System.in);
@@ -532,17 +520,17 @@ public class StaffController {
 
         do {
             try {
-                System.out.println("\nPlease enter the date (DD/MM/YYYY): ");
+                System.out.println("Please enter the date (DD/MM/YYYY): ");
                 date = sc.next();
                 dateFormatted = formattedDate.parse(date);
                 currDateFormatted = formattedDate.parse(formattedDate.format(currDate));
-                if (dateFormatted.after(currDateFormatted)) {
+                if (dateFormatted.after(currDateFormatted))
                     dateIncorrect = false;
-                } else if (dateFormatted.before(currDateFormatted)) {
-                    System.out.println("Invalid Date!");
-                }
-            } catch (ParseException e) {
-                System.out.println("Invalid!");
+                else if (dateFormatted.before(currDateFormatted))
+                    System.out.println("Invalid Date.\n");
+            } 
+            catch (ParseException e) {
+                System.out.println("Invalid.\n");
             }
         } while (dateIncorrect);
         return dateFormatted;
@@ -559,15 +547,16 @@ public class StaffController {
         DateFormat formattedTime = new SimpleDateFormat("HH:mm");
         formattedTime.setLenient(false);
         do {
-            System.out.print("\nEnter Time of the Show Time (HH:mm): ");
+            System.out.print("Enter Time of the Show Time (HH:mm): ");
             time = sc.next();
+            System.out.println();
             try {
                 timeF = formattedTime.parse(time);
                 timeIncorrect = false;
-            } catch (ParseException e) {
-                System.out.println("Invalid Time!");
+            } 
+            catch (ParseException e) {
+                System.out.println("Invalid Time.\n");
             }
-
         } while (timeIncorrect);
 
         return timeF;
@@ -584,41 +573,37 @@ public class StaffController {
 
         List<Cineplex> cineplexList = cineplexController.retrieveCineplexList();
 
-        System.out.println("==== Cineplex List ====");
-        System.out.println("ID  Name    Location");
+        System.out.println("===== Cineplexes =====");
+        System.out.println("ID    Name                 Location");
         int i = 0;
         for (Cineplex c : cineplexList) {
-            System.out.println((i + 1) + "\t" + c.getCineplexName() + "\t" + c.getLocation());
+        		System.out.format("%-5s %-20s %s\n", (i + 1), c.getCineplexName(), c.getLocation());
             i++;
         }
 
-        System.out.println("\nEnter ID: ");
+        System.out.print("Enter ID: ");
         index = sc.nextInt();
-
-
+        System.out.println();
+        
         return cineplexList.get(index - 1);
     }
 
 
     private static Cineplex.Cinema retrieveCinemaCode(Cineplex cineplex) {
-
         int index;
-
         Scanner sc = new Scanner(System.in);
-
-
         List<Cineplex.Cinema> cinema = cineplex.getCinemas();
-
-        System.out.println("==== Cinema List ====");
-        System.out.println("ID  Code    Type");
-        int i = 0;
+        System.out.println("===== Cinemas =====");
+        System.out.println("ID    Code    Type");
+        int m = 0;
         for (Cineplex.Cinema c : cinema) {
-            System.out.println((i + 1) + "\t" + c.getCinemaCode() + "     " + c.getCinemaType());
-            i++;
+        		System.out.format("%-5s %-7s %s\n", (m + 1), c.getCinemaCode(), c.getCinemaType());
+            m++;
         }
 
-        System.out.println("\nEnter index: ");
+        System.out.print("Enter index: ");
         index = sc.nextInt();
+        System.out.println();
 
         return cinema.get(index - 1);
     }
@@ -627,12 +612,14 @@ public class StaffController {
         int ageChoice;
         String ageGrp = null;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Select an age group: ");
+        System.out.println("===== Categories =====");
         System.out.println("1. Student");
         System.out.println("2. Adult");
         System.out.println("3. Platinum");
+        System.out.print("Select a category: ");
         ageChoice = sc.nextInt();
-
+        System.out.println();
+        
         if (ageChoice == 1)
         		ageGrp = "Student";
         else if (ageChoice == 2)
@@ -656,17 +643,19 @@ public class StaffController {
         ageGrp = ageGrpMenu();
         pList = filter(ageGrp);
 
-        System.out.println("Select an ID to update: ");
+        System.out.print("Select an ID to update: ");
         priceID = sc.nextInt();
-
-        System.out.println("Enter the new ticket price: ");
+        System.out.println();
+        
+        System.out.print("Enter the new ticket price: ");
         newPrice = sc.nextDouble();
-
+        System.out.println();
+        
         PriceChart pc = pList.get(priceID - 1);
         pc.setPrice(newPrice);
         pcController.updatePriceChart(pc);
 
-        System.out.println("Price List has been updated successfully!");
+        System.out.println("Price list has been updated successfully. \n");
 
         filter(ageGrp);
     }
@@ -688,10 +677,12 @@ public class StaffController {
         } 
         else {
             cineType = "Normal";
-            System.out.println("Select a movie type: ");
+            System.out.println("===== Movie Type =====");
             System.out.println("1. 2D");
             System.out.println("2. 3D");
+            System.out.print("Select a movie type: ");
             choice = sc.nextInt();
+            System.out.println();
             if (choice == 1)
             		movType = "2D";
             else if (choice == 2)
@@ -702,16 +693,14 @@ public class StaffController {
         List<PriceChart> priceChartList = pcController.retrievePriceChartList(ageGrp, cineType, movType);
 
         i = 1;
-        String header = String.format("%-5s %-12s %-10s %-10s %15s", "ID", "Day", "Price", "Cinema Type", "Movie Type");
-        System.out.println(header);
+        System.out.println("===== Price Chart =====");
+        System.out.format("%-5s %-12s %-10s %-10s %15s\n", "ID", "Day", "Price", "Cinema Type", "Movie Type");
         for (PriceChart p : priceChartList) {
-            String toPrint = String.format("%-5s %-12s %-10s %-10s %10s", i, p.getDay(), p.getPrice(), p.getCinemaType(), p.getMovieType());
-            System.out.println(toPrint);
+            System.out.format("%-5s %-12s %-10s %-10s %10s\n", i, p.getDay(), p.getPrice(), p.getCinemaType(), p.getMovieType());
             i++;
         }
-
+        System.out.println();
         return priceChartList;
-
     }
 
     public boolean authenticate() {
@@ -790,9 +779,8 @@ public class StaffController {
         		System.out.format("%-5s %-20 %s\n", (i + 1), c.getCineplexName(), c.getLocation());
             i++;
         }
-        if (cineplexList.size() == 0) {
+        if (cineplexList.size() == 0)
             System.out.println("There are no cineplexes currently.");
-        }
         System.out.print("\n");
 
     }
@@ -854,7 +842,7 @@ public class StaffController {
         movieList = cineplexUserChoice.getMovie();
 
         int count = 0;
-        System.out.println("==== List of Movies to be added ====");
+        System.out.println("==== Movies to be added ====");
         System.out.println("ID      Movie Title                 ");
         for (Movie mov : movieListView) {
             if (mov.getMovieStatus().compareTo("Now Showing") == 0) {
@@ -872,12 +860,13 @@ public class StaffController {
                 movieChoice = sc.nextInt();
                 for (Movie mm : movieList) {
                     if (movieChoice == mm.getMovieID()) {
-                        System.out.println("Movie ID" + movieChoice + " is already added to the cineplex");
+                        System.out.println("Movie ID" + movieChoice + " is already added to the cineplex.");
                         movieInside = true;
                         break;
                     }
                 }
             } while (movieInside);
+            System.out.println();
 
             Movie m = movieListView.get(movieChoice - 1);
 
@@ -893,10 +882,10 @@ public class StaffController {
             cineplexUserChoice.setMovie(movieList);
             cineplexControl.updateCineplex(cineplexUserChoice);
 
-            System.out.println("Movie '" + m.getTitle() + "' added successfully to Cineplex '" + cineplexUserChoice.getCineplexName() + "'");
+            System.out.println("Movie '" + m.getTitle() + "' added successfully to Cineplex " + cineplexUserChoice.getCineplexName() + ".\n");
 
         } else {
-            System.out.println("No more movies to add!");
+            System.out.println("No more movies to add!\n");
         }
 
 
@@ -925,7 +914,7 @@ public class StaffController {
         cineplexUserChoice.setMovie(movieList);
         cineplexControl.updateCineplex(cineplexUserChoice);
 
-        System.out.println("Movie '" + m.getTitle() + "' successfully removed from " + cineplexUserChoice.getCineplexName());
+        System.out.println("Movie '" + m.getTitle() + "' successfully removed from " + cineplexUserChoice.getCineplexName() + ".\n");
     }
 
     private void listMovieSpecificToCineplex(Cineplex cineUserChoice) {
@@ -934,12 +923,13 @@ public class StaffController {
 
         movieList = cineUserChoice.getMovie();
 
-        System.out.println("==== List of Movies Available: ====");
-        System.out.println("ID      Movie Title                ");
+        System.out.println("===== Movies Available =====");
+        System.out.println("ID    Movie Title");
         for (int i = 0; i < movieList.size(); i++) {
             Movie m = movieList.get(i);
-            System.out.println((i + 1) + "\t\t" + m.getTitle());
+            System.out.format("%-5s %s\n", (i + 1), m.getTitle());
         }
+        System.out.println();
     }
 
     public void staffMenuCinema() {
@@ -992,10 +982,10 @@ public class StaffController {
         Cineplex cineUserChoice = cineControl.listCineplex();
 
         List<Cineplex.Cinema> cinemaList = cineUserChoice.getCinemas();
-        System.out.println("==== List of Cinemas ====");
-        System.out.println("Code      Type");
+        System.out.println("===== Cinemas =====");
+        System.out.println("Code  Type");
         for (Cineplex.Cinema c : cinemaList) {
-            System.out.println(c.getCinemaCode() + "\t\t" + c.getCinemaType());
+            System.out.format("%-5s %s", c.getCinemaCode(), c.getCinemaType());
         }
 
     }
@@ -1010,21 +1000,26 @@ public class StaffController {
 
         List<Cineplex.Cinema> cinemaList = cineplexUserChoice.getCinemas();
 
-        System.out.println("==== List of Cinemas ====");
-        System.out.println("ID  Code    Type");
+        System.out.println("===== Cinemas =====");
+        System.out.println("ID    Code                 Type");
         int i = 0;
         for (Cineplex.Cinema c : cinemaList) {
-            System.out.println((i + 1) + "\t" + c.getCinemaCode() + "\t\t" + c.getCinemaType());
+            System.out.format("%-5s %-20s %s\n", (i + 1), c.getCinemaCode(), c.getCinemaType());
             i++;
         }
 
         System.out.print("Enter ID to update: ");
         choice = sc.nextInt();
+        System.out.println();
         Cineplex.Cinema c = cinemaList.get(choice - 1);
 
         do {
-            System.out.println("Cinema " + (i + 1) + " type (1 - platinum, 2 - normal): ");
+        		System.out.println("===== Cinema Type =====");
+            System.out.println("1. Platinum");
+            System.out.println("2. Normal");
+            System.out.print("Select a cinema type: ");
             choice = sc.nextInt();
+            System.out.println();
             if (choice == 1)
             		cinemaType = "platinum";
             else if (choice == 2)
@@ -1035,7 +1030,7 @@ public class StaffController {
         c.setCinemaType(cinemaType);
         cineplexUserChoice.setCinemas(cinemaList);
         cineplexControl.updateCineplex(cineplexUserChoice);
-        System.out.println(c.getCinemaCode() + " cinema has been successfully updated in the Cineplex");
+        System.out.println(c.getCinemaCode() + " cinema has been successfully updated in the Cineplex.\n");
     }
 
     private void addCinemaToCineplex(Cineplex cineplexUserChoice) {
@@ -1049,8 +1044,9 @@ public class StaffController {
 
         List<Cineplex.Cinema> cinemaList = cineplexUserChoice.getCinemas();
 
-        System.out.println("Enter the number of Cinema: ");
+        System.out.print("Enter the number of Cinema: ");
         numberToAdd = sc.nextInt();
+        System.out.println();
 
         for (int i = 0; i < numberToAdd; i++) {
             sc = new Scanner(System.in);
@@ -1059,8 +1055,12 @@ public class StaffController {
             int choice = 0;
 
             do {
-                System.out.println("Cinema " + (i + 1) + " type (1 - platinum, 2 - normal): ");
+           		System.out.println("===== Cinema Type =====");
+                System.out.println("1. Platinum");
+                System.out.println("2. Normal");
+                System.out.print("Select a cinema type: ");
                 choice = sc.nextInt();
+                System.out.println();
                 if (choice == 1)
                 		cinemaType = "platinum";
                 else if (choice == 2)
@@ -1082,7 +1082,7 @@ public class StaffController {
         cineplexUserChoice.setCinemas(cinemaList);
         cineplexControl.updateCineplex(cineplexUserChoice);
 
-        System.out.println(numberToAdd + " cinema(s) has been successfully added to the Cineplex");
+        System.out.println(numberToAdd + " cinema(s) has been successfully added to the Cineplex.\n");
     }
 
     private void removeCinemaFromCineplex() {
@@ -1093,15 +1093,16 @@ public class StaffController {
         Cineplex cineplexUserChoice = cineplexControl.listCineplex();
 
         List<Cineplex.Cinema> cinemaList = cineplexUserChoice.getCinemas();
-        System.out.println("==== List of Cinemas ====");
-        System.out.println("ID  Code    Type");
+        System.out.println("===== Cinemas =====");
+        System.out.println("ID    Code                 Type");
         int i = 0;
         for (Cineplex.Cinema c : cinemaList) {
-            System.out.println((i + 1) + "\t" + c.getCinemaCode() + "\t\t" + c.getCinemaType());
+            System.out.format("%-5s %-20s %s\n", (i + 1), c.getCinemaCode(), c.getCinemaType());
             i++;
         }
-        System.out.println("Enter ID to remove: ");
+        System.out.print("Enter ID to remove: ");
         choice = sc.nextInt();
+        System.out.println();
 
         Cineplex.Cinema c = cinemaList.get(choice - 1);
         cinemaList.remove(choice - 1);
@@ -1109,7 +1110,7 @@ public class StaffController {
         cineplexUserChoice.setCinemas(cinemaList);
         cineplexControl.updateCineplex(cineplexUserChoice);
 
-        System.out.println(c.getCinemaCode() + " cinema has been successfully removed from Cineplex");
+        System.out.println(c.getCinemaCode() + " cinema has been successfully removed from Cineplex.\n");
     }
 
     public void holidayMain() {
@@ -1166,10 +1167,11 @@ public class StaffController {
                 System.out.format("%-5s %-25s %s\n", (n + 1), h.getHolidayName(), h.getDate());
                 n++;
             }
-        } else {
-            System.out.println("No Public Holidays set.");
         }
+        else
+            System.out.println("No Public Holidays set.");
 
+        System.out.println();
 
     }
 
@@ -1179,8 +1181,9 @@ public class StaffController {
         Date dateF = null;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Name of Holiday: ");
+        System.out.print("Name of holiday: ");
         holidayName = sc.nextLine();
+        System.out.println();
 
         SimpleDateFormat formattedDate = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -1190,7 +1193,7 @@ public class StaffController {
         PriceChart.Holiday hol = new PriceChart.Holiday(holidayDate, holidayName);
         HolidayController hc = new HolidayController();
         hc.createHoliday(hol);
-        System.out.println("Public Holiday added successfully!");
+        System.out.println("Public Holiday added successfully!\n");
     }
 
     private void updateHoliday() {
@@ -1202,17 +1205,19 @@ public class StaffController {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Select an ID to update:");
+        System.out.print("Select an ID to update: ");
         holID = sc.nextInt();
+        System.out.println();
 
         HolidayController hc = new HolidayController();
         List<PriceChart.Holiday> holidayList = hc.retrieveHolidayList();
 
         System.out.println("===== Update Holiday =====");
-        System.out.println("Choose to update: ");
         System.out.println("1. Name");
         System.out.println("2. Date");
+        System.out.print("Select attribute to update: ");
         choice = sc.nextInt();
+        System.out.println();
         if (choice == 1) {
 			System.out.print("Enter new holiday name: ");
 			holidayName = sc.next();
@@ -1239,13 +1244,14 @@ public class StaffController {
         listHoliday();
         int holID;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Select an ID to delete");
+        System.out.print("Select an ID to delete: ");
         holID = sc.nextInt();
+        System.out.println();
         HolidayController hc = new HolidayController();
         List<PriceChart.Holiday> holidayList = hc.retrieveHolidayList();
         PriceChart.Holiday h = holidayList.get(holID - 1);
         hc.deleteHoliday(h);
-        System.out.println("Public Holiday has been deleted successfully!");
+        System.out.println("Holiday has been deleted successfully.\n");
     }
 
     public void staffMenuMovie() {
@@ -1283,6 +1289,7 @@ public class StaffController {
 	                s_menu.show();
 	                break;
 	            case 6:
+	            		sc.close();
 	                System.out.println("Program Terminating...");
 	                System.exit(0);
 	                break;
@@ -1313,7 +1320,7 @@ public class StaffController {
             if (reviewList.size() > 1) {
                 for (Movie.Review re : reviewList)
                     sum += re.getRating();
-                System.out.format("Overall Rating: %.1f / 5.0\n", sum / reviewList.size());
+                System.out.format("Overall Ratings: %.1f / 5.0\n", sum / reviewList.size());
 
             } else
                 System.out.println("Overall Ratings: N/A");
@@ -1333,42 +1340,49 @@ public class StaffController {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter movie title: ");
+        System.out.print("Enter movie title: ");
         title = sc.nextLine();
-
+        System.out.println();
         sc = new Scanner(System.in);
 
-        System.out.println("Enter movie type: ");
+        System.out.print("Enter movie type: ");
         movieType = sc.next();
+        System.out.println();
 
         sc = new Scanner(System.in);
 
-        System.out.println("Enter movie rating: ");
+        System.out.print("Enter movie rating: ");
         movieRating = sc.next();
+        System.out.println();
 
         sc = new Scanner(System.in);
-        System.out.println("Enter showing status (1.Coming soon 2.Preview 3.Now showing): ");
+        System.out.print("Enter showing status (1.Coming soon 2.Preview 3.Now showing): ");
         statusNum = sc.nextInt();
+        System.out.println();
 
         if (statusNum == 1) showingStatus = "Coming soon";
         else if (statusNum == 2) showingStatus = "Preview";
         else showingStatus = "Now Showing";
 
         sc = new Scanner(System.in);
-        System.out.println("Enter movie duration: ");
+        System.out.print("Enter movie duration: ");
         duration = sc.nextLine();
+        System.out.println();
 
         sc = new Scanner(System.in);
-        System.out.println("Enter movie synopsis: ");
+        System.out.print("Enter movie synopsis: ");
         synopsis = sc.nextLine();
+        System.out.println();
 
         sc = new Scanner(System.in);
-        System.out.println("Enter movie director: ");
+        System.out.print("Enter movie director: ");
         director = sc.nextLine();
+        System.out.println();
 
         sc = new Scanner(System.in);
-        System.out.println("Enter movie cast: ");
+        System.out.print("Enter movie cast: ");
         cast = sc.nextLine();
+        System.out.println();
 
         MovieController movieController = new MovieController();
         List<Movie> movieList = movieController.retrieveMovieList();
@@ -1380,7 +1394,7 @@ public class StaffController {
         Movie m = new Movie(movieID, 0.0, movieRating, duration, title, synopsis, director, cast, movieType, showingStatus);
 
         movieController.createMovie(m);
-        System.out.println("\nMovie successfully added into list! \n");
+        System.out.println("Movie successfully added into list. \n");
 
     }
 
@@ -1391,18 +1405,20 @@ public class StaffController {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("========== Movies ==========");
+        System.out.println("===== Movies =====");
+        System.out.println("ID    Title");
         for (Movie m : movieList) {
             if (m.getMovieStatus().compareTo("End of Showing") != 0)
-                System.out.println(m.getMovieID() + ". " + m.getTitle());
+                System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
-        System.out.println("Select Movie ID you wish to remove(changing showing status to 'End of Showing'): ");
+        System.out.print("Select Movie ID to change showing status to 'End of Showing': ");
         movieOption = sc.nextInt();
+        System.out.println();
 
         if (movieController.removeMovie(movieOption))
-            System.out.println("Movie removed from movie list! ");
+            System.out.println("Movie removed from movie list!\n");
         else
-            System.out.println("Deletion failed! ");
+            System.out.println("Deletion failed!\n");
     }
 
     public void showtimeMain() {
