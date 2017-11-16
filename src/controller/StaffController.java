@@ -1282,52 +1282,48 @@ public class StaffController {
     }
 
     public void staffMenuMovie() {
-        int staffChoiceMovie = 0;
+        int choice = 0;
         Scanner sc = new Scanner(System.in);
-        System.out.println("======================== MOVIE =========================");
-        System.out.println("|1. List of Movies                                     |");
-        System.out.println("|2. Create New Movie                                   |");
-        System.out.println("|3. Update Movie                                       |");
-        System.out.println("|4. Remove Movie                                       |");
-        System.out.println("|5. Back                                               |");
-        System.out.println("|6. Quit                                               |");
-        System.out.println("========================================================");
-        System.out.print("Please input your choice: ");
-        staffChoiceMovie = sc.nextInt();
-        System.out.println();
-        switch (staffChoiceMovie) {
-            case 1:
-                displayMovieList();
-                staffMenuMovie();
-                break;
-
-            case 2:
-                addMovieToList();
-                staffMenuMovie();
-                break;
-
-            case 3:
-                updateMList();
-                staffMenuMovie();
-                break;
-
-            case 4:
-                removeMList();
-                staffMenuMovie();
-                break;
-            case 5:
-                s_menu.show();
-                break;
-            case 6:
-                System.out.println("Program Terminating...");
-                System.exit(0);
-                break;
-
-            default:
-                break;
-        }
-        s_menu.show();
-
+        do {
+	        System.out.println("======================== MOVIE =========================");
+	        System.out.println("|1. List of Movies                                     |");
+	        System.out.println("|2. Create New Movie                                   |");
+	        System.out.println("|3. Update Movie                                       |");
+	        System.out.println("|4. Remove Movie                                       |");
+	        System.out.println("|5. Back                                               |");
+	        System.out.println("|6. Quit                                               |");
+	        System.out.println("========================================================");
+	        System.out.print("Please input your choice: ");
+	        choice = sc.nextInt();
+	        System.out.println();
+	        switch (choice) {
+	            case 1:
+	                displayMovieList();
+	                break;
+	
+	            case 2:
+	                addMovieToList();
+	                break;
+	
+	            case 3:
+	                updateMList();
+	                break;
+	
+	            case 4:
+	                removeMList();
+	                break;
+	            case 5:
+	                s_menu.show();
+	                break;
+	            case 6:
+	                System.out.println("Program Terminating...");
+	                System.exit(0);
+	                break;
+	
+	            default:
+	                break;
+	        }
+        } while (choice != 5);
     }
 
     private void displayMovieList() {
