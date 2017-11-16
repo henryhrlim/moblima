@@ -1,13 +1,13 @@
 package entity;
 
 
-public class TopSales {
+public class Sales {
     private int movieID;
     private String title;
     private double totalAmount;
 
 
-    public TopSales(int movieID, double totalAmount, String title) {
+    public Sales(int movieID, double totalAmount, String title) {
         this.movieID = movieID;
         this.totalAmount = totalAmount;
         this.title = title;
