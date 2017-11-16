@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public class ShowTime {
-    private static final String row[] = {"A", "B", "C", "D"};
+    private static final String row[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
     private static int ticketid;
     private String cinemaCode;
     private int showTimeID;
@@ -29,7 +29,7 @@ public class ShowTime {
 
         seats = new ArrayList<Seat>();
         for (int i = 0; i < row.length; i++) {
-            for (int a = 0; a < row.length; a++) {
+            for (int a = 0; a < 6; a++) {
                 Tickets ticket = new Tickets();
                 ticketid++;
                 ticket.setTicketID(ticketid);
@@ -60,7 +60,7 @@ public class ShowTime {
         if (seats == null) {
             seats = new ArrayList<Seat>();
             for (int i = 0; i < row.length; i++) {
-                for (int a = 0; a < row.length; a++) {
+                for (int a = 0; a < 6; a++) {
                     Tickets ticket = new Tickets();
                     ticketid++;
                     ticket.setTicketID(ticketid);
