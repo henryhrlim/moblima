@@ -380,7 +380,7 @@ public class CineplexController {
         String name = sc.next();
         custInfo[0] = name;
 
-        System.out.print("Enter your mobile no.: ");
+        System.out.print("Enter your mobile number: ");
         int mobileNo = sc.nextInt();
         custInfo[1] = mobileNo;
 
