@@ -98,60 +98,55 @@ public class MovieController {
 
     public void listAllMovies() {
         StaffController staffControl = new StaffController();
-
-        int movieUser;
+        MovieController movieControl = new MovieController();
         Scanner sc = new Scanner(System.in);
 
-        MovieController movieControl = new MovieController();
+        int movieUser;
+
         List<Movie> movieList = movieControl.retrieveMovieList();
 
-        System.out.println("*************List of Movies: *************");
+        System.out.println("===== List of Movies =====");
+        System.out.println("ID    Title");
         for (Movie m : movieList) {
             if (m.getMovieStatus().equals("End of Showing")) {
                 continue;
             }
-            System.out.format("|%s  Movie Title: %s", m.getMovieID(), m.getTitle());
-            System.out.println("\n");
+            System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
-        System.out.println("Enter Movie ID to view more details (or -1 to go back to main menu): ");
+        System.out.format("%-5s Back\n", 0);
+        System.out.print("Enter Movie ID to view more details: ");
         movieUser = sc.nextInt();
-
-        if (movieUser != -1) {
+        System.out.print("\n");
+        
+        if (movieUser != 0) {
             for (Movie m : movieList) {
                 if (movieUser == m.getMovieID()) {
-                    System.out.println("***********Movie Details**********");
-                    System.out.format("Movie Title   : %s\n", m.getTitle());
-                    System.out.format("Movie Type    : %s\n", m.getMovieType());
-                    System.out.format("Movie Rating  : %s\n", m.getMovieRating());
-                    System.out.format("Duration      : %s\n", m.getDuration());
-                    System.out.format("Synopsis      : %s\n", staffControl.wordWrap(m.getSynopsis()));
-                    System.out.format("Director      : %s\n", m.getDirector());
-                    System.out.format("Cast          : %s\n", m.getCast());
-                    System.out.format("Showing Status: %s\n", m.getMovieStatus());
-
+                    System.out.format("Movie Title    : %s\n", m.getTitle());
+                    System.out.format("Movie Type     : %s\n", m.getMovieType());
+                    System.out.format("Movie Rating   : %s\n", m.getMovieRating());
+                    System.out.format("Duration       : %s\n", m.getDuration());
+                    System.out.format("Synopsis       : %s\n", staffControl.wordWrap(m.getSynopsis()));
+                    System.out.format("Director       : %s\n", m.getDirector());
+                    System.out.format("Cast           : %s\n", m.getCast());
+                    System.out.format("Showing Status : %s\n", m.getMovieStatus());
 
                     List<Review> reviewList = m.getReviews();
 
                     if (reviewList.size() > 1)
-                        System.out.println("Overall Reviewer Ratings: " + m.getRatings());
-
+                        System.out.println("Overall Ratings: " + m.getRatings() + " / 5.0");
                     if (reviewList.size() > 0) {
-                        System.out.println("****************Past reviewers rating**************** ");
-
                         for (Review r : reviewList) {
-                            System.out.println("Past Rating   : " + r.getRating());
-                            System.out.println("Past feedback : " + staffControl.wordWrap(r.getFeedback()));
+                            System.out.println("User Rating    : " + r.getRating() + " / 5");
+                            System.out.println("User Review    : " + staffControl.wordWrap(r.getFeedback()));
                         }
                     }
-
-                    System.out.println("\n");
+                    System.out.print("\n");
                     break;
                 }
             }
-
         }
         c_menu.show();
-
+        
     }
 
     /**
@@ -159,15 +154,18 @@ public class MovieController {
      */
     public void searchMovie() {
         StaffController staffControl = new StaffController();
-        Scanner sc = new Scanner(System.in);
-        String searchKey = "";
-
-        System.out.println("Enter Search Keyword: ");
-        searchKey = sc.nextLine();
-
         MovieController movieControl = new MovieController();
-        List<Movie> movieList = movieControl.retrieveMovieList();
+        Scanner sc = new Scanner(System.in);
+        
+        String searchKey = "";
         boolean endOfShowing;
+
+        System.out.print("Enter Search Keyword: ");
+        searchKey = sc.nextLine();
+        System.out.print("\n");
+
+        List<Movie> movieList = movieControl.retrieveMovieList();
+        
         do {
             endOfShowing = true;
             for (Movie m : movieList) {
@@ -177,52 +175,43 @@ public class MovieController {
                         continue;
                     }
                     endOfShowing = false;
-                    System.out.println("***********Movie Search Results**********");
-                    System.out.format("Movie Title   : %s\n", m.getTitle());
-                    System.out.format("Movie Type    : %s\n", m.getMovieType());
-                    System.out.format("Movie Rating  : %s\n", m.getMovieRating());
-                    System.out.format("Duration      : %s\n", m.getDuration());
-                    System.out.format("Synopsis      : %s\n", staffControl.wordWrap(m.getSynopsis()));
-                    System.out.format("Director      : %s\n", m.getDirector());
-                    System.out.format("Cast          : %s\n", m.getCast());
-                    System.out.format("Showing Status: %s\n", m.getMovieStatus());
-                    System.out.println("\n");
+                    System.out.println("===== Search Results =====");
+                    System.out.format("Movie Title    : %s\n", m.getTitle());
+                    System.out.format("Movie Type     : %s\n", m.getMovieType());
+                    System.out.format("Movie Rating   : %s\n", m.getMovieRating());
+                    System.out.format("Duration       : %s\n", m.getDuration());
+                    System.out.format("Synopsis       : %s\n", staffControl.wordWrap(m.getSynopsis()));
+                    System.out.format("Director       : %s\n", m.getDirector());
+                    System.out.format("Cast           : %s\n", m.getCast());
+                    System.out.format("Showing Status : %s\n", m.getMovieStatus());
+                   
                     List<Review> reviewList = m.getReviews();
 
                     if (reviewList.size() > 1)
-                        System.out.println("Overall Reviewer Ratings: " + movieControl.getMovieRatings(m.getMovieID()));
-
+                        System.out.println("Overall Ratings: " + movieControl.getMovieRatings(m.getMovieID()) + " / 5.0");
                     if (reviewList.size() > 0) {
-                        System.out.println("\n");
-                        System.out.println("*************Past reviewers rating************* ");
-
                         for (Review r : reviewList) {
-                            System.out.println("Past Rating   : " + r.getRating());
-                            System.out.println("Past feedback : " + staffControl.wordWrap(r.getFeedback()));
-                            System.out.println("\n");
+                            System.out.println("User Rating    : " + r.getRating() + " / 5");
+                            System.out.println("User Review    : " + staffControl.wordWrap(r.getFeedback()));
                         }
                     }
+                    System.out.print("\n");
                 }
             }
 
             if (endOfShowing) {
                 System.out.println("The search has found no results!");
-                System.out.println("Re-enter Search Keyword: ");
+                System.out.println("Enter Search Keyword: ");
                 searchKey = sc.nextLine();
+                System.out.print("\n");
             }
 
         } while (endOfShowing);
-
-
+        
         c_menu.show();
 
     }
 
-    /**
-     * This method lists the cineplexes
-     *
-     * @return cineplex of user choice
-     */
     public Cineplex listCineplex() {
         Scanner sc = new Scanner(System.in);
         CineplexController cineControl = new CineplexController();
