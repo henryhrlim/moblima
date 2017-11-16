@@ -92,7 +92,6 @@ public class MovieController {
         }
         overallRating = total / reviewList.size();
         return (double) Math.round(overallRating * 10) / 10;
-
     }
 
 
@@ -146,12 +145,8 @@ public class MovieController {
             }
         }
         c_menu.show();
-        
     }
 
-    /**
-     * This method is to search movie by customer key word search
-     */
     public void searchMovie() {
         StaffController staffControl = new StaffController();
         MovieController movieControl = new MovieController();
@@ -207,9 +202,7 @@ public class MovieController {
             }
 
         } while (endOfShowing);
-        
         c_menu.show();
-
     }
 
     public Cineplex listCineplex() {
