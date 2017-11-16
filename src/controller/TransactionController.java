@@ -184,14 +184,11 @@ public class TransactionController {
         List<Movie> movieList = controller.retrieveMovieList();
 		int i = 0;
 
-
         Collections.sort(movieList, new Comparator<Movie>() {
-
             @Override
             public int compare(Movie m1, Movie m2) {
                 return Double.compare(m1.getRatings(), m2.getRatings());
             }
-
         });
         Collections.reverse(movieList);
         
@@ -231,7 +228,6 @@ public class TransactionController {
             tsList.add(ts);
         }
 
-
         for (Transaction sc : transList) {
             for (i = 0; i < tsList.size(); i++) {
                 TopSales ts = tsList.get(i);
@@ -245,14 +241,11 @@ public class TransactionController {
         }
 
         Collections.sort(tsList, new Comparator<TopSales>() {
-
             @Override
             public int compare(TopSales ts1, TopSales ts2) {
                 return Double.compare(ts1.getTotalAmount(), ts2.getTotalAmount());
             }
-
         });
-
         Collections.reverse(tsList);
 
         System.out.println("===== Top 5 Movies by Ticket Sales =====");
