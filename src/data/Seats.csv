@@ -94,8 +94,8 @@
 2,normal,4078,null,4,H,false
 2,normal,4079,null,5,H,false
 2,normal,4080,null,6,H,false
-3,normal,20161,null,1,A,false
-3,normal,20162,null,2,A,false
+3,normal,20161,Student,1,A,true
+3,normal,20162,Adult,2,A,true
 3,normal,20163,null,3,A,false
 3,normal,20164,null,4,A,false
 3,normal,20165,null,5,A,false
