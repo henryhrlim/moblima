@@ -89,10 +89,12 @@ public class CineplexController {
                 System.out.print("\n");
                 purchaseTicketAndAllocateSeat(noOfTix, movUserChoice, showTimeUserChoice, cineUserChoice.getCinemas());
 
-            } else {
+            } 
+            else {
                 System.out.println("Selected movie does not have any show time currently.");
             }
-        } else {
+        } 
+        else {
             System.out.println("Selected cineplex has no movies showing now.");
         }
 
