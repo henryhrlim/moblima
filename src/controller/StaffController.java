@@ -1169,46 +1169,44 @@ public class StaffController {
 
     public void holidayMain() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("====================== HOLIDAY =======================");
-        System.out.println("|1. List Public Holiday                              |");
-        System.out.println("|2. Create Public Holiday                            |");
-        System.out.println("|3. Update Public Holiday                            |");
-        System.out.println("|4. Remove Public Holiday                            |");
-        System.out.println("|5. Back                                             |");
-        System.out.println("|6. Quit                                             |");
-        System.out.println("=======================================================");
-        System.out.print("Please input your choice: ");
-        int staffChoiceHoliday = sc.nextInt();
-        System.out.println();
-        switch (staffChoiceHoliday) {
-            case 1:
-                listHoliday();
-                holidayMain();
-                break;
-            case 2:
-                addHoliday();
-                holidayMain();
-                break;
-            case 3:
-                updateHoliday();
-                holidayMain();
-                break;
-            case 4:
-                deleteHoliday();
-                holidayMain();
-                break;
-            case 5:
-                s_menu.show();
-                break;
-            case 6:
-                System.out.println("Program Terminating...");
-                System.exit(0);
-                break;
-            default:
-                break;
-        }
-        s_menu.show();
-
+        int choice = 0;
+        do {
+	        System.out.println("====================== HOLIDAY =======================");
+	        System.out.println("|1. List Public Holiday                              |");
+	        System.out.println("|2. Create Public Holiday                            |");
+	        System.out.println("|3. Update Public Holiday                            |");
+	        System.out.println("|4. Remove Public Holiday                            |");
+	        System.out.println("|5. Back                                             |");
+	        System.out.println("|6. Quit                                             |");
+	        System.out.println("=======================================================");
+	        System.out.print("Please input your choice: ");
+	        choice = sc.nextInt();
+	        System.out.println();
+	        switch (choice) {
+	            case 1:
+	                listHoliday();
+	                break;
+	            case 2:
+	                addHoliday();
+	                break;
+	            case 3:
+	                updateHoliday();
+	                break;
+	            case 4:
+	                deleteHoliday();
+	                break;
+	            case 5:
+	                s_menu.show();
+	                break;
+	            case 6:
+	            		sc.close();
+	                System.out.println("Program Terminating...");
+	                System.exit(0);
+	                break;
+	            default:
+	                break;
+	        }
+        } while (choice != 5);
     }
 
     private void listHoliday() {
@@ -1476,74 +1474,74 @@ public class StaffController {
 
     public void showtimeMain() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("====================== SHOWTIME =======================");
-        System.out.println("|1. List Showtime                                     |");
-        System.out.println("|2. Create Showtime                                   |");
-        System.out.println("|3. Update Showtime                                   |");
-        System.out.println("|4. Back                                              |");
-        System.out.println("|5. Quit                                              |");
-        System.out.println("=======================================================");
-        System.out.print("Please input your choice: ");
-        int staffChoiceST = sc.nextInt();
-        System.out.println();
-        switch (staffChoiceST) {
-            case 1:
-                listbyCinema();
-                showtimeMain();
-                break;
-            case 2:
-                addShowTime();
-                showtimeMain();
-                break;
-            case 3:
-                updateShowTime();
-                showtimeMain();
-                break;
-            case 4:
-                s_menu.show();
-                break;
-            case 5:
-                System.out.println("Program Terminating...");
-                System.exit(0);
-                break;
-        }
-
-        s_menu.show();
-
+        int choice = 0;
+        do {
+			System.out.println("====================== SHOWTIME =======================");
+			System.out.println("|1. List Showtime                                     |");
+			System.out.println("|2. Create Showtime                                   |");
+			System.out.println("|3. Update Showtime                                   |");
+			System.out.println("|4. Back                                              |");
+			System.out.println("|5. Quit                                              |");
+			System.out.println("=======================================================");
+			System.out.print("Please input your choice: ");
+			choice = sc.nextInt();
+			System.out.println();
+			switch (choice) {
+			    case 1:
+			        listbyCinema();
+			        break;
+			    case 2:
+			        addShowTime();
+			        break;
+			    case 3:
+			        updateShowTime();
+			        break;
+			    case 4:
+			        s_menu.show();
+			        break;
+			    case 5:
+			    		sc.close();
+			        System.out.println("Program Terminating...");
+			        System.exit(0);
+			        break;
+}
+        } while (choice != 4);
     }
 
     public void pricechartMain() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("===================== PRICE CHART ======================");
-        System.out.println("|1. List Price Chart                                   |");
-        System.out.println("|2. Update Price Chart                                 |");
-        System.out.println("|3. Back                                               |");
-        System.out.println("|4. Quit                                               |");
-        System.out.println("========================================================");
-        System.out.println("Enter your choice: ");
-        int staffChoiceST = sc.nextInt();
-
-        switch (staffChoiceST) {
-            case 1:
-                listPriceChart();
-                pricechartMain();
-                break;
-            case 2:
-                updatePriceChart();
-                pricechartMain();
-                break;
-            case 3:
-                s_menu.show();
-                break;
-            case 4:
-                System.out.println("Program Terminating...");
-                System.exit(0);
-                break;
-            default:
-                break;
-        }
-        s_menu.show();
-
+        int choice = 0;
+        do {
+	        System.out.println("===================== PRICE CHART ======================");
+	        System.out.println("|1. List Price Chart                                   |");
+	        System.out.println("|2. Update Price Chart                                 |");
+	        System.out.println("|3. Back                                               |");
+	        System.out.println("|4. Quit                                               |");
+	        System.out.println("========================================================");
+	        System.out.println("Enter your choice: ");
+	        int staffChoiceST = sc.nextInt();
+	
+	        switch (staffChoiceST) {
+	            case 1:
+	                listPriceChart();
+	                pricechartMain();
+	                break;
+	            case 2:
+	                updatePriceChart();
+	                pricechartMain();
+	                break;
+	            case 3:
+	                s_menu.show();
+	                break;
+	            case 4:
+	            		sc.close();
+	                System.out.println("Program Terminating...");
+	                System.exit(0);
+	                break;
+	            default:
+	                break;
+	        }
+        } while (choice != 3);
     }
 
 
