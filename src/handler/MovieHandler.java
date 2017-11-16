@@ -8,49 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * MovieHandler
- *
- * @version 1.0
- * @since 10/10/2015
- */
-
 public class MovieHandler extends DataHandler {
-    /**
-     * The list of Movie.
-     */
-    public List<Movie> movieList;
 
-    /**
-     * Class constructor
-     */
+    private List<Movie> movieList;
+
+
     public MovieHandler() {
     }
 
-    /**
-     * Class constructor
-     *
-     * @param movieList a list of Movies.
-     */
+
     public MovieHandler(List<Movie> movieList) {
         this.movieList = movieList;
     }
 
-    /**
-     * Gets the movieList
-     *
-     * @return movieList.
-     */
+
     public List<Movie> getMovieList() {
         return movieList;
     }
 
-    /**
-     * Writes a new Movie into the JSON file.
-     * The Movie object m's variables all must be set.
-     *
-     * @param m This is the object of Movie.
-     */
+
     public void create(Movie m) {
         loadData("Movie");
         if (this.movieList == null)
@@ -60,20 +36,12 @@ public class MovieHandler extends DataHandler {
         saveData("Movie");
     }
 
-    /**
-     * Call loadData method from parent class.
-     * Retrieve data from CSV file and save in the cineplexList.
-     */
+
     public void retrieve() {
         loadData("Movie");
     }
 
-    /**
-     * Retrieve movie object using movieID.
-     *
-     * @param movieID This is the Movie's movieID.
-     * @return Movie object
-     */
+
     public Movie retrieveMovieDetails(int movieID) {
         Movie m = null;
         loadData("Movie");
@@ -86,15 +54,7 @@ public class MovieHandler extends DataHandler {
         return m;
     }
 
-    /**
-     * This method update the Movie object in the JSON file.
-     * It will update data by the movieID as the index.
-     * If updated return true, else return false.
-     * The Movie object m's variables all must be set.
-     *
-     * @param m This is the object of Movie.
-     * @return boolean
-     */
+
     public boolean update(Movie m) {
         loadData("Movie");
         for (int i = 0; i < this.movieList.size(); i++) {
@@ -108,14 +68,7 @@ public class MovieHandler extends DataHandler {
         return false;
     }
 
-    /**
-     * This method update the Movie object in the JSON file.
-     * It will update movieStatus in Movie to "End of Showing" by the movieID.
-     * If updated return true, else return false.
-     *
-     * @param movieID This is the Movie's movieID.
-     * @return boolean
-     */
+
     public boolean delete(int movieID) {
         loadData("Movie");
         for (int i = 0; i < this.movieList.size(); i++) {

@@ -6,16 +6,8 @@ import handler.ShowTimeHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Class: ShowTimeController
- * <p>
- * Class Methods:
- * - createShowTime(ShowTime st) : void
- * - retrieveShowTimeList() : List<ShowTime>
- * - retrieveShowTimeList(List<ShowTime> stList, int movieID): List<ShowTime>
- * - updateShowTimeList(ShowTime st) : void
- */
-public class ShowTimeController {
+
+class ShowTimeController {
 
 
     public void createShowTime(ShowTime st) {

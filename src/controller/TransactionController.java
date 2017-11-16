@@ -8,39 +8,20 @@ import handler.TransactionHandler;
 
 import java.util.*;
 
-
-/*
- * Class: TransactionController
- * 
- * Class Methods:
- * - addToTransaction(Transaction t): boolean
- * - checkDuplicate(Transaction t): boolean
- * - retrieveTransactionList() : List<Transaction> 
- * - formatString(String str) : String[] 
- * - viewTransactionHistory(String input_name,int input_mobile) : void
- * - getTop5Rating() : void
- * - getTop5Sales() : void
- * - viewHistory(): void
- * - enterCustomerInfo(): Object[] 
- * 
- *
- */
 public class TransactionController {
-    private CustomerMenu c_menu = new CustomerMenu();
-    private StaffMenu s_menu = new StaffMenu();
+    private final CustomerMenu c_menu = new CustomerMenu();
+    private final StaffMenu s_menu = new StaffMenu();
 
-    public boolean addToTransaction(Transaction t) {
+    public void addToTransaction(Transaction t) {
         TransactionHandler handler = new TransactionHandler();
         if (checkDuplicate(t)) {
-            return false;
         } else {
             handler.create(t);
         }
-        return true;
     }
 
 
-    public boolean checkDuplicate(Transaction t) {
+    private boolean checkDuplicate(Transaction t) {
         TransactionHandler handler = new TransactionHandler();
         List<Transaction> tList = new ArrayList<Transaction>();
         tList = handler.getTransactionList();
@@ -58,7 +39,7 @@ public class TransactionController {
     }
 
 
-    public List<Transaction> retrieveTransactionList() {
+    private List<Transaction> retrieveTransactionList() {
         TransactionHandler handler = new TransactionHandler();
         handler.retrieve();
         List<Transaction> tList = handler.getTransactionList();
@@ -68,7 +49,7 @@ public class TransactionController {
     }
 
 
-    public String[] formatString(String str) {
+    private String[] formatString(String str) {
         String[] strArr = new String[2];
 
         String year = str.substring(3, 7);
@@ -88,7 +69,7 @@ public class TransactionController {
 
     }
 
-    public void viewTransactionHistory(String input_name, int input_mobile) {
+    private void viewTransactionHistory(String input_name, int input_mobile) {
         double totalAmt = 0.0;
         List<Cineplex> cineplexList = new ArrayList<Cineplex>();
         List<Transaction> transList = new ArrayList<Transaction>();
@@ -159,8 +140,7 @@ public class TransactionController {
                                         System.out.println("Ticket ID  Ticket Type  Seat  Seat Type");
                                         System.out.format("%-10s %-12s %-4s %s\n", tic.getTicketID(), ticket.getAge(), (s.getRow() + s.getColumn()), s.getSeatType());
                                     }
-                                }
-                                else {
+                                } else {
                                     System.out.println("No transaction records.");
                                 }
                             }
@@ -180,9 +160,9 @@ public class TransactionController {
 
 
     public void getTop5Rating(boolean isStaff) {
-    		MovieController controller = new MovieController();
+        MovieController controller = new MovieController();
         List<Movie> movieList = controller.retrieveMovieList();
-		int i = 0;
+        int i = 0;
 
         Collections.sort(movieList, new Comparator<Movie>() {
             @Override
@@ -191,14 +171,14 @@ public class TransactionController {
             }
         });
         Collections.reverse(movieList);
-        
+
         System.out.println("===== Top 5 Movies by Rating =====");
-		System.out.println("Rank  Movie                                         Rating");
+        System.out.println("Rank  Movie                                         Rating");
 
         for (i = 0; i < movieList.size(); i++) {
             System.out.format("%-5s %-45s %s\n", (i + 1), movieList.get(i).getTitle(), movieList.get(i).getRatings());
             if (i == 4)
-            		break;
+                break;
         }
         if (i < 4)
             System.out.println("There are less than 5 movie listings");
@@ -222,7 +202,7 @@ public class TransactionController {
         MovieController movie = new MovieController();
         List<Movie> movieList = movie.retrieveMovieList();
         int i = 0;
-        
+
         for (Movie m : movieList) {
             TopSales ts = new TopSales(m.getMovieID(), 0, m.getTitle());
             tsList.add(ts);
@@ -249,15 +229,15 @@ public class TransactionController {
         Collections.reverse(tsList);
 
         System.out.println("===== Top 5 Movies by Ticket Sales =====");
-		System.out.println("Rank  Movie                                         Sales");
+        System.out.println("Rank  Movie                                         Sales");
         for (i = 0; i < tsList.size(); i++) {
             TopSales ts = tsList.get(i);
             System.out.format("%-5s %-45s $%s\n", (i + 1), ts.getTitle(), ts.getTotalAmount());
             if (i == 4)
-            		break;
+                break;
         }
         if (i < 4)
-        		System.out.println("There are less than 5 movie listings");
+            System.out.println("There are less than 5 movie listings");
 
         System.out.print("\n");
 
@@ -282,7 +262,7 @@ public class TransactionController {
         c_menu.show();
     }
 
-    public Object[] enterCustomerInfo() {
+    private Object[] enterCustomerInfo() {
         Scanner sc = new Scanner(System.in);
         Object[] custInfo;
 
@@ -297,7 +277,7 @@ public class TransactionController {
         int mobileNo = sc.nextInt();
         custInfo[1] = mobileNo;
         System.out.print("\n");
-        
+
         return custInfo;
     }
 

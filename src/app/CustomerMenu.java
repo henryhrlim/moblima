@@ -18,7 +18,7 @@ public class CustomerMenu {
         MoblimaApp app = new MoblimaApp();
         Movie movUserChoice = null;
         Scanner sc = new Scanner(System.in);
-     
+
         int choice = 0;
         do {
             System.out.println("====================== CUSTOMER =======================");
@@ -33,10 +33,10 @@ public class CustomerMenu {
             System.out.println("|9. Quit                                              |");
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
-           
+
             choice = sc.nextInt();
             System.out.print("\n");
-            
+
             switch (choice) {
                 case 1:
                     movieController.listAllMovies();
@@ -60,10 +60,10 @@ public class CustomerMenu {
                     transController.getTop5Rating(false);
                     break;
                 case 8:
-                    app.main(null);
+                    MoblimaApp.main(null);
                     break;
                 case 9:
-                		sc.close();
+                    sc.close();
                     System.out.println("Program Terminating...");
                     System.exit(0);
                     break;

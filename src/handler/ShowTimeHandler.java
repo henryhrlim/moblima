@@ -8,39 +8,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * ShowTimeHandler
- *
- * @version 1.0
- * @since 10/10/2015
- */
-
 
 public class ShowTimeHandler extends DataHandler {
-    /**
-     * The list of ShowTime.
-     */
+
     private List<ShowTime> showTimeList;
 
     public ShowTimeHandler() {
 
     }
 
-    /**
-     * Gets the showTimeList
-     *
-     * @return showTimeList.
-     */
+
     public List<ShowTime> getShowTimeList() {
         return showTimeList;
     }
 
-    /**
-     * Writes a new ShowTime into the JSON file.
-     * The ShowTime object st's variables all must be set.
-     *
-     * @param st This is the object of ShowTime.
-     */
+
     public void create(ShowTime st) {
         loadData("ShowTime");
         if (this.showTimeList == null)
@@ -50,10 +32,7 @@ public class ShowTimeHandler extends DataHandler {
         saveData("ShowTime");
     }
 
-    /**
-     * Call loadData method from parent class.
-     * Retrieve data from JSON file and save in the showTimeList.
-     */
+
     public void retrieve() {
         loadData("ShowTime");
         if (this.showTimeList == null)
@@ -61,40 +40,19 @@ public class ShowTimeHandler extends DataHandler {
     }
 
 
-    /**
-     * This method update the ShowTime object in the JSON file.
-     * It will update data by the showTimeID as the index.
-     * If updated return true, else return false.
-     * The ShowTime object st's variables all must be set.
-     *
-     * @param st This is the object of ShowTime.
-     * @return boolean
-     */
-    public boolean updateST(ShowTime st) {
+    public void updateST(ShowTime st) {
         loadData("ShowTime");
         for (int i = 0; i < this.showTimeList.size(); i++) {
             ShowTime showtime = this.showTimeList.get(i);
             if (st.getShowTimeID() == showtime.getShowTimeID()) {
                 this.showTimeList.set(i, st);
                 saveData("ShowTime");
-                return true;
+                return;
             }
         }
-        return false;
     }
 
-    /**
-     * This method update the seat in ShowTime object in the JSON file.
-     * It will update data by the showTimeID as the index.
-     * If updated return true, else return false.
-     * The Tickets object ticket's variables all must be set.
-     *
-     * @param showTimeID This is ShowTime's showTimeID.
-     * @param row        This is ShowTime's row.
-     * @param column     This is ShowTime's column.
-     * @param ticket     This is Tickets's ticket.
-     * @return boolean
-     */
+
     public boolean updateSeat(int showTimeID, String row, int column,
                               Tickets ticket) {
         loadData("ShowTime");
@@ -119,25 +77,17 @@ public class ShowTimeHandler extends DataHandler {
         return false;
     }
 
-    /**
-     * This method update the ShowTime object in the JSON file.
-     * It will delete data by the showTimeID.
-     * If deleted return true, else return false.
-     *
-     * @param showTimeID This is the ShowTime's showTimeID.
-     * @return boolean
-     */
-    public boolean delete(ShowTime st) {
+
+    public void delete(ShowTime st) {
         loadData("ShowTime");
         for (int i = 0; i < this.showTimeList.size(); i++) {
             ShowTime showtime = this.showTimeList.get(i);
             if (showtime.getShowTimeID() == st.getShowTimeID()) {
                 this.showTimeList.remove(i);
                 saveData("ShowTime");
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     protected void readCSV(FileReader csvFile) {
@@ -215,8 +165,6 @@ public class ShowTimeHandler extends DataHandler {
         }
     }
 
-    ;
-
     protected void saveDataToCSV(String to) {
         int i = 0;
         try {
@@ -239,5 +187,4 @@ public class ShowTimeHandler extends DataHandler {
         }
     }
 
-    ;
 }

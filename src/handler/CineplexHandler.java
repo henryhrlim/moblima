@@ -10,18 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * CineplexHandler
- *
- * @version 1.0
- * @since 10/10/2015
- */
 
 public class CineplexHandler extends DataHandler {
-    /**
-     * The list of Cineplex.
-     */
-    public List<Cineplex> cineplexList;
+
+    private List<Cineplex> cineplexList;
 
     public CineplexHandler() {
 
@@ -31,12 +23,7 @@ public class CineplexHandler extends DataHandler {
         this.cineplexList = cineplexList;
     }
 
-    /**
-     * Writes a new Cineplex into the JSON file.
-     * The Cineplex object c's variables all must be set.
-     *
-     * @param c This is the object of Cineplex.
-     */
+
     public void create(Cineplex c) {
         loadData("Cineplex");
         if (this.cineplexList == null)
@@ -46,23 +33,12 @@ public class CineplexHandler extends DataHandler {
         saveData("Cineplex");
     }
 
-    /**
-     * Call loadData method from parent class.
-     * Retrieve data from JSON file and save in the cineplexList.
-     */
+
     public void retrieve() {
         loadData("Cineplex");
     }
 
-    /**
-     * This method update the Cineplex object in the JSON file.
-     * It will update data by the cineplexID as the index.
-     * If updated return true, else return false.
-     * The Cineplex object c's variables all must be set.
-     *
-     * @param c This is the object of Cineplex.
-     * @return boolean
-     */
+
     public boolean update(Cineplex c) {
         boolean result = false;
         loadData("Cineplex");
@@ -79,14 +55,7 @@ public class CineplexHandler extends DataHandler {
         return result;
     }
 
-    /**
-     * This method update the Cineplex object in the JSON file.
-     * It will delete data by the cineplexID.
-     * If deleted return true, else return false.
-     *
-     * @param cineplexID This is the Cineplex's cineplexID.
-     * @return boolean
-     */
+
     public boolean delete(int cineplexID) {
         boolean result = false;
         loadData("Cineplex");
@@ -102,18 +71,12 @@ public class CineplexHandler extends DataHandler {
         return result;
     }
 
-    /**
-     * Gets the cineplexList
-     *
-     * @return cineplexList.
-     */
+
     public List<Cineplex> getCineplexList() {
         return cineplexList;
     }
 
-    /**
-     * Sets the cineplexList
-     */
+
     public void setCineplexList(List<Cineplex> cineplexList) {
         this.cineplexList = cineplexList;
     }

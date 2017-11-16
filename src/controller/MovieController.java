@@ -1,7 +1,6 @@
 package controller;
 
 import app.CustomerMenu;
-import entity.Cineplex;
 import entity.Movie;
 import entity.Review;
 import handler.MovieHandler;
@@ -11,24 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 
-/**
- * Class: MovieController
- * <p>
- * Class Methods:
- * - MovieController()
- * - createMovie(Movie m) : void
- * - retrieveMovieList() : List<Movie>
- * - retrieveMovieList(List<Movie> mList) : List<Movie>
- * - updateMovie(Movie m) : boolean
- * - removeMovie(int movieID) : boolean
- * - getMovieRatings(int movieID) : double
- * - listAllMovies(): void
- * - listMovieDetails(): void
- * - listCineplex(): Cineplex
- * - listMovieSpecific(Cineplex cineUserChoice) : Movie
- */
 public class MovieController {
-    private CustomerMenu c_menu = new CustomerMenu();
+    private final CustomerMenu c_menu = new CustomerMenu();
 
 
     public MovieController() {
@@ -68,21 +51,15 @@ public class MovieController {
 
     public boolean updateMovie(Movie m) {
         MovieHandler handler = new MovieHandler();
-        if (handler.update(m))
-            return true;
-        else
-            return false;
+        return handler.update(m);
     }
 
     public boolean removeMovie(int movieID) {
         MovieHandler handler = new MovieHandler();
-        if (handler.delete(movieID))
-            return true;
-        else
-            return false;
+        return handler.delete(movieID);
     }
 
-    public double getMovieRatings(int movieID) {
+    private double getMovieRatings(int movieID) {
         double overallRating, total = 0;
         MovieHandler handler = new MovieHandler();
         Movie m = handler.retrieveMovieDetails(movieID);
@@ -115,7 +92,7 @@ public class MovieController {
         System.out.print("Enter Movie ID to view more details: ");
         movieUser = sc.nextInt();
         System.out.print("\n");
-        
+
         if (movieUser != 0) {
             for (Movie m : movieList) {
                 double sum = 0.0;
@@ -124,7 +101,7 @@ public class MovieController {
                     System.out.format("Movie Type     : %s\n", m.getMovieType());
                     System.out.format("Movie Rating   : %s\n", m.getMovieRating());
                     System.out.format("Duration       : %s\n", m.getDuration());
-                    System.out.format("Synopsis       : %s\n", staffControl.wordWrap(m.getSynopsis()));
+                    System.out.format("Synopsis       : %s\n", StaffController.wordWrap(m.getSynopsis()));
                     System.out.format("Director       : %s\n", m.getDirector());
                     System.out.format("Cast           : %s\n", m.getCast());
                     System.out.format("Showing Status : %s\n", m.getMovieStatus());
@@ -134,15 +111,14 @@ public class MovieController {
                     if (reviewList.size() > 1) {
                         for (Review re : reviewList)
                             sum += re.getRating();
-                        System.out.format("Overall Rating: %.1f / 5.0\n", sum/reviewList.size());
-                    }
-                    else
+                        System.out.format("Overall Rating: %.1f / 5.0\n", sum / reviewList.size());
+                    } else
                         System.out.println("Overall Ratings: N/A");
 
                     if (reviewList.size() > 0) {
                         for (Review r : reviewList) {
                             System.out.println("User Rating    : " + r.getRating() + " / 5");
-                            System.out.println("User Review    : " + staffControl.wordWrap(r.getFeedback()));
+                            System.out.println("User Review    : " + StaffController.wordWrap(r.getFeedback()));
                         }
                     }
                     System.out.print("\n");
@@ -157,7 +133,7 @@ public class MovieController {
         StaffController staffControl = new StaffController();
         MovieController movieControl = new MovieController();
         Scanner sc = new Scanner(System.in);
-        
+
         String searchKey = "";
         boolean endOfShowing;
 
@@ -181,24 +157,23 @@ public class MovieController {
                     System.out.format("Movie Type     : %s\n", m.getMovieType());
                     System.out.format("Movie Rating   : %s\n", m.getMovieRating());
                     System.out.format("Duration       : %s\n", m.getDuration());
-                    System.out.format("Synopsis       : %s\n", staffControl.wordWrap(m.getSynopsis()));
+                    System.out.format("Synopsis       : %s\n", StaffController.wordWrap(m.getSynopsis()));
                     System.out.format("Director       : %s\n", m.getDirector());
                     System.out.format("Cast           : %s\n", m.getCast());
                     System.out.format("Showing Status : %s\n", m.getMovieStatus());
-                   
+
                     List<Review> reviewList = m.getReviews();
                     if (reviewList.size() > 1) {
                         for (Review re : reviewList)
                             sum += re.getRating();
-                        System.out.format("Overall Rating: %.1f / 5.0\n", sum/reviewList.size());
-                    }
-                    else
+                        System.out.format("Overall Rating: %.1f / 5.0\n", sum / reviewList.size());
+                    } else
                         System.out.println("Overall Ratings: N/A");
 
                     if (reviewList.size() > 0) {
                         for (Review r : reviewList) {
                             System.out.println("User Rating    : " + r.getRating() + " / 5");
-                            System.out.println("User Review    : " + staffControl.wordWrap(r.getFeedback()));
+                            System.out.println("User Review    : " + StaffController.wordWrap(r.getFeedback()));
                         }
                     }
                     System.out.print("\n");
@@ -216,10 +191,7 @@ public class MovieController {
         c_menu.show();
     }
 
-    /**
-     * This method lists all the movies and asks the user to select the movie that they want to rate/provide feedback.
-     * The new review will be added into the Movie.json file. And the overall Ratings will be updated as well.
-     */
+
     public void getRatingsFromUser() {
         int movieUser, rating;
         String feedback;

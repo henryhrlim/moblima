@@ -6,37 +6,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * PriceChartHandler
- *
- * @version 1.0
- * @since 10/10/2015
- */
 
 public class PriceChartHandler extends DataHandler {
-    /**
-     * The list of PriceChart.
-     */
+
     private List<PriceChart> priceChartList;
 
     public PriceChartHandler() {
 
     }
 
-    /**
-     * Call loadData method from parent class.
-     * Retrieve data from JSON file and save in the priceChartList.
-     */
+
     public void retrieve() {
         loadData("PriceChart");
     }
 
-    /**
-     * Writes a new PriceChart into the JSON file.
-     * The PriceChart object pc's variables all must be set.
-     *
-     * @param pc This is the object of PriceChart.
-     */
+
     public void create(PriceChart pc) {
         loadData("PriceChart");
         if (this.priceChartList == null)
@@ -46,15 +30,7 @@ public class PriceChartHandler extends DataHandler {
         saveData("PriceChart");
     }
 
-    /**
-     * This method update the PriceChart object in the JSON file.
-     * It will update data by the priceChartID as the index.
-     * If updated return true, else return false.
-     * The PriceChart object pc's variables all must be set.
-     *
-     * @param pc This is the object of PriceChart.
-     * @return boolean
-     */
+
     public boolean update(PriceChart pc) {
         loadData("PriceChart");
         for (int i = 0; i < this.priceChartList.size(); i++) {
@@ -129,11 +105,6 @@ public class PriceChartHandler extends DataHandler {
     }
 
 
-    /**
-     * Gets the priceChartList
-     *
-     * @return priceChartList.
-     */
     public List<PriceChart> getPriceChartList() {
         return priceChartList;
     }

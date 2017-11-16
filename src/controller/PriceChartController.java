@@ -6,19 +6,8 @@ import handler.PriceChartHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Class: PriceChartController
- * <p>
- * Class Methods:
- * - getTicketPrice(PriceChart pc): double
- * - createPriceChart(PriceChart pc) : void
- * - retrievePriceChartList() : List<PriceChart>
- * - retrievePriceChartList(String ageGrp) :List<PriceChart>
- * - retrievePriceChartList(String ageGrp, String cineType, String movType) :List<PriceChart>
- * - updatePriceChart(PriceChart pc): boolean
- */
 
-public class PriceChartController {
+class PriceChartController {
     public double getTicketPrice(PriceChart pc) {
         PriceChartHandler handler = new PriceChartHandler();
         handler.retrieve();
@@ -103,12 +92,9 @@ public class PriceChartController {
         return priceChartList;
     }
 
-    public boolean updatePriceChart(PriceChart pc) {
+    public void updatePriceChart(PriceChart pc) {
         PriceChartHandler handler = new PriceChartHandler();
-        if (handler.update(pc)) {
-            return true;
-        }
-        return false;
+        handler.update(pc);
     }
 
 

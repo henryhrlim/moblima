@@ -8,25 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Class: CineplexController
- * <p>
- * Class Methods:
- * - CineplexController()
- * - retrieveCineplexList() : List<Cineplex>
- * - addMovieToCineplex(Cineplex c) : boolean
- * - addShowTimeToCineplex(Cineplex c) : boolean
- * - booking() : void
- * - enterCustomerInfo() : Object[]
- * - listCineplex(): Cineplex
- * - listMovieSpecific(Cineplex cineUserChoice) : Movie
- * - listShowTime(Cineplex cineUserChoice, Movie m): ShowTime
- * - purchaseTicketAndAllocateSeat(int noOfTicks,Movie movie,ShowTime showtime, List<Cinema> cinemaList) : void
- * - showInfo(Cineplex cineUserChoice, Movie movUserChoice, ShowTime showTimeUserChoice) : void
- * - printSeatingArrangement(List<Seat> tempSeatList) : void
- */
+
 public class CineplexController {
-    private CustomerMenu c_menu = new CustomerMenu();
+    private final CustomerMenu c_menu = new CustomerMenu();
 
     public CineplexController() {
 
@@ -44,32 +28,17 @@ public class CineplexController {
     }
 
 
-    /**
-     * This method updates Cineplex object by CineplexHandler.
-     * The Cineplex object c's variables all must be set
-     *
-     * @param c This is the object of Cineplex
-     */
-    public boolean updateCineplex(Cineplex c) {
+    public void updateCineplex(Cineplex c) {
         CineplexHandler handler = new CineplexHandler();
-        if (handler.update(c)) {
-            return true;
-        }
-        return false;
+        handler.update(c);
     }
 
-    /**
-     * This method creates Cineplex object by CineplexHandler.
-     * The Cineplec object c's variables all must be set.
-     */
+
     public void addCineplexToList(Cineplex c) {
         CineplexHandler handler = new CineplexHandler();
         handler.create(c);
     }
 
-    /**
-     * This method creates booking of movie tickets by users.
-     */
 
     public void booking() {
         Cineplex cineUserChoice = listCineplex();
@@ -89,12 +58,10 @@ public class CineplexController {
                 System.out.print("\n");
                 purchaseTicketAndAllocateSeat(noOfTix, movUserChoice, showTimeUserChoice, cineUserChoice.getCinemas());
 
-            } 
-            else {
+            } else {
                 System.out.println("Selected movie does not have any show time currently.");
             }
-        } 
-        else {
+        } else {
             System.out.println("Selected cineplex has no movies showing now.");
         }
 
@@ -110,7 +77,7 @@ public class CineplexController {
         System.out.println("ID    Cineplex                  Location");
         for (int i = 0; i < cineplexList.size(); i++) {
             Cineplex c = cineplexList.get(i);
-            System.out.format("%-5s %-25s %s\n", (i+1), c.getCineplexName(), c.getLocation());
+            System.out.format("%-5s %-25s %s\n", (i + 1), c.getCineplexName(), c.getLocation());
         }
         System.out.print("Enter Cineplex ID: ");
         int choice = sc.nextInt();
@@ -124,7 +91,7 @@ public class CineplexController {
         return cineUserChoice;
     }
 
-    public Movie listMovieSpecific(Cineplex cineUserChoice) {
+    private Movie listMovieSpecific(Cineplex cineUserChoice) {
         Movie movUserChoice = null;
         Scanner sc = new Scanner(System.in);
         List<Movie> movieList = new ArrayList<Movie>();
@@ -137,24 +104,23 @@ public class CineplexController {
             int i = 0;
             System.out.println("ID    Title");
             for (Movie m : movieList) {
-                System.out.format("%-5s %s\n", (i+1), m.getTitle());
+                System.out.format("%-5s %s\n", (i + 1), m.getTitle());
                 i++;
             }
             System.out.print("Enter Movie ID: ");
             movieChoice = sc.nextInt();
-            
+
             movUserChoice = movieList.get(movieChoice - 1);
 
             System.out.println("You have selected " + movUserChoice.getTitle() + ".");
-            System.out.print("\n");    
-        } 
-        else {
+            System.out.print("\n");
+        } else {
             System.out.println("No movie listings in " + cineUserChoice.getCineplexName() + " at " + cineUserChoice.getLocation() + ".");
         }
         return movUserChoice;
     }
 
-    public ShowTime listShowTime(Cineplex cineUserChoice, Movie m) {
+    private ShowTime listShowTime(Cineplex cineUserChoice, Movie m) {
         List<ShowTime> showTimeList = new ArrayList<ShowTime>();
         Scanner sc = new Scanner(System.in);
         ShowTimeController stController = new ShowTimeController();
@@ -186,8 +152,8 @@ public class CineplexController {
         }
         return showTimeUserChoice;
     }
-    
-    public void showInfo(Cineplex cineUserChoice, Movie movUserChoice, ShowTime showTimeUserChoice) {
+
+    private void showInfo(Cineplex cineUserChoice, Movie movUserChoice, ShowTime showTimeUserChoice) {
         System.out.println("===== Show Information =====");
         System.out.println("Title      : " + movUserChoice.getTitle());
         System.out.println("Cineplex   : " + cineUserChoice.getCineplexName() + " (" + cineUserChoice.getLocation() + ")");
@@ -203,7 +169,7 @@ public class CineplexController {
         System.out.println("Date & Time: " + showTimeUserChoice.getDate() + " (" + showTimeUserChoice.getDay() + ") " + showTimeUserChoice.getTime());
     }
 
-    public void purchaseTicketAndAllocateSeat(int noOfTicks, Movie movie, ShowTime showtime, List<Cinema> cinemaList) {
+    private void purchaseTicketAndAllocateSeat(int noOfTicks, Movie movie, ShowTime showtime, List<Cinema> cinemaList) {
         Scanner sc = new Scanner(System.in);
         ShowTimeController stController = new ShowTimeController();
         TransactionController transController = new TransactionController();
@@ -243,8 +209,8 @@ public class CineplexController {
 
             do {
                 System.out.print("Enter Seat: ");
-                String seatSelect = sc.nextLine().toUpperCase();
-                
+                String seatSelect = sc.next().toUpperCase();
+
                 char rowSelect = seatSelect.charAt(0);
                 rowSelectString = String.valueOf(rowSelect);
                 char colSelect = seatSelect.charAt(1);
@@ -258,7 +224,7 @@ public class CineplexController {
                             break;
                         } else {
                             System.out.print("\n");
-                           allocated = true;
+                            allocated = true;
                         }
 
                     }
@@ -339,47 +305,45 @@ public class CineplexController {
             System.out.println("Total Ticket price: $" + ticketPrice);
 
             System.out.println("Booking successful.\n");
-        }
-        else {
+        } else {
             System.out.println("Booking cancelled.\n");
         }
 
     }
 
-    public void printSeatingArrangement(List<Seat> tempSeatList) {
+    private void printSeatingArrangement(List<Seat> tempSeatList) {
         System.out.println("\t       SCREEN");
         System.out.println("\t ———————————————————");
         System.out.print("\n");
-        
-        System.out.println("   1    2    3         4    5    6");        
+
+        System.out.println("   1    2    3         4    5    6");
         for (Seat seat : tempSeatList) {
-        		if (seat.getColumn() == 1)
-        			System.out.print(seat.getRow() + " ");
-        		else if (seat.getColumn() == 4) {
-        			if (seat.getRow().equals("C"))
-                		System.out.print(" Aisle ");
-        			else
-        				System.out.print("       ");
-        		}
-        		else
-        			System.out.print("  ");
-            if (seat.getStatus() == true)
+            if (seat.getColumn() == 1)
+                System.out.print(seat.getRow() + " ");
+            else if (seat.getColumn() == 4) {
+                if (seat.getRow().equals("C"))
+                    System.out.print(" Aisle ");
+                else
+                    System.out.print("       ");
+            } else
+                System.out.print("  ");
+            if (seat.getStatus())
                 System.out.print("[X]");
             else
                 System.out.print("[O]");
             if (seat.getRow().equals("B") && seat.getColumn() == 6)
-            		System.out.println("\t===== Legend =====");
+                System.out.println("\t===== Legend =====");
             else if (seat.getRow().equals("C") && seat.getColumn() == 6)
-            		System.out.println("\t[O]: Available");
+                System.out.println("\t[O]: Available");
             else if (seat.getRow().equals("D") && seat.getColumn() == 6)
-            		System.out.println("\t[X]: Taken");
+                System.out.println("\t[X]: Taken");
             else if (seat.getColumn() == 6)
                 System.out.print("\n");
         }
         System.out.print("\n");
     }
 
-    public Object[] enterCustomerInfo() {
+    private Object[] enterCustomerInfo() {
         Scanner sc = new Scanner(System.in);
         Object[] custInfo;
         custInfo = new Object[3];
@@ -397,7 +361,7 @@ public class CineplexController {
         String email = sc.next();
         custInfo[2] = email;
         System.out.print("\n");
-        
+
         return custInfo;
     }
 

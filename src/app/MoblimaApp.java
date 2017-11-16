@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class MoblimaApp {
 
-    private static StaffMenu staff_m = new StaffMenu();
-    private static CustomerMenu customer = new CustomerMenu();
+    private static final StaffMenu staff_m = new StaffMenu();
+    private static final CustomerMenu customer = new CustomerMenu();
 
 
     public static void main(String[] args) {
@@ -24,26 +24,25 @@ public class MoblimaApp {
             System.out.println("|3. Quit                                              |");
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
-            
+
             choice = sc.nextInt();
             System.out.print("\n");
-            
+
             switch (choice) {
                 case 1:
                     customer.show();
                     break;
                 case 2:
-                		for (int i = 3; i > 0; i--) {
-                			if (staff.authenticate()) {
-                				staff_m.show();
-                				break;
-                			}
-                			else
-                				System.out.println("Wrong username or password. " + (i-1) + " tries remaining.\n");
-                		}
+                    for (int i = 3; i > 0; i--) {
+                        if (staff.authenticate()) {
+                            staff_m.show();
+                            break;
+                        } else
+                            System.out.println("Wrong username or password. " + (i - 1) + " tries remaining.\n");
+                    }
                     break;
                 case 3:
-                		sc.close();
+                    sc.close();
                     System.out.println("Program terminating...");
                     System.exit(0);
                     break;
@@ -52,5 +51,5 @@ public class MoblimaApp {
             }
         } while (choice != 3);
     }
-    
+
 }

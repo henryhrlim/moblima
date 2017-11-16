@@ -6,17 +6,8 @@ import handler.HolidayHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Class: HolidayController
- * <p>
- * Class Methods:
- * - createHoliday(Holiday h): void
- * - retrieveHolidayList() : List<Holiday>
- * - updateHoliday(Holiday h): void
- * - deleteHoliday(Holiday h): void
- * - isHoliday(String date): boolean
- */
-public class HolidayController {
+
+class HolidayController {
 
     public void createHoliday(Holiday h) {
         HolidayHandler handler = new HolidayHandler();

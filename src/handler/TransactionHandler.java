@@ -8,26 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * TransactionHandler
- *
- * @version 1.0
- * @since 10/10/2015
- */
-
 
 public class TransactionHandler extends DataHandler {
-    /**
-     * The list of Transactions.
-     */
+
     private List<Transaction> transactionList;
 
-    /**
-     * Writes a new Transaction into the JSON file.
-     * The Transaction object t's variables all must be set.
-     *
-     * @param t This is the object of Transaction.
-     */
+
     public void create(Transaction t) {
         loadData("Transaction");
         if (this.transactionList == null)
@@ -38,19 +24,12 @@ public class TransactionHandler extends DataHandler {
         saveData("Transaction");
     }
 
-    /**
-     * Call loadData method from parent class.
-     * Retrieve data from JSON file and save in the transactionList.
-     */
+
     public void retrieve() {
         loadData("Transaction");
     }
 
-    /**
-     * Gets the transactionList
-     *
-     * @return transactionList.
-     */
+
     public List<Transaction> getTransactionList() {
         return transactionList;
     }
@@ -134,5 +113,4 @@ public class TransactionHandler extends DataHandler {
         }
     }
 
-    ;
 }
