@@ -106,12 +106,13 @@ public class TransactionController {
 
         if (retrieveTransactionList() != null) {
             transList = retrieveTransactionList();
-            System.out.println("============= \t Transaction History \t =============");
+            System.out.println("===== Booking History =====");
             for (Transaction tList : transList) {
 
-                if (input_name.equals(tList.getName()) && input_mobile == tList.getMobileNum()) {
+                if (input_name.equals(tList.getName().toLowerCase()) && input_mobile == tList.getMobileNum()) {
                     String movieName = null;
                     String cineplexName = null;
+                    String cineplexLocation = null;
                     String cinemaCode = tList.getTID().substring(0, 3);
                     List<Tickets> tixList = tList.getTicketList();
                     List<Seat> seatList = null;
@@ -123,6 +124,7 @@ public class TransactionController {
                         for (Cinema c : cima) {
                             if (c.getCinemaCode().equals(cinemaCode)) {
                                 cineplexName = cineplex.getCineplexName();
+                                cineplexLocation = cineplex.getLocation();
                                 for (ShowTime st : showTimeList) {
                                     if (st.getShowTimeID() == tList.getShowTimeID()) {
                                         for (Movie m : movieList) {
@@ -138,14 +140,12 @@ public class TransactionController {
                             }
                         }
                     }
-
                     System.out.println("Transaction ID: " + tList.getTID());
                     String datePurchase[] = formatString(tList.getTID());
-                    System.out.println("Movie :" + movieName);
-                    System.out.println("Cineplex :" + cineplexName);
-                    System.out.println("Cinema :" + cinemaCode);
-
-                    System.out.println("Date : " + datePurchase[0] + " Time: " + datePurchase[1]);
+                    System.out.println("Movie         : " + movieName);
+                    System.out.println("Cineplex      : " + cineplexName + "(" + cineplexLocation + ")");
+                    System.out.println("Cinema        : " + cinemaCode);
+                    System.out.println("Date & Time   : " + datePurchase[0] + " " + datePurchase[1]);
 
                     for (Tickets tic : tixList) {
                         for (ShowTime st : showList) {
@@ -155,37 +155,26 @@ public class TransactionController {
                                 ticket = s.getTicket();
 
                                 if (ticket != null) {
-
                                     if (ticket.getTicketID() == tic.getTicketID()) {
-
-                                        System.out.println("--------------------------------------------------------");
-                                        System.out.println("Ticket ID : " + tic.getTicketID());
-                                        System.out.println("Ticket Type : " + ticket.getAge());
-                                        System.out.println("Seat :" + s.getRow() + s.getColumn());
-                                        System.out.println("Seat Type :" + s.getSeatType());
-
+                                        System.out.println("Ticket ID  Ticket Type  Seat  Seat Type");
+                                        System.out.format("%-10s %-12s %-4s %s\n", tic.getTicketID(), ticket.getAge(), (s.getRow() + s.getColumn()), s.getSeatType());
                                     }
-
-
-                                } else {
-                                    System.out.println("NULL");
                                 }
-
+                                else {
+                                    System.out.println("No transaction records.");
+                                }
                             }
-
                         }
                     }
 
                     totalAmt += tList.getAmount();
-                    System.out.println("^^^^^^^^^^^^^^^^^^^^^^");
-                    System.out.println("Price : $" + String.format("%.2f", tList.getAmount()));
-                    System.out.println("^^^^^^^^^^^^^^^^^^^^^^");
-                    System.out.println("\n");
+                    System.out.println("Total for above transaction: $" + String.format("%.2f", tList.getAmount()));
+                    System.out.print("\n");
 
 
                 }
             }
-            System.out.println("Total amount: $" + String.format("%.2f", totalAmt));
+            System.out.println("Total spent: $" + String.format("%.2f", totalAmt) + "\n");
         }
     }
 
@@ -274,35 +263,24 @@ public class TransactionController {
         });
 
         Collections.reverse(tsList);
-        int size = tsList.size();
-        if (size > 5) {
-            size = 5;
-        }
+
+        System.out.println("===== Top 5 Movies by Ticket Sales =====");
+		System.out.println("Rank  Movie                                         Sales");
         if (tsList.size() < 5) {
-            System.out.println("==========================================");
-            System.out.println("Movie listings are less than 5.");
-            System.out.println("Current Sales : ");
-            System.out.println("==========================================");
-            System.out.println("");
             for (int i = 0; i < tsList.size(); i++) {
                 TopSales ts = tsList.get(i);
-                String heading1 = (i + 1) + ". " + ts.getTitle();
-                String heading2 = "||  $" + ts.getTotalAmount();
-                System.out.println(heading1);
-                System.out.println(heading2);
-                System.out.println("");
+                System.out.format("%-5s %-45s $%s\n", (i + 1), ts.getTitle(), ts.getTotalAmount());
+
             }
-        } else {
-            for (int i = 0; i < size; i++) {
+            System.out.println("There are less than 5 movie listings");
+        }
+        else {
+            for (int i = 0; i < 5; i++) {
                 TopSales ts = tsList.get(i);
-                String heading1 = (i + 1) + ". " + ts.getTitle();
-                String heading2 = "||  $" + ts.getTotalAmount();
-                System.out.println(heading1);
-                System.out.println(heading2);
-                System.out.println("");
+                System.out.format("%-5s %-45s $%s\n", (i + 1), ts.getTitle(), ts.getTotalAmount());
             }
         }
-        System.out.println("");
+        System.out.print("\n");
 
         if (comingFromStaff) {
             s_menu.show();
@@ -320,7 +298,7 @@ public class TransactionController {
         int mobileNo = (int) custInfo[1];
 
         TransactionController transController = new TransactionController();
-        transController.viewTransactionHistory(name, mobileNo);
+        transController.viewTransactionHistory(name.toLowerCase(), mobileNo);
 
         c_menu.show();
     }
@@ -331,16 +309,17 @@ public class TransactionController {
 
         custInfo = new Object[2];
 
-        System.out.println("************CUSTOMER INFO************");
-        System.out.println("Enter Name: ");
+        System.out.println("===== Customer Information =====");
+        System.out.print("Enter your name: ");
         String name = sc.next();
         custInfo[0] = name;
 
         sc = new Scanner(System.in);
-        System.out.println("Enter Mobile Number: ");
+        System.out.print("Enter your mobile number: ");
         int mobileNo = sc.nextInt();
         custInfo[1] = mobileNo;
-
+        System.out.print("\n");
+        
         return custInfo;
     }
 
