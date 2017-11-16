@@ -179,9 +179,10 @@ public class TransactionController {
     }
 
 
-    public void getTop5Rating(boolean comingFromStaff) {
-        MovieController controller = new MovieController();
+    public void getTop5Rating(boolean isStaff) {
+    		MovieController controller = new MovieController();
         List<Movie> movieList = controller.retrieveMovieList();
+		int i = 0;
 
 
         Collections.sort(movieList, new Comparator<Movie>() {
@@ -193,32 +194,21 @@ public class TransactionController {
 
         });
         Collections.reverse(movieList);
-        if (movieList.size() < 5) {
-            System.out.println("==========================================");
-            System.out.println("Movie listings are less than 5.");
-            System.out.println("Current Movie Rating : ");
-            System.out.println("==========================================");
-            System.out.println("");
-            for (int i = 0; i < movieList.size(); i++) {
-                String heading1 = (i + 1) + ". " + movieList.get(i).getTitle();
-                String heading2 = "||  Rating: " + movieList.get(i).getRatings();
-                ;
-                System.out.println(heading1);
-                System.out.println(heading2);
-                System.out.println("");
-            }
-        } else {
-            for (int i = 0; i < 5; i++) {
-                String heading1 = (i + 1) + ". " + movieList.get(i).getTitle();
-                String heading2 = "||  Rating: " + movieList.get(i).getRatings();
-                System.out.println(heading1);
-                System.out.println(heading2);
-                System.out.println("");
-            }
-        }
-        System.out.println("");
+        
+        System.out.println("===== Top 5 Movies by Rating =====");
+		System.out.println("Rank  Movie                                         Rating");
 
-        if (comingFromStaff) {
+        for (i = 0; i < movieList.size(); i++) {
+            System.out.format("%-5s %-45s %s\n", (i + 1), movieList.get(i).getTitle(), movieList.get(i).getRatings());
+            if (i == 4)
+            		break;
+        }
+        if (i < 4)
+            System.out.println("There are less than 5 movie listings");
+
+        System.out.print("\n");
+
+        if (isStaff) {
             s_menu.show();
         } else {
             c_menu.show();
@@ -226,7 +216,7 @@ public class TransactionController {
     }
 
 
-    public void getTop5Sales(boolean comingFromStaff) {
+    public void getTop5Sales(boolean isStaff) {
         TransactionController controller = new TransactionController();
         List<Transaction> transList = controller.retrieveTransactionList();
 
@@ -234,7 +224,8 @@ public class TransactionController {
 
         MovieController movie = new MovieController();
         List<Movie> movieList = movie.retrieveMovieList();
-
+        int i = 0;
+        
         for (Movie m : movieList) {
             TopSales ts = new TopSales(m.getMovieID(), 0, m.getTitle());
             tsList.add(ts);
@@ -242,7 +233,7 @@ public class TransactionController {
 
 
         for (Transaction sc : transList) {
-            for (int i = 0; i < tsList.size(); i++) {
+            for (i = 0; i < tsList.size(); i++) {
                 TopSales ts = tsList.get(i);
                 double totalAmount = ts.getTotalAmount();
                 if (ts.getMovieID() == sc.getMovieID()) {
@@ -266,23 +257,18 @@ public class TransactionController {
 
         System.out.println("===== Top 5 Movies by Ticket Sales =====");
 		System.out.println("Rank  Movie                                         Sales");
-        if (tsList.size() < 5) {
-            for (int i = 0; i < tsList.size(); i++) {
-                TopSales ts = tsList.get(i);
-                System.out.format("%-5s %-45s $%s\n", (i + 1), ts.getTitle(), ts.getTotalAmount());
+        for (i = 0; i < tsList.size(); i++) {
+            TopSales ts = tsList.get(i);
+            System.out.format("%-5s %-45s $%s\n", (i + 1), ts.getTitle(), ts.getTotalAmount());
+            if (i == 4)
+            		break;
+        }
+        if (i < 4)
+        		System.out.println("There are less than 5 movie listings");
 
-            }
-            System.out.println("There are less than 5 movie listings");
-        }
-        else {
-            for (int i = 0; i < 5; i++) {
-                TopSales ts = tsList.get(i);
-                System.out.format("%-5s %-45s $%s\n", (i + 1), ts.getTitle(), ts.getTotalAmount());
-            }
-        }
         System.out.print("\n");
 
-        if (comingFromStaff) {
+        if (isStaff) {
             s_menu.show();
         } else {
             c_menu.show();
