@@ -300,7 +300,6 @@ public class TransactionController {
         String name = sc.next();
         custInfo[0] = name;
 
-        sc = new Scanner(System.in);
         System.out.print("Enter your mobile number: ");
         int mobileNo = sc.nextInt();
         custInfo[1] = mobileNo;

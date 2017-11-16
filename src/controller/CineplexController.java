@@ -345,29 +345,36 @@ public class CineplexController {
     }
 
     public void printSeatingArrangement(List<Seat> tempSeatList) {
-        System.out.println("\t   SCREEN");
-        System.out.println("     ——————————————————");
+        System.out.println("\t       SCREEN");
+        System.out.println("\t ———————————————————");
         System.out.print("\n");
         
-        System.out.println("   1      2      3      4");        
+        System.out.println("   1    2    3         4    5    6");        
         for (Seat seat : tempSeatList) {
         		if (seat.getColumn() == 1)
         			System.out.print(seat.getRow() + " ");
+        		else if (seat.getColumn() == 4) {
+        			if (seat.getRow().equals("C"))
+                		System.out.print(" Aisle ");
+        			else
+        				System.out.print("       ");
+        		}
         		else
-        			System.out.print("    ");
+        			System.out.print("  ");
             if (seat.getStatus() == true)
                 System.out.print("[X]");
             else
                 System.out.print("[O]");
-            if (seat.getRow().equals("B") && seat.getColumn() == 4)
+            if (seat.getRow().equals("B") && seat.getColumn() == 6)
             		System.out.println("\t===== Legend =====");
-            else if (seat.getRow().equals("C") && seat.getColumn() == 4)
+            else if (seat.getRow().equals("C") && seat.getColumn() == 6)
             		System.out.println("\t[O]: Available");
-            else if (seat.getRow().equals("D") && seat.getColumn() == 4)
+            else if (seat.getRow().equals("D") && seat.getColumn() == 6)
             		System.out.println("\t[X]: Taken");
-            else if (seat.getColumn() == 4)
+            else if (seat.getColumn() == 6)
                 System.out.print("\n");
         }
+        System.out.print("\n");
     }
 
     public Object[] enterCustomerInfo() {

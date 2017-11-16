@@ -204,7 +204,7 @@ public class ShowTimeHandler extends DataHandler {
 
         for (int i = 0; i < date.size(); i++) {
             seats = new ArrayList<Seat>();
-            for (int j = 0; j < 16; j++) {
+            for (int j = 0; j < 48; j++) {
                 Tickets t = new Tickets(Integer.valueOf(ticketID.get(k)), age.get(k));
                 Seat s = new Seat(row.get(k), Integer.valueOf(column.get(k)), seatType.get(k), Boolean.valueOf(status.get(k)), t);
                 seats.add(s);
