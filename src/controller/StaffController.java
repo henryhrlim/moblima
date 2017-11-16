@@ -252,17 +252,13 @@ public class StaffController {
 
 
     private static void listbyMovie() {
-        int movie, stID;
+        int movie;
 
         Scanner sc = new Scanner(System.in);
 
         StaffController staffControl = new StaffController();
-
-
-        CineplexController cineController = new CineplexController();
         MovieController movieController = new MovieController();
 
-        List<Cineplex> cineplexList = cineController.retrieveCineplexList();
         Cineplex cineplex = retrieveCineplex();
         Cinema cinema = retrieveCinemaCode(cineplex);
 
@@ -299,11 +295,8 @@ public class StaffController {
 
     private static void listbyCinema() {
         Scanner sc = new Scanner(System.in);
-
-        CineplexController cineController = new CineplexController();
         MovieController movieController = new MovieController();
 
-        List<Cineplex> cineplexList = cineController.retrieveCineplexList();
         Cineplex cineplex = retrieveCineplex();
         Cinema cinema = retrieveCinemaCode(cineplex);
         List<Movie> movieList = movieController.retrieveMovieList(cineplex.getMovie());
@@ -616,7 +609,6 @@ public class StaffController {
     private static String ageGrpMenu() {
         int ageChoice;
         String ageGrp = null;
-        List<PriceChart> pList = null;
         Scanner sc = new Scanner(System.in);
         System.out.println("Select an age group: ");
         System.out.println("1. Student");
@@ -821,27 +813,25 @@ public class StaffController {
     }
 
     private void addCineplex() {
-        int cineplexID, cinemaUser, countCineplex = 0;
+        int cinemaUser;
         String name, location;
         Scanner sc = new Scanner(System.in);
-        Scanner sc2 = new Scanner(System.in);
 
         CineplexController cineplexController = new CineplexController();
         List<Cineplex> cineplexList = cineplexController.retrieveCineplexList();
-        List<Cinema> cinema = new ArrayList<Cinema>();
         List<Movie> movie = new ArrayList<Movie>();
         List<ShowTime> showTime = new ArrayList<ShowTime>();
 
         System.out.print("Enter Cineplex Name: ");
-        name = sc.nextLine();
+        name = sc.next();
 
         System.out.print("Enter Cineplex Location: ");
-        location = sc.nextLine();
+        location = sc.next();
 
 
         Cineplex cine = null;
         System.out.print("Enter \"1\" to allocate cinemas for Cineplex " + name + ": ");
-        cinemaUser = sc2.nextInt();
+        cinemaUser = sc.nextInt();
         
         if (cinemaUser == 1) {
             cine = new Cineplex(cineplexList.size() + 1, location, name, null);
@@ -968,59 +958,47 @@ public class StaffController {
     }
 
     public void staffMenuCinema() {
-        int staffChoiceCinema = 0;
+        int choice = 0;
         Scanner sc = new Scanner(System.in);
         CineplexController cineplexControl = new CineplexController();
-
-        System.out.println("======================= CINEMA ========================");
-        System.out.println("|1. List Cinema                                       |");
-        System.out.println("|2. Create New Cinema                                 |");
-        System.out.println("|3. Update Cinema                                     |");
-        System.out.println("|4. Remove Cinema                                     |");
-        System.out.println("|5. Back                                              |");
-        System.out.println("|6. Quit                                              |");
-        System.out.println("=======================================================");
-        System.out.print("Please input your choice: ");
-        staffChoiceCinema = sc.nextInt();
-        System.out.println();
-        switch (staffChoiceCinema) {
-            case 1:
-                displayCinemaList();
-                staffMenuCinema();
-                break;
-
-            case 2:
-                Cineplex cineplexUserChoice = cineplexControl.listCineplex();
-                addCinemaToCineplex(cineplexUserChoice);
-                staffMenuCinema();
-                break;
-
-
-            case 3:
-                updateCinemaInCineplex();
-                staffMenuCinema();
-                break;
-
-
-            case 4:
-                removeCinemaFromCineplex();
-                staffMenuCinema();
-                break;
-
-            case 5:
-                s_menu.show();
-                break;
-            case 6:
-                System.out.println("Program Terminating...");
-                System.exit(0);
-                break;
-
-            default:
-                break;
-        }
-
-        s_menu.show();
-
+        do {
+	        System.out.println("======================= CINEMA ========================");
+	        System.out.println("|1. List Cinema                                       |");
+	        System.out.println("|2. Create New Cinema                                 |");
+	        System.out.println("|3. Update Cinema                                     |");
+	        System.out.println("|4. Remove Cinema                                     |");
+	        System.out.println("|5. Back                                              |");
+	        System.out.println("|6. Quit                                              |");
+	        System.out.println("=======================================================");
+	        System.out.print("Please input your choice: ");
+	        choice = sc.nextInt();
+	        System.out.println();
+	        switch (choice) {
+	            case 1:
+	                displayCinemaList();
+	                break;
+	            case 2:
+	                Cineplex cineplexUserChoice = cineplexControl.listCineplex();
+	                addCinemaToCineplex(cineplexUserChoice);
+	                break;
+	            case 3:
+	                updateCinemaInCineplex();
+	                break;
+	            case 4:
+	                removeCinemaFromCineplex();
+	                break;
+	            case 5:
+	                s_menu.show();
+	                break;
+	            case 6:
+	            		sc.close();
+	                System.out.println("Program Terminating...");
+	                System.exit(0);
+	                break;
+	            default:
+	                break;
+	        }
+        } while (choice != 5);
     }
 
     private void displayCinemaList() {
@@ -1041,11 +1019,9 @@ public class StaffController {
         int choice = 0;
         String userType = null;
         Scanner sc = new Scanner(System.in);
-        Scanner sc2 = new Scanner(System.in);
 
         CineplexController cineplexControl = new CineplexController();
         Cineplex cineplexUserChoice = cineplexControl.listCineplex();
-        int cineplexID = cineplexUserChoice.getCineplexID();
 
         List<Cinema> cinemaList = cineplexUserChoice.getCinemas();
 
@@ -1145,7 +1121,6 @@ public class StaffController {
 
         CineplexController cineplexControl = new CineplexController();
         Cineplex cineplexUserChoice = cineplexControl.listCineplex();
-        int cineplexID = cineplexUserChoice.getCineplexID();
 
         List<Cinema> cinemaList = cineplexUserChoice.getCinemas();
         System.out.println("==== List of Cinemas ====");
@@ -1210,11 +1185,8 @@ public class StaffController {
     }
 
     private void listHoliday() {
-        int holID;
-
         HolidayController hc = new HolidayController();
         List<Holiday> holidayList = hc.retrieveHolidayList();
-
 
         if (!holidayList.isEmpty()) {
             int n = 0;
@@ -1259,7 +1231,6 @@ public class StaffController {
         Date dateFmt = null;
 
         Scanner sc = new Scanner(System.in);
-        Scanner scStr = new Scanner(System.in);
 
         System.out.println("Select an ID to update:");
         holID = sc.nextInt();
@@ -1276,7 +1247,7 @@ public class StaffController {
         switch (holChoice) {
             case 1:
                 System.out.println("Enter New Holiday Name: ");
-                holidayName = scStr.nextLine();
+                holidayName = sc.next();
                 Holiday holName = holidayList.get(holID - 1);
                 holName.setHolidayName(holidayName);
                 hc.updateHoliday(holName);
@@ -1360,7 +1331,6 @@ public class StaffController {
     }
 
     private void displayMovieList() {
-        StaffController staffControl = new StaffController();
         MovieController movieController = new MovieController();
         List<Movie> movieList = movieController.retrieveMovieList();
 
