@@ -1429,8 +1429,9 @@ public class StaffController {
 			System.out.println("|1. List Showtime                                     |");
 			System.out.println("|2. Create Showtime                                   |");
 			System.out.println("|3. Update Showtime                                   |");
-			System.out.println("|4. Back                                              |");
-			System.out.println("|5. Quit                                              |");
+			System.out.println("|4. Remove Showtime                                   |");
+			System.out.println("|5. Back                                              |");
+			System.out.println("|6. Quit                                              |");
 			System.out.println("=======================================================");
 			System.out.print("Please input your choice: ");
 			choice = sc.nextInt();
