@@ -414,7 +414,7 @@ public class StaffController {
         System.out.print("\nSelect a Show Time ID to update:");
         stChoice = sc.nextInt();
 
-        System.out.println("\n==== Update Showtime ====");
+        System.out.println("\n===== Update Show Time =====");
         System.out.println("\nChoose to update:");
         System.out.println("1. Date");
         System.out.println("2. Time");
@@ -497,6 +497,23 @@ public class StaffController {
         stc.updateShowTimeList(stTime);
     }
 
+    private static void removeShowTime() {
+        listbyMovie();
+        int choice;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\nSelect a Show Time ID to delete:");
+        choice = sc.nextInt();
+        ShowTimeController stc = new ShowTimeController();
+        List<ShowTime> stList = stc.retrieveShowTimeList();
+        ShowTime st = null;
+        for (ShowTime s : stList) {
+        		if (s.getShowTimeID() == choice)
+        			st = s;
+        }
+        stc.removeShowtime(st);
+        System.out.println("Show time removed successfully!");
+        
+    }
 
     private static Date validateDate() {
 
@@ -616,17 +633,12 @@ public class StaffController {
         System.out.println("3. Platinum");
         ageChoice = sc.nextInt();
 
-        switch (ageChoice) {
-            case 1:
-                ageGrp = "Student";
-                break;
-            case 2:
-                ageGrp = "Adult";
-                break;
-            case 3:
-                ageGrp = "Standard";
-                break;
-        }
+        if (ageChoice == 1)
+        		ageGrp = "Student";
+        else if (ageChoice == 2)
+        		ageGrp = "Adult";
+        else if (ageChoice == 3)
+        		ageGrp = "Standard";
         return ageGrp;
     }
 
@@ -642,18 +654,7 @@ public class StaffController {
         PriceChartController pcController = new PriceChartController();
 
         ageGrp = ageGrpMenu();
-
-        switch (ageGrp) {
-            case "Student":
-                pList = filter(ageGrp);
-                break;
-            case "Adult":
-                pList = filter(ageGrp);
-                break;
-            case "Standard":
-                pList = filter(ageGrp);
-                break;
-        }
+        pList = filter(ageGrp);
 
         System.out.println("Select an ID to update: ");
         priceID = sc.nextInt();
@@ -671,25 +672,12 @@ public class StaffController {
     }
 
     private static void listPriceChart() {
-        String ageGrp;
-        List<PriceChart> pList = null;
-        ageGrp = ageGrpMenu();
-        switch (ageGrp) {
-            case "Student":
-                pList = filter(ageGrp);
-                break;
-            case "Adult":
-                pList = filter(ageGrp);
-                break;
-            case "Standard":
-                pList = filter(ageGrp);
-                break;
-        }
+        String ageGrp = ageGrpMenu();
+        List<PriceChart> pList = filter(ageGrp);
     }
 
     private static List<PriceChart> filter(String ageGrp) {
-
-        int movieTChoice, i;
+        int choice, i;
         String cineType = null, movType = null;
 
         Scanner sc = new Scanner(System.in);
@@ -697,20 +685,17 @@ public class StaffController {
         if (ageGrp == "Standard") {
             cineType = "Platinum";
             movType = "Any";
-        } else {
+        } 
+        else {
             cineType = "Normal";
             System.out.println("Select a movie type: ");
             System.out.println("1. 2D");
             System.out.println("2. 3D");
-            movieTChoice = sc.nextInt();
-            switch (movieTChoice) {
-                case 1:
-                    movType = "2D";
-                    break;
-                case 2:
-                    movType = "3D";
-                    break;
-            }
+            choice = sc.nextInt();
+            if (choice == 1)
+            		movType = "2D";
+            else if (choice == 2)
+            		movType = "3D";
         }
 
         PriceChartController pcController = new PriceChartController();
@@ -1017,7 +1002,7 @@ public class StaffController {
 
     private void updateCinemaInCineplex() {
         int choice = 0;
-        String userType = null;
+        String cinemaType = null;
         Scanner sc = new Scanner(System.in);
 
         CineplexController cineplexControl = new CineplexController();
@@ -1037,25 +1022,17 @@ public class StaffController {
         choice = sc.nextInt();
         Cineplex.Cinema c = cinemaList.get(choice - 1);
 
-        int a = 0;
-
         do {
             System.out.println("Cinema " + (i + 1) + " type (1 - platinum, 2 - normal): ");
-            a = sc.nextInt();
-            switch (a) {
-                case 1:
-                    userType = "platinum";
-                    break;
-                case 2:
-                    userType = "normal";
-                    break;
-                default:
-                    System.out.println("Please re-enter 1 or 2.");
-                    break;
-
-            }
-        } while (userType.equals(""));
-        c.setCinemaType(userType);
+            choice = sc.nextInt();
+            if (choice == 1)
+            		cinemaType = "platinum";
+            else if (choice == 2)
+            		cinemaType = "normal";
+            else
+                System.out.println("Please re-enter 1 or 2.");
+        } while (cinemaType.equals(""));
+        c.setCinemaType(cinemaType);
         cineplexUserChoice.setCinemas(cinemaList);
         cineplexControl.updateCineplex(cineplexUserChoice);
         System.out.println(c.getCinemaCode() + " cinema has been successfully updated in the Cineplex");
@@ -1084,19 +1061,12 @@ public class StaffController {
             do {
                 System.out.println("Cinema " + (i + 1) + " type (1 - platinum, 2 - normal): ");
                 choice = sc.nextInt();
-                switch (choice) {
-                    case 1:
-                        cinemaType = "platinum";
-                        break;
-                    case 2:
-                        cinemaType = "normal";
-                        break;
-                    default:
-                        System.out.println("Please re-enter 1 or 2.");
-
-                        break;
-
-                }
+                if (choice == 1)
+                		cinemaType = "platinum";
+                else if (choice == 2)
+                		cinemaType = "normal";
+                else
+                    System.out.println("Please re-enter 1 or 2.");
             } while (cinemaType.equals(""));
 
             if (cinemaList.size() != 0) {
@@ -1226,7 +1196,7 @@ public class StaffController {
     private void updateHoliday() {
         listHoliday();
 
-        int holID, holChoice;
+        int holID, choice;
         String holidayName, holidayDate;
         Date dateFmt = null;
 
@@ -1238,34 +1208,31 @@ public class StaffController {
         HolidayController hc = new HolidayController();
         List<PriceChart.Holiday> holidayList = hc.retrieveHolidayList();
 
-        System.out.println("==== Update Public Holiday ====");
+        System.out.println("===== Update Holiday =====");
         System.out.println("Choose to update: ");
-        System.out.println("1. Holiday Name");
-        System.out.println("2. Holiday Date");
-        holChoice = sc.nextInt();
-
-        switch (holChoice) {
-            case 1:
-                System.out.println("Enter New Holiday Name: ");
-                holidayName = sc.next();
-                PriceChart.Holiday holName = holidayList.get(holID - 1);
-                holName.setHolidayName(holidayName);
-                hc.updateHoliday(holName);
-                System.out.println("Public Holiday Name has been updated successfully!");
-                break;
-            case 2:
-                SimpleDateFormat formattedDate = new SimpleDateFormat("dd/MM/yyyy");
-
-                dateFmt = validateDate();
-                holidayDate = formattedDate.format(dateFmt);
-
-                PriceChart.Holiday holDate = holidayList.get(holID - 1);
-                holDate.setDate(holidayDate);
-                hc.updateHoliday(holDate);
-                System.out.println("Public Holiday Date has been updated successfully!");
-                break;
+        System.out.println("1. Name");
+        System.out.println("2. Date");
+        choice = sc.nextInt();
+        if (choice == 1) {
+			System.out.print("Enter new holiday name: ");
+			holidayName = sc.next();
+			System.out.println();
+			PriceChart.Holiday holName = holidayList.get(holID - 1);
+			holName.setHolidayName(holidayName);
+			hc.updateHoliday(holName);
+			System.out.println("Holiday name has been updated successfully!\n");
         }
-        listHoliday();
+        else if (choice == 2) {
+			SimpleDateFormat formattedDate = new SimpleDateFormat("dd/MM/yyyy");
+			
+			dateFmt = validateDate();
+			holidayDate = formattedDate.format(dateFmt);
+			
+			PriceChart.Holiday holDate = holidayList.get(holID - 1);
+			holDate.setDate(holidayDate);
+			hc.updateHoliday(holDate);
+			System.out.println("Holiday date has been updated successfully!\n");
+        }
     }
 
     private void deleteHoliday() {
@@ -1463,15 +1430,18 @@ public class StaffController {
 			        updateShowTime();
 			        break;
 			    case 4:
+			    		removeShowTime();
+			    		break;
+			    case 5:
 			        s_menu.show();
 			        break;
-			    case 5:
+			    case 6:
 			    		sc.close();
 			        System.out.println("Program Terminating...");
 			        System.exit(0);
 			        break;
-}
-        } while (choice != 4);
+			}
+        } while (choice != 5);
     }
 
     public void pricechartMain() {
