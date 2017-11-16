@@ -9,63 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/*
- * Class: StaffController
- * 
- * Class Methods:
- * - authenticate() : boolean
- * - staffMenuCineplex() : void
- * - displayCineplexList() : void
- * - addCineplex() : void
- * - addMovieToCineplex() : void
- * - listMovieSpecificToCineplex(Cineplex cineUserChoice) : void
- * - removeMovieFromCineplex() : void
- * - addShowTimeToCineplex() : void
- * - removeShowTimeFromCineplex() : void
- * - addCinemaToCineplex(Cineplex cineplexUserChoice) : void
- * - removeCinemaFromCineplex() : void
- * - listShowTimeSpecificToCineplex(Cineplex cineUserChoice) : void
- * - staffMenuCinema() : void
- * - displayCinemaList() : void
- * - updateCinemaInCineplex() : void
- * - holidayMain() : void
- * - retrieveList() : void
- * - staffMenuHoliday(int choice): void
- * - listHoliday(): void
- * - addHoliday(): void
- * - updateHoliday(): void
- * - deleteHoliday(): void
- * - printHolidayMenu(): void
- * - staffMenuMovie(): void
- * - displayMovieList(): void
- * - addMovieToList(): void
- * - updateMList(): void
- * - removeMList(): void
- * - showtimeMain(): void
- * - staffMenuShowTime() : void
- * - listShowTime(): void
- * - listbyMovie() : void
- * - listbyCinema() : void
- * - addShowTime(): void
- * - updateShowTime(): void
- * - printShowTimeMenu() : void
- * - updateSTDate(int selected) : void
- * - updateSTTime(int selected) : void
- * - validateDate() : void
- * - validateTime() : void
- * - retrieveCineplex() : void
- * - retrieveCinemaCode(int cineplexID) : String
- * - pricechartMain() : void
- * - staffMenuPriceChart(int pcChoice) : void
- * - printPriceChartMenu() : void
- * - ageGrpMenu() : String
- * - updatePriceChart() : void
- * - listPriceChart() : void
- * - filterAdult(String ageGrp) : List<PriceChart>
- * - filterListPriceChart(String ageGrp) : List<PriceChart>
- *
- */
-
 public class StaffController {
     Scanner sc = new Scanner(System.in);
     private StaffMenu s_menu = new StaffMenu();
@@ -1323,6 +1266,7 @@ public class StaffController {
         List<Movie> movieList = movieController.retrieveMovieList();
 
         for (Movie m : movieList) {
+            double sum = 0.0;
             System.out.format("Movie Title    : %s\n", m.getTitle());
             System.out.format("Movie Type     : %s\n", m.getMovieType());
             System.out.format("Movie Rating   : %s\n", m.getMovieRating());
@@ -1334,8 +1278,14 @@ public class StaffController {
 
             List<Review> reviewList = m.getReviews();
 
-            if (reviewList.size() > 1)
-                System.out.println("Overall Ratings: " + m.getRatings() + " / 5.0");
+            if (reviewList.size() > 1) {
+                for (Review re : reviewList)
+                    sum += re.getRating();
+                System.out.format("Overall Rating: %.1f / 5.0\n", sum/reviewList.size());
+
+            }
+            else
+                System.out.println("Overall Ratings: N/A");
             if (reviewList.size() > 0) {
                 for (Review r : reviewList) {
                     System.out.println("User Rating    : " + r.getRating() + " / 5");
@@ -1533,9 +1483,7 @@ public class StaffController {
 		return ageGrp;
 	}
 	
-	/**
-	 * This method updates the PriceChart object.
-	 */
+	
 	//Update price accordingly
 	public static void updatePriceChart(){
 
@@ -1576,9 +1524,7 @@ public class StaffController {
 		filter(ageGrp);
 	}
 
-	/**
-	 * This method lists PriceChart object according to the age group.
-	 */
+	
 	public static void listPriceChart() {
 		String ageGrp;
 		List<PriceChart> pList = null;
@@ -1596,11 +1542,7 @@ public class StaffController {
 		}
 	}
 
-	/**
-	 * This method lists PriceChart object for Adult age group.
-	 * Prints out the details of the PriceChart object
-	 * @param ageGrp Specifies Adult as the age group
-	 */
+	
 	public static List<PriceChart> filter(String ageGrp) {
 
 		int movieTChoice, i;
@@ -1644,9 +1586,6 @@ public class StaffController {
 
 	}
 
-	/**
-	 * 
-	 * END OF STAFF PROGRAM
-	 */
+	
 
 }

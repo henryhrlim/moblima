@@ -99,7 +99,6 @@ public class MovieController {
         StaffController staffControl = new StaffController();
         MovieController movieControl = new MovieController();
         Scanner sc = new Scanner(System.in);
-
         int movieUser;
 
         List<Movie> movieList = movieControl.retrieveMovieList();
@@ -119,6 +118,7 @@ public class MovieController {
         
         if (movieUser != 0) {
             for (Movie m : movieList) {
+                double sum = 0.0;
                 if (movieUser == m.getMovieID()) {
                     System.out.format("Movie Title    : %s\n", m.getTitle());
                     System.out.format("Movie Type     : %s\n", m.getMovieType());
@@ -131,8 +131,14 @@ public class MovieController {
 
                     List<Review> reviewList = m.getReviews();
 
-                    if (reviewList.size() > 1)
-                        System.out.println("Overall Ratings: " + m.getRatings() + " / 5.0");
+                    if (reviewList.size() > 1) {
+                        for (Review re : reviewList)
+                            sum += re.getRating();
+                        System.out.format("Overall Rating: %.1f / 5.0\n", sum/reviewList.size());
+                    }
+                    else
+                        System.out.println("Overall Ratings: N/A");
+
                     if (reviewList.size() > 0) {
                         for (Review r : reviewList) {
                             System.out.println("User Rating    : " + r.getRating() + " / 5");
@@ -160,11 +166,11 @@ public class MovieController {
         System.out.print("\n");
 
         List<Movie> movieList = movieControl.retrieveMovieList();
-        
+
         do {
             endOfShowing = true;
             for (Movie m : movieList) {
-
+                double sum = 0.0;
                 if (m.getTitle().toLowerCase().indexOf(searchKey) != -1) {
                     if (m.getMovieStatus().equals("End of Showing")) {
                         continue;
@@ -181,9 +187,14 @@ public class MovieController {
                     System.out.format("Showing Status : %s\n", m.getMovieStatus());
                    
                     List<Review> reviewList = m.getReviews();
+                    if (reviewList.size() > 1) {
+                        for (Review re : reviewList)
+                            sum += re.getRating();
+                        System.out.format("Overall Rating: %.1f / 5.0\n", sum/reviewList.size());
+                    }
+                    else
+                        System.out.println("Overall Ratings: N/A");
 
-                    if (reviewList.size() > 1)
-                        System.out.println("Overall Ratings: " + movieControl.getMovieRatings(m.getMovieID()) + " / 5.0");
                     if (reviewList.size() > 0) {
                         for (Review r : reviewList) {
                             System.out.println("User Rating    : " + r.getRating() + " / 5");
@@ -205,62 +216,6 @@ public class MovieController {
         c_menu.show();
     }
 
-    public Cineplex listCineplex() {
-        Scanner sc = new Scanner(System.in);
-        CineplexController cineControl = new CineplexController();
-        List<Cineplex> cineplexList = cineControl.retrieveCineplexList();
-
-        int i = 0;
-        for (Cineplex c : cineplexList) {
-            System.out.format("|" + (i + 1) + ". Cineplex Name: %s  Location: %s", c.getCineplexName(), c.getLocation());
-            i++;
-            System.out.println("\n");
-        }
-
-        System.out.println(">> Choose Cineplex: -----------");
-        int cineplexChoice = sc.nextInt();
-
-        Cineplex cineUserChoice = cineplexList.get(cineplexChoice - 1);
-
-        List<Movie> movieList = retrieveMovieList(cineUserChoice.getMovie());
-        cineUserChoice.setMovie(movieList);
-
-        return cineUserChoice;
-    }
-
-    /**
-     * This method lists movie specific to cineplexs
-     *
-     * @param cineUserChoice which is the cineplex chosen by the user
-     * @return movie of user choice
-     */
-    public Movie listMovieSpecific(Cineplex cineUserChoice) {
-        Scanner sc = new Scanner(System.in);
-
-        List<Movie> movieList = cineUserChoice.getMovie();
-
-        System.out.println("*************List of Movies: *************");
-        int i = 0;
-        for (Movie m : movieList) {
-            System.out.format("|" + (i + 1) + ". Movie Title: %s", m.getTitle());
-            System.out.println("\n");
-            i++;
-        }
-
-        System.out.println(">>Select Movie: ---------------");
-
-        int movieChoice = sc.nextInt();
-
-        Movie movUserChoice = movieList.get(movieChoice - 1);
-        System.out.println("Selected Movie: ");
-        System.out.println("Title: " + movUserChoice.getTitle());
-        System.out.println("Type: " + movUserChoice.getMovieType());
-        System.out.println("Ratings: " + movUserChoice.getRatings());
-
-        return movUserChoice;
-
-    }
-
     /**
      * This method lists all the movies and asks the user to select the movie that they want to rate/provide feedback.
      * The new review will be added into the Movie.json file. And the overall Ratings will be updated as well.
@@ -275,11 +230,11 @@ public class MovieController {
         MovieController movieControl = new MovieController();
         List<Movie> movieList = movieControl.retrieveMovieList();
 
-        System.out.println("*************List of Movies: *************");
+        System.out.println("==== List of Movies ====");
         int i = 0;
+        System.out.println("ID    Title");
         for (Movie m : movieList) {
-            System.out.format("|" + (i + 1) + ". Movie Title: %s", m.getTitle());
-            System.out.println("\n");
+            System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
             i++;
         }
         System.out.println("Enter Movie Index to submit a review (or -1 to go back to customer menu): ");
