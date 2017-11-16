@@ -21,19 +21,22 @@ public class CustomerMenu {
      
         int choice = 0;
         do {
-            System.out.println("^^^^^^^^^^^^^CUSTOMER MENU^^^^^^^^^^^");
-            System.out.println("|1. List of Movies");
-            System.out.println("|2. Search Movie");
-            System.out.println("|3. Book Ticket(s)");
-            System.out.println("|4. View Booking History");
-            System.out.println("|5. Create Ratings/Review");
-            System.out.println("|6. List Top 5 ranking by ticket sales");
-            System.out.println("|7. List Top 5 movies by overall reviewer's ratings");
-            System.out.println("|8. Go Back");
-            System.out.println("|9. Quit");
-            System.out.println("Choice (1-8): ");
+            System.out.println("====================== CUSTOMER =======================");
+            System.out.println("|1. List of Movies                                    |");
+            System.out.println("|2. Search Movie                                      |");
+            System.out.println("|3. Book Ticket(s)                                    |");
+            System.out.println("|4. View Booking History                              |");
+            System.out.println("|5. Rate and Review                                   |");
+            System.out.println("|6. List Top 5 ranking by ticket sales                |");
+            System.out.println("|7. List Top 5 movies by overall reviewer's ratings   |");
+            System.out.println("|8. Back                                              |");
+            System.out.println("|9. Quit                                              |");
+            System.out.println("=======================================================");
+            System.out.print("Please input your choice: ");
            
             choice = sc.nextInt();
+            System.out.print("\n");
+            
             switch (choice) {
                 case 1:
                     movieController.listAllMovies();

@@ -18,41 +18,39 @@ public class MoblimaApp {
         int choice = 0;
 
         do {
-            System.out.println("MAIN MENU");
-            System.out.println("Select the type of user: ");
-            System.out.println("|1. Customer");
-            System.out.println("|2. Staff/Admin");
-            System.out.println("|3. Quit");
-
-            System.out.println("Choice (1-3): ");
+            System.out.println("======================= MOBLIMA =======================");
+            System.out.println("|1. Customer                                          |");
+            System.out.println("|2. Staff                                             |");
+            System.out.println("|3. Quit                                              |");
+            System.out.println("=======================================================");
+            System.out.print("Please input your choice: ");
+            
             choice = sc.nextInt();
-
-
+            System.out.print("\n");
+            
             switch (choice) {
-
                 case 1:
                     customer.show();
                     break;
-
                 case 2:
-                    do {
-                        login = staff.authenticate();
-                    } while (login == false);
-                    while (login) {
-                        staff_m.show();
-                    }
+                		for (int i = 3; i > 0; i--) {
+                			if (staff.authenticate()) {
+                				staff_m.show();
+                				break;
+                			}
+                			else
+                				System.out.println("Wrong username or password. " + (i-1) + " tries remaining.\n");
+                		}
                     break;
-
                 case 3:
+                		sc.close();
                     System.out.println("Program terminating...");
                     System.exit(0);
                     break;
-
                 default:
                     break;
             }
         } while (choice != 3);
-        sc.close();
     }
     
 }
