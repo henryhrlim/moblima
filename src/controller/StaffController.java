@@ -298,10 +298,7 @@ public class StaffController {
 
 
     private static void listbyCinema() {
-        int stID;
-
         Scanner sc = new Scanner(System.in);
-
 
         CineplexController cineController = new CineplexController();
         MovieController movieController = new MovieController();
@@ -332,14 +329,13 @@ public class StaffController {
             System.out.println("No show time available for this cinema");
         }
 
-
     }
 
 
     private static void addShowTime() {
 
-        int movie, showTimeID, cineplexID;
-        String cinemaCode, day, dateStr, timeStr;
+        int movie, showTimeID;
+        String day, dateStr, timeStr;
         Date dateFmt, timeFmt;
 
         Scanner sc = new Scanner(System.in);
@@ -349,7 +345,6 @@ public class StaffController {
         MovieController movieController = new MovieController();
         ShowTimeController showTimeController = new ShowTimeController();
 
-        List<Cineplex> cineplexList = cineplexController.retrieveCineplexList();
         Cineplex cineplex = retrieveCineplex();
         Cinema cinema = retrieveCinemaCode(cineplex);
 
@@ -362,8 +357,6 @@ public class StaffController {
             }
         }
         if (counter != 0) {
-
-
             int i = 0;
             System.out.println("ID  Title");
             for (Movie m : movieList) {
