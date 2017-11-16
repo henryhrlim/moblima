@@ -814,15 +814,16 @@ public class StaffController {
         CineplexController cineplexControl = new CineplexController();
         List<Cineplex> cineplexList = cineplexControl.retrieveCineplexList();
         System.out.println("==== Cineplex List ====");
-        System.out.println("ID  Name    Location");
+        System.out.println("ID    Name                 Location");
         int i = 0;
         for (Cineplex c : cineplexList) {
-            System.out.println((i + 1) + "\t" + c.getCineplexName() + "\t\t" + c.getLocation());
+        		System.out.format("%-5s %-20 %s\n", (i + 1), c.getCineplexName(), c.getLocation());
             i++;
         }
         if (cineplexList.size() == 0) {
-            System.out.println("Currently there is no cineplex.");
+            System.out.println("There are no cineplexes currently.");
         }
+        System.out.print("\n");
 
     }
 
@@ -838,17 +839,17 @@ public class StaffController {
         List<Movie> movie = new ArrayList<Movie>();
         List<ShowTime> showTime = new ArrayList<ShowTime>();
 
-        System.out.println("Enter Cineplex Name: ");
+        System.out.print("Enter Cineplex Name: ");
         name = sc.nextLine();
 
-        System.out.println("Enter Cineplex Location: ");
+        System.out.print("Enter Cineplex Location: ");
         location = sc.nextLine();
 
 
         Cineplex cine = null;
-        System.out.println("Do you want allocate cinemas for Cineplex " + name + " (1: yes, 2: no)?");
+        System.out.print("Enter \"1\" to allocate cinemas for Cineplex " + name + ": ");
         cinemaUser = sc2.nextInt();
-
+        
         if (cinemaUser == 1) {
             cine = new Cineplex(cineplexList.size() + 1, location, name, null);
             cine.setMovie(movie);
@@ -863,6 +864,7 @@ public class StaffController {
             cine.setShowTime(showTime);
             cineplexController.addCineplexToList(cine);
         }
+        System.out.print("\n");
 
 
     }
