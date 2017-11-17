@@ -333,17 +333,18 @@ public class StaffController {
         List<Movie> movieList = movieController.retrieveMovieList(cineplex.getMovie());
         int counter = 0;
         for (Movie m : movieList) {
-            if (m.getMovieStatus().equals("Now Showing")) {
+            if (m.getMovieStatus().equals("Now Showing") || m.getMovieStatus().equals("Preview")) {
                 counter++;
             }
         }
         if (counter != 0) {
-            int i = 0;
-            System.out.println("ID  Title");
-            for (Movie m : movieList) {
-                if (m.getMovieStatus().equals("Now Showing")) {
-                    System.out.println(m.getMovieID() + "\t" + m.getTitle());
-                    i++;
+            int count = 0;
+            System.out.println("===== Movies to be added =====");
+            System.out.println("ID    Movie Title");
+            for (Movie mov : movieList) {
+                if (mov.getMovieStatus().equals("Now Showing") || mov.getMovieStatus().equals("Preview")) {
+                    System.out.format("%-5s %s\n", mov.getMovieID(), mov.getTitle());
+                    count++;
                 }
             }
 
@@ -497,14 +498,47 @@ public class StaffController {
     }
 
     private static void removeShowTime() {
-        listbyMovie();
-        int choice;
+        int movie;
+
         Scanner sc = new Scanner(System.in);
+
+        MovieController movieController = new MovieController();
+        CineplexController cineplexController = new CineplexController();
+
+        Cineplex cineplex = retrieveCineplex();
+        Cineplex.Cinema cinema = retrieveCinemaCode(cineplex);
+
+
+        List<Movie> movieList = movieController.retrieveMovieList(cineplex.getMovie());
+        System.out.println("===== Movies =====");
+        System.out.println("ID    Title");
+        for (Movie m : movieList) {
+        		System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
+        }
+
+        System.out.print("Enter Movie Code: ");
+        movie = sc.nextInt();
+        System.out.println();
+
+        ShowTimeController stc = new ShowTimeController();
+        List<ShowTime> showTimeList = stc.retrieveShowTimeList(cinema.getCinemaCode(), movie);
+
+        System.out.println("===== Show Times =====");
+        if (!showTimeList.isEmpty()) {
+            System.out.format("%-15s %-15s %-15s %-12s %-15s\n", "Show Time Index", "Cinema Code", "Date", "Day", "Time", "Movie Status");
+            for (ShowTime st : showTimeList) {
+                System.out.format("%-15s %-15s %-15s %-12s %-15s\n", st.getShowTimeID(), st.getCinemaCode(), st.getDate(), st.getDay(), st.getTime());
+            }
+        } 
+        else
+            System.out.println("No show time available.\n");
+        System.out.println();
+        int choice;
         System.out.print("Select a Show Time ID to delete: ");
         choice = sc.nextInt();
         System.out.println();
-        ShowTimeController stc = new ShowTimeController();
         List<ShowTime> stList = stc.retrieveShowTimeList();
+        List<ShowTime> stList1 = stc.retrieveShowTimeList();
         if (stList != null) {
 	        ShowTime st = null;
 	        for (ShowTime s : stList) {
@@ -512,6 +546,16 @@ public class StaffController {
 	        			st = s;
 	        }
 	        stc.removeShowtime(st);
+	        stList1 = cineplex.getShowTime();
+	        int counter = 0;
+	        for (ShowTime s: stList1) {
+	        		if (st.getShowTimeID() == s.getShowTimeID())
+	        			break;
+	        		counter++;
+	        }
+	        stList1.remove(counter);
+	        cineplex.setShowTime(stList1);
+	        cineplexController.updateCineplex(cineplex);
 	        System.out.println("Show time removed successfully.\n");
         }
         else
