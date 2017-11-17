@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class StaffController {
-    private final Scanner sc = new Scanner(System.in);
     private final StaffMenu s_menu = new StaffMenu();
     private MoblimaApp app = new MoblimaApp();
 
@@ -326,7 +325,7 @@ public class StaffController {
         CineplexController cineplexController = new CineplexController();
         MovieController movieController = new MovieController();
         ShowTimeController showTimeController = new ShowTimeController();
-
+        HolidayController holidayController = new HolidayController();
         Cineplex cineplex = retrieveCineplex();
         Cineplex.Cinema cinema = retrieveCinemaCode(cineplex);
 
@@ -359,6 +358,17 @@ public class StaffController {
             dateFmt = validateDate();
             dateStr = formattedDate.format(dateFmt);
             day = formattedDay.format(dateFmt);
+            List<PriceChart.Holiday> holidayList = holidayController.retrieveHolidayList();
+
+            if (!holidayList.isEmpty()) {
+            		for (PriceChart.Holiday h : holidayList) {
+            			if (dateStr.equals(h.getDate()))
+            				day = "Holiday";
+            		}
+            }
+
+            System.out.println();
+
             timeFmt = validateTime();
             timeStr = formattedTime.format(timeFmt);
 
@@ -708,6 +718,7 @@ public class StaffController {
     }
 
     public boolean authenticate() {
+    		Scanner sc = new Scanner(System.in);
         System.out.println("===== Staff Login =====");
         System.out.print("Username: ");
         String username = sc.nextLine();
@@ -721,6 +732,7 @@ public class StaffController {
     }
 
     public void staffMenuCineplex() {
+		Scanner sc = new Scanner(System.in);
         int choice;
 
         do {
@@ -776,7 +788,7 @@ public class StaffController {
     private void displayCineplexList() {
         CineplexController cineplexControl = new CineplexController();
         List<Cineplex> cineplexList = cineplexControl.retrieveCineplexList();
-        System.out.println("==== Cineplex List ====");
+        System.out.println("===== Cineplex List =====");
         System.out.println("ID    Name                 Location");
         int i = 0;
         for (Cineplex c : cineplexList) {
@@ -846,11 +858,11 @@ public class StaffController {
         movieList = cineplexUserChoice.getMovie();
 
         int count = 0;
-        System.out.println("==== Movies to be added ====");
-        System.out.println("ID      Movie Title                 ");
+        System.out.println("===== Movies to be added =====");
+        System.out.println("ID    Movie Title");
         for (Movie mov : movieListView) {
-            if (mov.getMovieStatus().compareTo("Now Showing") == 0) {
-                System.out.println(mov.getMovieID() + "\t\t" + mov.getTitle());
+            if (mov.getMovieStatus().equals("Now Showing") || mov.getMovieStatus().equals("Preview")) {
+                System.out.format("%-5s %s\n", mov.getMovieID(), mov.getTitle());
                 count++;
             }
         }
@@ -923,15 +935,15 @@ public class StaffController {
 
     private void listMovieSpecificToCineplex(Cineplex cineUserChoice) {
         List<Movie> movieList = new ArrayList<Movie>();
-        Scanner sc = new Scanner(System.in);
 
         movieList = cineUserChoice.getMovie();
 
         System.out.println("===== Movies Available =====");
-        System.out.println("ID    Movie Title");
-        for (int i = 0; i < movieList.size(); i++) {
-            Movie m = movieList.get(i);
-            System.out.format("%-5s %s\n", (i + 1), m.getTitle());
+        System.out.println("ID    Title");
+        for (Movie m : movieList) {
+            if (m.getMovieStatus().equals("End of Showing") || m.getMovieStatus().equals("Coming Soon"))
+                continue;
+            System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
         System.out.println();
     }
@@ -1334,7 +1346,7 @@ public class StaffController {
                     System.out.println("User Review    : " + wordWrap(r.getFeedback()));
                 }
             }
-            System.out.println("\n\n");
+            System.out.println("\n");
         }
     }
 
@@ -1364,7 +1376,7 @@ public class StaffController {
         statusNum = sc.nextInt();
         System.out.println();
 
-        if (statusNum == 1) showingStatus = "Coming soon";
+        if (statusNum == 1) showingStatus = "Coming Soon";
         else if (statusNum == 2) showingStatus = "Preview";
         else showingStatus = "Now Showing";
 

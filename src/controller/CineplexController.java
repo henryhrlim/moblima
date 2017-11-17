@@ -104,13 +104,16 @@ public class CineplexController {
             int i = 0;
             System.out.println("ID    Title");
             for (Movie m : movieList) {
-                System.out.format("%-5s %s\n", (i + 1), m.getTitle());
+                if (m.getMovieStatus().equals("End of Showing") || m.getMovieStatus().equals("Coming Soon"))
+                    continue;
+                System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
                 i++;
             }
             System.out.print("Enter Movie ID: ");
             movieChoice = sc.nextInt();
-
-            movUserChoice = movieList.get(movieChoice - 1);
+            for (Movie m : movieList)
+            		if (m.getMovieID() == movieChoice && !(m.getMovieStatus().equals("End of Showing") || m.getMovieStatus().equals("Coming Soon")))
+            			movUserChoice = m;
 
             System.out.println("You have selected " + movUserChoice.getTitle() + ".");
             System.out.print("\n");

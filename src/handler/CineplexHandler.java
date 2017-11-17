@@ -162,13 +162,24 @@ public class CineplexHandler extends DataHandler {
     }
 
     protected void saveDataToCSV(String to) {
+    		List<String> duplicate = new ArrayList<String>();
+    		duplicate.add("x");
         try (FileWriter file = new FileWriter(to)) {
             for (Cineplex c : cineplexList) {
                 List<ShowTime> showTimeList = c.getShowTime();
                 file.append("\"");
                 for (ShowTime showTime : showTimeList) {
-                    file.append(String.valueOf(showTime.getShowTimeID()));
-                    file.append("~");
+                		for (int i = 0; i < duplicate.size(); i++) {
+                			if (String.valueOf(showTime.getShowTimeID()).equals(duplicate.get(i))) {
+                				continue;
+                			}
+                			else {
+                				duplicate.add(String.valueOf(showTime.getShowTimeID()));
+                				file.append(String.valueOf(showTime.getShowTimeID()));
+                				file.append("~");
+                			}
+                		}
+
                 }
                 file.append("\"," + c.getCineplexID() + "," + c.getLocation() + ",\"");
                 List<Movie> movieList = c.getMovie();
