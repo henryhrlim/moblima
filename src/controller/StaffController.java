@@ -265,6 +265,8 @@ public class StaffController {
         System.out.println("===== Movies =====");
         System.out.println("ID    Title");
         for (Movie m : movieList) {
+            if (m.getMovieStatus().equals("End of Showing") || m.getMovieStatus().equals("Coming Soon"))
+                continue;
         		System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
 
@@ -513,7 +515,9 @@ public class StaffController {
         System.out.println("===== Movies =====");
         System.out.println("ID    Title");
         for (Movie m : movieList) {
-        		System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
+            if (m.getMovieStatus().equals("End of Showing") || m.getMovieStatus().equals("Coming Soon"))
+                continue;
+            System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
 
         System.out.print("Enter Movie Code: ");
@@ -985,8 +989,7 @@ public class StaffController {
         System.out.println("===== Movies Available =====");
         System.out.println("ID    Title");
         for (Movie m : movieList) {
-            if (m.getMovieStatus().equals("End of Showing") || m.getMovieStatus().equals("Coming Soon"))
-                continue;
+
             System.out.format("%-5s %s\n", m.getMovieID(), m.getTitle());
         }
         System.out.println();

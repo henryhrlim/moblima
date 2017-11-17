@@ -211,9 +211,10 @@ public class CineplexController {
             int colInt;
 
             do {
-                System.out.print("Enter Seat: ");
+                System.out.print("Enter Seat (type \"back\" to return to customer menu): ");
                 String seatSelect = sc.next().toUpperCase();
-
+                if (seatSelect.equals("BACK"))
+                		c_menu.show();
                 char rowSelect = seatSelect.charAt(0);
                 rowSelectString = String.valueOf(rowSelect);
                 char colSelect = seatSelect.charAt(1);
