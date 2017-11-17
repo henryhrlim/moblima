@@ -840,7 +840,7 @@ public class StaffController {
         System.out.println("ID    Name                 Location");
         int i = 0;
         for (Cineplex c : cineplexList) {
-        		System.out.format("%-5s %-20 %s\n", (i + 1), c.getCineplexName(), c.getLocation());
+        		System.out.println((i + 1) + "  " + c.getCineplexName() +"       " + c.getLocation());
             i++;
         }
         if (cineplexList.size() == 0)
